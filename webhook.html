@@ -1,0 +1,87 @@
+<html>
+
+<head>
+  <title>Set Telegram Webhooks</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div id="app" class="section">
+      <form :action="set_webhook" method="post" enctype="multipart/form-data">
+        <label class="label">API Token:</label>
+        <p class="control">
+          <input class="input" type="text" v-model="token" />
+        </p>
+        <br/>
+        <label class="label">Host URL:</label>
+        <p class="control">
+          <input class="input" type="text" v-model="host" />
+        </p>
+        <br/>
+        <label class="label">Port:</label>
+        <p class="control">
+          <input class="input" type="text" v-model="port" />
+        </p>
+        <br/>
+        <input type="hidden" name="url" v-model="bot_url">
+        <label class="label">Maximum Connections:</label>
+        <p class="control">
+          <input class="input" type="text" name="max_connections" value="100" />
+        </p>
+        <br/>
+        <label class="label">Your Bot URL</label>
+        <p style="color:blue">{{ bot_url }}</p>
+        <br/>
+        <label class="label">Certificate (only if self-signed)</label>
+        <p class="control">
+          <input type="file" name="certificate" id="fileToUpload" />
+        </p>
+        <br/>
+        <div class="control is-grouped">
+          <p class="control">
+            <button class="button is-primary" name="submit">Set Webhook</button>
+          </p>
+          <br/>
+          <p class="control">
+            <a :href="get_webhook_info" target="_blank" class="button is-info">Get Webhook Info</a>
+          </p>
+        </div>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        token: '123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11',
+        port: '',
+        host: 'https://' + window.location.hostname + location.pathname.replace(/[^/]*$/, '')
+      },
+      computed: {
+        get_webhook_info: function () {
+          return 'https://api.telegram.org/bot' + this.token + '/getwebhookinfo'
+        },
+        set_webhook: function () {
+          return 'https://api.telegram.org/bot' + this.token + '/setwebhook'
+        },
+        bot_url: function () {
+          port_string = '';
+          if (this.port) {
+            port_string = ':' + this.port;
+          }
+
+          var bot = document.createElement('a');
+          bot.href = this.host;
+          bot_string = bot.origin + port_string + bot.pathname.replace(/\/?$/, '/') + '?apikey=' + this.token;
+          
+          return bot_string
+        }
+      }
+    }
+
+    )
+  </script>
+</body>
+
+</html>
