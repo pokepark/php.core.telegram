@@ -702,10 +702,10 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
     // Pokemon name?
     if(strpos($text, 'pokemon_id_') === 0) {
         // Make sure file exists
-        if(file_exists(ROOT_PATH . '/pokemon_' . strtolower($language) . '.json')) {
+        if(file_exists(TRANSLATION_PATH . '/pokemon_' . strtolower($language) . '.json')) {
             // Get ID from string - e.g. 150 from pokemon_id_150
             $pokemon_id = substr($text, strrpos($text, '_') + 1);
-            $str = file_get_contents(ROOT_PATH . '/pokemon_' . strtolower($language) . '.json');
+            $str = file_get_contents(TRANSLATION_PATH . '/pokemon_' . strtolower($language) . '.json');
 
             // Index starts at 0, so pokemon_id minus 1 for the correct name!
             $json = json_decode($str, true);
@@ -713,13 +713,13 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
         }
     // Quest or reward text?
     } else if(strpos($text, 'quest_type_') === 0 || strpos($text, 'quest_action_') === 0 || strpos($text, 'reward_type_') === 0) {
-        $str = file_get_contents(ROOT_PATH . '/quests-rewards.json');
+        $str = file_get_contents(TRANSLATION_PATH . '/quests-rewards.json');
 
         $json = json_decode($str, true);
         $translation = $json[$text][$language];
     // Other translation
     } else {
-        $str = file_get_contents(ROOT_PATH . '/language.json');
+        $str = file_get_contents(TRANSLATION_PATH . '/language.json');
 
         $json = json_decode($str, true);
         $translation = $json[$text][$language];
