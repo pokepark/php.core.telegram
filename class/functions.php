@@ -4,7 +4,7 @@
  * @param $chat_id
  * @param array $text
  */
-function sendMessage($chat_id, $text = array())
+function sendMessage($chat_id, $text = [])
 {
     // Create response content array.
     $reply_content = [
@@ -38,7 +38,7 @@ function sendMessage($chat_id, $text = array())
  * @param mixed $inline_keyboard
  * @param array $merge_args
  */
-function send_message($chat_id, $text = array(), $inline_keyboard = false, $merge_args = [])
+function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = [])
 {
     // Create response content array.
     $reply_content = [
@@ -218,7 +218,7 @@ function answerCallbackQuery($query_id, $text)
 function answerInlineQuery($query_id, $contents)
 {
     // Init empty result array.
-    $results = array();
+    $results = [];
 
     // For each content.
     foreach ($contents as $key => $row) {
@@ -286,6 +286,22 @@ function answerInlineQuery($query_id, $contents)
 
     // Encode to json and send request to telegram api.
     curl_json_request(json_encode($reply_content));
+}
+
+/**
+ * Edit message.
+ * @param $update
+ * @param $message
+ * @param $keys
+ * @param bool $merge_args
+ */
+function edit_message($update, $message, $keys, $merge_args = false)
+{
+    if (isset($update['callback_query']['inline_message_id'])) {
+        $json_response = editMessageText($update['callback_query']['inline_message_id'], $message, $keys, NULL, $merge_args);
+    } else {
+        $json_response = editMessageText($update['callback_query']['message']['message_id'], $message, $keys, $update['callback_query']['message']['chat']['id'], $merge_args);
+    }
 }
 
 /**
@@ -413,22 +429,6 @@ function edit_message_keyboard($id_val, $markup_val, $chat_id)
 }
 
 /**
- * Edit message.
- * @param $update
- * @param $message
- * @param $keys
- * @param bool $merge_args
- */
-function edit_message($update, $message, $keys, $merge_args = false)
-{
-    if (isset($update['callback_query']['inline_message_id'])) {
-        editMessageText($update['callback_query']['inline_message_id'], $message, $keys, NULL, $merge_args);
-    } else {
-        editMessageText($update['callback_query']['message']['message_id'], $message, $keys, $update['callback_query']['message']['chat']['id'], $merge_args);
-    }
-}
-
-/**
  * Delete message
  * @param $chat_id
  * @param $message_id
@@ -543,15 +543,23 @@ function get_chatmember($chat_id, $user_id)
  */
 function curl_json_request($json)
 {
-	$URL = 'https://api.telegram.org/bot' . API_KEY . '/';
-	$curl = curl_init($URL);
+    // Add bot folder name to callback data
+    debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
+    $search = '"callback_data":"';
+    $replace = $search . basename(ROOT_PATH) . ':';
+    $json = str_replace($search,$replace,$json);
+
+    $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
+    $curl = curl_init($URL);
 
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
-	//curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+    //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 	
     // Use Proxyserver for curl if configured
     if (CURL_USEPROXY == true) {
@@ -564,6 +572,24 @@ function curl_json_request($json)
     // Execute curl request.
     $json_response = curl_exec($curl);
 
+    // Close connection.
+    curl_close($curl);
+
+    // Process repsonse from telegram api.
+    $response = curl_json_response($json_response, $json);
+
+    // Return response.
+    return $response;
+}
+
+/**
+ * Process response from telegram api.
+ * @param $json
+ * @param $json_response
+ * @return mixed
+ */
+function curl_json_response($json_response, $json)
+{
     // Write to log.
     debug_log($json_response, '<-');
 
@@ -577,9 +603,8 @@ function curl_json_request($json)
     } else {
 	// Result seems ok, get message_id and chat_id if supergroup or channel message
 	if (isset($response['result']['chat']['type']) && ($response['result']['chat']['type'] == "channel" || $response['result']['chat']['type'] == "supergroup")) {
-            // Init raid_id and quest_id
-            $raid_id = 0;
-            $quest_id = 0;
+            // Init cleanup_id
+            $cleanup_id = 0;
 
 	    // Set chat and message_id
             $chat_id = $response['result']['chat']['id'];
@@ -595,39 +620,29 @@ function curl_json_request($json)
 	    // Check if callback_data is present to get the raid_id and reply_to_message_id is set to filter only raid messages
             if (!empty($json_message['reply_markup']['inline_keyboard']['0']['0']['callback_data']) && !empty($json_message['reply_to_message_id'])) {
                 $split_callback_data = explode(':', $json_message['reply_markup']['inline_keyboard']['0']['0']['callback_data']);
-                $raid_id = $split_callback_data[0];
+                $cleanup_id = $split_callback_data[1];
 
             // Check if it's a venue and get raid/quest id
             } else if (!empty($response['result']['venue']['address'])) {
-                // Get raid_id from address.
-                $raid_id = substr(strrchr($response['result']['venue']['address'], 'R-ID = '), 7);
-                $quest_id = substr(strrchr($response['result']['venue']['address'], 'Q-ID = '), 7);
+                // Get raid_id or quest_id from address.
+                $cleanup_id = substr(strrchr($response['result']['venue']['address'], substr(strtoupper(BOT_ID), 0, 1) . '-ID = '), 7);
 
             // Check if it's a text and get quest id
             } else if (!empty($response['result']['text'])) {
-                $quest_id = substr(strrchr($response['result']['text'], "Q-ID = "), 7);
+                $cleanup_id = substr(strrchr($response['result']['text'], substr(strtoupper(BOT_ID), 0, 1) . '-ID = '), 7);
             }
 
             // Trigger Cleanup when raid_id/quest was found
-            if ($raid_id != 0 || $quest_id != 0) {
-                if($raid_id != 0) {
-                    debug_log('Found Raid_ID for cleanup preparation from callback_data or venue!');
-                    debug_log('Raid_ID: ' . $raid_id);
-                } else if($quest_id != 0) {
-                    debug_log('Found Quest_ID for cleanup preparation from callback_data or venue!');
-                    debug_log('Quest_ID: ' . $quest_id);
-                }
+            if($cleanup_id != 0) {
+                debug_log('Found ID for cleanup preparation from callback_data or venue!');
+                debug_log('Cleanup ID: ' . $cleanup_id);
                 debug_log('Chat_ID: ' . $chat_id);
                 debug_log('Message_ID: ' . $message_id);
 
-	        // Trigger raid cleanup preparation process when necessary id's are not empty and numeric
-	        if (!empty($chat_id) && !empty($message_id) && !empty($raid_id)) {
+	        // Trigger cleanup preparation process when necessary id's are not empty and numeric
+	        if (!empty($chat_id) && !empty($message_id) && !empty($cleanup_id)) {
 		    debug_log('Calling cleanup preparation now!');
-		    insert_raid_cleanup($chat_id, $message_id, $raid_id);
-	        // Trigger quest cleanup preparation process when necessary id's are not empty and numeric
-	        } else if(!empty($chat_id) && !empty($message_id) && !empty($quest_id)) {
-		    debug_log('Calling cleanup preparation now!');
-		    insert_quest_cleanup($chat_id, $message_id, $quest_id);
+		    insert_cleanup($chat_id, $message_id, $cleanup_id);
 	        } else {
 		    debug_log('Missing input! Cannot call cleanup preparation!');
 		}
@@ -654,6 +669,7 @@ function curl_json_request($json)
     // Return response.
     return $response;
 }
+
 
 /**
  * Call the translation function with override parameters for raid polls.
