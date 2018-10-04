@@ -651,11 +651,14 @@ function curl_json_response($json_response, $json)
             }
 
             // Check if text starts with getTranslation('raid_overview_for_chat') and inline keyboard is empty
-            $translation = getTranslation('raid_overview_for_chat');
+            $translation = defined('RAID_POLL_LANGUAGE') ? getRaidTranslation('raid_overview_for_chat') : '';
             $translation_length = strlen($translation);
             $text = !empty($response['result']['text']) ? substr($response['result']['text'], 0, $translation_length) : '';
-            if ($text == $translation && empty($json_message['reply_markup']['inline_keyboard'])) {
+            // Add overview message details to database.
+            if (!empty($text) && !empty($translation) && $text === $translation && empty($json_message['reply_markup']['inline_keyboard'])) {
                 debug_log('Detected overview message!');
+                debug_log('Text: ' . $text);
+                debug_log('Translation: ' . $translation);
                 debug_log('Chat_ID: ' . $chat_id);
                 debug_log('Message_ID: ' . $message_id);
 
