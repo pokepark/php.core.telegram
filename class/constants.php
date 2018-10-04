@@ -4,7 +4,7 @@ define('ROOT_PATH', dirname(__DIR__,2));
 define('CORE_PATH', ROOT_PATH . '/core');
 define('CORECLASS_PATH', ROOT_PATH . '/core/class');
 define('DDOS_PATH', ROOT_PATH . '/ddos');
-define('TRANSLATION_PATH', ROOT_PATH . '/tr');
+define('TRANSLATION_PATH', ROOT_PATH . '/lang');
 
 // Carriage return.
 define('CR',  "\n");

@@ -735,9 +735,13 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
         $translation = $json[$text][$language];
     // Other translation
     } else {
-        $str = file_get_contents(TRANSLATION_PATH . '/language.json');
+        // Make sure file exists and get content.
+        $str = is_file(TRANSLATION_PATH . '/language.json') ? file_get_contents(TRANSLATION_PATH . '/language.json') : '{}';
+        $str_raid = is_file(TRANSLATION_PATH . '/raid-language.json') ? file_get_contents(TRANSLATION_PATH . '/raid-language.json') : '{}';
+        $str_quest = is_file(TRANSLATION_PATH . '/quest-language.json') ? file_get_contents(TRANSLATION_PATH . '/quest-language.json') : '{}';
 
-        $json = json_decode($str, true);
+        // Merge all json language files and get translation.
+        $json = array_merge(json_decode($str, true), json_decode($str_raid, true), json_decode($str_quest, true));
         $translation = $json[$text][$language];
     }
 
