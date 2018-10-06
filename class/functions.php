@@ -733,6 +733,12 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
         $json = json_decode($str, true);
         $translation = $json[$pokemon_id - 1];
 
+    // Pokemon form?
+    } else if(strpos($text, 'pokemon_form_') === 0) {
+        $str = file_get_contents(TRANSLATION_PATH . '/pokemon_forms.json');
+
+        $json = json_decode($str, true);
+        $translation = $json[$text][$language];
     // Quest or reward text?
     } else if(strpos($text, 'quest_type_') === 0 || strpos($text, 'quest_action_') === 0 || strpos($text, 'reward_type_') === 0) {
         $str = file_get_contents(TRANSLATION_PATH . '/quests-rewards.json');
