@@ -10,13 +10,21 @@ if (file_exists($id_file) && filesize($id_file) > 0) {
     // Get update_ids from Telegram and locally stored in the file
     $update_id = $update['update_id'];
     $last_update_id = file_get_contents($id_file);
-    // End script if update_id is older than stored update_id
-    if ($update_id < $last_update_id) {
-        debug_log('ERROR! Received old update_id!','!');
-        debug_log('New update_id: ' . $update_id,'!');
-        debug_log('Old update_id: ' . $last_update_id,'!');
-        debug_log('Stopping execution now...','!');
-        exit();
+    if (isset($update['callback_query'])) {
+        // Split callback data to check for overview_refresh
+        $splitData = explode(':', $update['callback_query']['data']);
+        $action = $splitData[2];
+        // Check the action.
+        if ($action != 'overview_refresh') {
+            // End script if update_id is older than stored update_id
+            if ($update_id < $last_update_id) {
+                debug_log('ERROR! Received old update_id!','!');
+                debug_log('New update_id: ' . $update_id,'!');
+                debug_log('Old update_id: ' . $last_update_id,'!');
+                debug_log('Stopping execution now...','!');
+                exit();
+            }
+        }
     }
 } else {
     // Create file with initial update_id
@@ -37,7 +45,7 @@ if (isset($update['callback_query'])) {
     if ($update['callback_query']['data']) {
         // Split callback data and assign to data array.
         $splitData = explode(':', $update['callback_query']['data']);
-        $splitAction = explode('_', $splitData[1]);
+        $splitAction = explode('_', $splitData[2]);
         $action = $splitAction[0];
         // Check the action
         if ($action == 'vote') {
