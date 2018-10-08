@@ -8,7 +8,7 @@
 function get_address($lat, $lon)
 {
     // Init defaults.
-    $location = array();
+    $location = [];
     $location['street'] = '';
     $location['street_number'] = '';
     $location['postal_code'] = '';
