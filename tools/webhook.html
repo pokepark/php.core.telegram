@@ -73,7 +73,7 @@
 
           var bot = document.createElement('a');
           bot.href = this.host;
-          bot_string = bot.origin + port_string + bot.pathname.replace(/\/?$/, '/') + '?apikey=' + this.token;
+          bot_string = bot.origin + port_string + bot.pathname.replace(/\/?$/, '/') + 'index.php?apikey=' + this.token;
           
           return bot_string
         }
