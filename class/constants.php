@@ -12,12 +12,16 @@ define('CR2', "\n");
 // Space.
 define('SP', " ");
 
-// Languages.
+// Languages:
+// Telegram language code => Language files.
 $languages = array(
     'nl' => 'NL',
     'de' => 'DE',
     'en-US' => 'EN',
-    'pt' => 'PT-BR'
+    'it' => 'IT',
+    'pt' => 'PT-BR',
+    'ru' => 'RU',
+    'fr' => 'FR'
 );
 
 // Icons.
