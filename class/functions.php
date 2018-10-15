@@ -543,11 +543,14 @@ function get_chatmember($chat_id, $user_id)
  */
 function curl_json_request($json)
 {
-    // Add bot folder name to callback data
-    debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
-    $search = '"callback_data":"';
-    $replace = $search . basename(ROOT_PATH) . ':';
-    $json = str_replace($search,$replace,$json);
+    // Bridge mode?
+    if(defined('BRIDGE_MODE') && BOT_BRIDGE_MODE == true) {
+        // Add bot folder name to callback data
+        debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
+        $search = '"callback_data":"';
+        $replace = $search . basename(ROOT_PATH) . ':';
+        $json = str_replace($search,$replace,$json);
+    }
 
     $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
     $curl = curl_init($URL);
