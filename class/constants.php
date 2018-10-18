@@ -73,9 +73,9 @@ $teams = array(
 
 // Raid eggs.
 $eggs = array(
-    '9995-0',  // Level 5
-    '9994-0',  // Level 4
-    '9993-0',  // Level 3
-    '9992-0',  // Level 2
-    '9991-0'   // Level 1
+    '9995',  // Level 5
+    '9994',  // Level 4
+    '9993',  // Level 3
+    '9992',  // Level 2
+    '9991'   // Level 1
 );
