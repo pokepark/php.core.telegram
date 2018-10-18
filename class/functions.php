@@ -544,7 +544,7 @@ function get_chatmember($chat_id, $user_id)
 function curl_json_request($json)
 {
     // Bridge mode?
-    if(defined('BRIDGE_MODE') && BOT_BRIDGE_MODE == true) {
+    if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
         // Add bot folder name to callback data
         debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
         $search = '"callback_data":"';
