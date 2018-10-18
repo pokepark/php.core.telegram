@@ -17,15 +17,15 @@ if (file_exists($id_file) && filesize($id_file) > 0) {
         // Split callback data to check for overview_refresh
         $splitData = explode(':', $update['callback_query']['data']);
         // Bridge mode?
-        if(defined('BRIDGE_MODE') && BOT_BRIDGE_MODE == true) {
+        if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
             $botname = $splitData[0];
             $action = $splitData[2];
             $botname_length = count(str_split($botname));
-            if($botname_length > 15) {
+            if($botname_length > 8) {
                 // Write to log.
                 debug_log("ERROR! Botname '" . $botname . "' is too long!","!");
                 debug_log('Current length: ' . $botname_length,'!');
-                debug_log('Allowed length: 15','!');
+                debug_log('Allowed length: 8','!');
                 debug_log('Stopping execution now...','!');
 
                 // Exit.
