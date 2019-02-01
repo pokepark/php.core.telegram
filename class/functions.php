@@ -623,7 +623,12 @@ function curl_json_response($json_response, $json)
 	    // Check if callback_data is present to get the raid_id and reply_to_message_id is set to filter only raid messages
             if (!empty($json_message['reply_markup']['inline_keyboard']['0']['0']['callback_data']) && !empty($json_message['reply_to_message_id'])) {
                 $split_callback_data = explode(':', $json_message['reply_markup']['inline_keyboard']['0']['0']['callback_data']);
-                $cleanup_id = $split_callback_data[1];
+	    // Get raid_id, but check for BRIDGE_MODE first
+	    if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
+		$cleanup_id = $split_callback_data[1];
+		} else {
+		$cleanup_id = $split_callback_data[0];
+	    }
 
             // Check if it's a venue and get raid/quest id
             } else if (!empty($response['result']['venue']['address'])) {
