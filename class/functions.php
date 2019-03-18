@@ -767,3 +767,47 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
 
     return $translation;
 }
+
+/**
+ * Send photo.
+ * @param $chat_id
+ * @param $photo_url
+ * @param array $text
+ * @param mixed $inline_keyboard
+ * @param array $merge_args
+ */
+function send_photo($chat_id, $photo_url ,$text = array(), $inline_keyboard = false, $merge_args = [])
+{
+    // Create response content array.
+    $reply_content = [
+        'method'     => 'sendPhoto',
+        'chat_id'    => $chat_id,
+        'photo'      => $photo_url,
+        'parse_mode' => 'HTML',
+        'caption'       => $text
+    ];
+    
+    // Write to log.
+    debug_log('KEYS');
+    debug_log($inline_keyboard);
+    
+    if (isset($inline_keyboard)) {
+        $reply_content['reply_markup'] = ['inline_keyboard' => $inline_keyboard];
+    }
+    
+    if (is_array($merge_args) && count($merge_args)) {
+        $reply_content = array_merge_recursive($reply_content, $merge_args);
+    }
+    
+    // Encode data to json.
+    $reply_json = json_encode($reply_content);
+    
+    // Set header to json.
+    header('Content-Type: application/json');
+    
+    // Write to log.
+    debug_log($reply_json, '>');
+    
+    // Send request to telegram api.
+    return curl_json_request($reply_json);
+}
