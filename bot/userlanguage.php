@@ -3,14 +3,14 @@
 debug_log('Language Check');
 
 // Get language from user - otherwise use language from config.
-if (LANGUAGE == '') {
+if (LANGUAGE_PRIVATE == '') {
     // Message or callback?
     if(isset($update['message']['from']['language_code'])) {
         $language_code = $update['message']['from']['language_code'];
     } else if(isset($update['callback_query']['from']['language_code'])) {
         $language_code = $update['callback_query']['from']['language_code'];
     } else {
-        $language_code = LANGUAGE;
+        $language_code = LANGUAGE_PRIVATE;
     }
 
     // Get and define userlanguage.
@@ -18,5 +18,5 @@ if (LANGUAGE == '') {
     define('USERLANGUAGE', $userlanguage);
 } else {
     // Set user language to language from config.
-    define('USERLANGUAGE', LANGUAGE);
+    define('USERLANGUAGE', LANGUAGE_PRIVATE);
 }
