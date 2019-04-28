@@ -45,6 +45,7 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
         // Make sure file exists, otherwise use English language as fallback.
         if(!is_file($tfile)) {
             $language = DEFAULT_LANGUAGE;
+            $tfile = CORE_LANG_PATH . '/pokemon_' . strtolower($language) . '.json';
         }
 
         // Get ID from string - e.g. 150 from pokemon_id_150

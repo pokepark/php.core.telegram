@@ -25,8 +25,22 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
     debug_log('Checking permission: ' . $permission);
 
     // Get all chat files for groups/channels like -100111222333
+    // Creators
+    $creator_chats = array();
+    $creator_chats = str_replace(ACCESS_PATH . '/creator','',glob(ACCESS_PATH . '/creator-*'));
+
+    // Admins
+    $admin_chats = array();
+    $admin_chats = str_replace(ACCESS_PATH . '/admins','',glob(ACCESS_PATH . '/admins-*'));
+
+    // Members
+    $member_chats = array();
+    $member_chats = str_replace(ACCESS_PATH . '/members','',glob(ACCESS_PATH . '/members-*'));
+
+    // Access chats
     $access_chats = array();
     $access_chats = str_replace(ACCESS_PATH . '/access','',glob(ACCESS_PATH . '/access-*'));
+    $access_chats = array_merge($access_chats, $creator_chats, $admin_chats, $member_chats);
 
     // Make sure BOT_ADMINS are defined.
     defined('BOT_ADMINS') or define('BOT_ADMINS', '');
@@ -86,37 +100,37 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                     $allow_access = true;
                     break;
                 } else {
-                    // Get access file
-                    $access_file = file_get_contents(ROOT_PATH . '/access/access' . $chat);
+                    // Get access file based on user status/role.
+                    debug_log('Role of user ' . $chat_obj['result']['user']['id'] . ' : ' . $chat_obj['result']['status']);
+
+                    // Creator
+                    if($chat_obj['result']['status'] == 'creator' && is_file(ROOT_PATH . '/access/creator' . $chat)) {
+                        $access_file = file_get_contents(ROOT_PATH . '/access/creator' . $chat);
+
+                    // Admin 
+                    } else if($chat_obj['result']['status'] == 'administrator' && is_file(ROOT_PATH . '/access/admins' . $chat)) {
+                        $access_file = file_get_contents(ROOT_PATH . '/access/admins' . $chat);
+
+                    // Member
+                    } else if($chat_obj['result']['status'] == 'member' && is_file(ROOT_PATH . '/access/members' . $chat)) {
+                        $access_file = file_get_contents(ROOT_PATH . '/access/members' . $chat);
+
+                    // Any other user status/role.
+                    } else if(is_file(ROOT_PATH . '/access/access' . $chat)) {
+                        $access_file = file_get_contents(ROOT_PATH . '/access/access' . $chat);
+                    }
+
                     //debug_log('Access file:');
                     //debug_log($access_file);
                    
-                    // Who is allowed to access?
-                    $allowed_roles = '';
-
-                    // Creator?
-                    if(strpos($access_file, 'allow-creator') !== FALSE) {
-                        $allowed_roles .= 'creator,';
-                    }
-                    // Admins?
-                    if(strpos($access_file, 'allow-admins') !== FALSE) {
-                        $allowed_roles .= 'administrator';
-                    }
-                    // Members?
-                    if(strpos($access_file, 'allow-members') !== FALSE) {
-                        $allowed_roles .= empty($allowed_roles) ? 'member' : ',member';
-                    }
-                   
-                    debug_log('Allowed roles: ' . $allowed_roles);
-                    debug_log('Role of user ' . $chat_obj['result']['user']['id'] . ' : ' . $chat_obj['result']['status']);
                     // Check user status/role and permission to access the function
-                    if($chat_obj['result']['user']['id'] == $update_id && (strpos($allowed_roles,$chat_obj['result']['status']) !== FALSE) && (strpos($access_file,$permission) !== FALSE)) {
-                        debug_log('Positive result on access check in file: access' . $chat);
+                    if($chat_obj['result']['user']['id'] == $update_id && (strpos($access_file,$permission) !== FALSE)) {
+                        debug_log($chat_obj['result']['status'] . $chat, 'Positive result on access check in file:');
                         $allow_access = true;
                         break;
                     } else {
                         // Deny access
-                        debug_log('Negative result on access check in file: access' . $chat);
+                        debug_log($chat_obj['result']['status'] . $chat, 'Negative result on access check in file:');
                         debug_log('Continuing with next chat...');
                         continue;
                     }
