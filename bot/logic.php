@@ -487,15 +487,16 @@ function universal_inner_key($keys, $id, $action, $arg, $text = '0')
  * @param $id
  * @param $action
  * @param $update
+ * @param $prefix_text
  * @return array
  */
-function share_keys($id, $action, $update)
+function share_keys($id, $action, $update, $prefix_text = '', $hide = false)
 {
     // Check access.
     $share_access = bot_access_check($update, 'share-any-chat', true);
 
     // Add share button if not restricted to allow sharing to any chat.
-    if ($share_access == true) {
+    if ($share_access == true && $hide == false) {
         debug_log('Adding general share key to inline keys');
         // Set the keys.
         $keys[] = [
@@ -520,7 +521,7 @@ function share_keys($id, $action, $update)
                 debug_log('Proper chat object received, continuing to add key for this chat: ' . $chat_obj['result']['title']);
                 $keys[] = [
                     [
-                        'text'          => getTranslation('share_with') . ' ' . $chat_obj['result']['title'],
+                        'text'          => $prefix_text . getTranslation('share_with') . ' ' . $chat_obj['result']['title'],
                         'callback_data' => $id . ':' . $action . ':' . $chat
                     ]
                 ];
