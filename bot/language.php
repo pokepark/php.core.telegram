@@ -133,7 +133,7 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
     }
 
     // Debug log translation file
-    //debug_log($tfile,'T:');
+    debug_log($tfile,'T:');
 
     // Return pokemon name or translation
     if(strpos($text, 'pokemon_id_') === 0) {
@@ -146,6 +146,7 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
             $language = DEFAULT_LANGUAGE;
             $translation = $json[$text][$language];
         }
+        //debug_log($translation,'T:');
         return $translation;
     }
 }
