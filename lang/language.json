@@ -242,7 +242,7 @@
     "PL":"Pokemon"
   },
   "pokemon_types":{  
-    "NL":"TRANSLATE",
+    "NL":"Pokemon Types",
     "DE":"Pokemon-Typen",
     "EN":"Pokemon Types",
     "IT":"TRANSLATE",
@@ -275,7 +275,7 @@
     "PL":"Nie"
   },
   "or":{  
-    "NL":"TRANSLATE",
+    "NL":"of",
     "DE":"oder",
     "EN":"or",
     "IT":"TRANSLATE",
@@ -319,7 +319,7 @@
     "PL":"Zadanie zostało anulowane"
   },
   "select_action":{  
-    "NL":"TRANSLATE",
+    "NL":"Selecteer actie:",
     "DE":"Aktion auswählen:",
     "EN":"Select action:",
     "IT":"TRANSLATE",
@@ -386,7 +386,7 @@
     "PL":"Usuń"
   },
   "edit":{  
-    "NL":"TRANSLATE",
+    "NL":"Bewerken",
     "DE":"Bearbeiten",
     "EN":"Edit",
     "IT":"TRANSLATE",
@@ -474,7 +474,7 @@
     "PL":"Pomyślnie udostępniono"
   },
   "invalid_input":{  
-    "NL":"TRANSLATE",
+    "NL":"Ongeldige input!",
     "DE":"Ungültige Eingabe!",
     "EN":"Invalid input!",
     "IT":"TRANSLATE",
@@ -496,7 +496,7 @@
     "PL":"Rozwiń"
   },
   "none":{  
-    "NL":"TRANSLATE",
+    "NL":"Geen",
     "DE":"Keine",
     "EN":"None",
     "IT":"TRANSLATE",
@@ -507,7 +507,7 @@
     "PL":"TRANSLATE"
   },
   "other":{  
-    "NL":"TRANSLATE",
+    "NL":"Anders",
     "DE":"Sonstiges",
     "EN":"Other",
     "IT":"TRANSLATE",
