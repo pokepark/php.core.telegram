@@ -328,7 +328,6 @@
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"TRANSLATE"
-
   },
   "back":{  
     "NL":"Terug",
@@ -472,6 +471,94 @@
     "NO":"Deling velykket!",
     "FR":"Partagé avec succès !",
     "PL":"Pomyślnie udostępniono"
+  },
+  "config":{  
+    "NL":"TRANSLATE",
+    "DE":"Konfiguration",
+    "EN":"Configuration",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "config_updated":{  
+    "NL":"TRANSLATE",
+    "DE":"Konfiguration aktualisiert",
+    "EN":"Configuration updated",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "resetted":{  
+    "NL":"TRANSLATE",
+    "DE":"Zurückgesetzt",
+    "EN":"Resetted",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "option_value":{  
+    "NL":"TRANSLATE",
+    "DE":"Konfigurationsoption Wert",
+    "EN":"Configurationoption value",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "no_value":{  
+    "NL":"TRANSLATE",
+    "DE":"Kein Wert",
+    "EN":"No value",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "new_value":{  
+    "NL":"TRANSLATE",
+    "DE":"Neuer Wert:",
+    "EN":"New value:",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "old_value":{  
+    "NL":"TRANSLATE",
+    "DE":"Alter Wert:",
+    "EN":"Old value:",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "personal_help":{  
+    "NL":"TRANSLATE",
+    "DE":"Deine persönliche Bot-Hilfe:",
+    "EN":"Your personal bot help:",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
   },
   "invalid_input":{  
     "NL":"Ongeldige input!",

@@ -23,4 +23,5 @@ $languages = array(
 // Icons.
 defined('EMOJI_WARN') 		or define('EMOJI_WARN',    iconv('UCS-4LE', 'UTF-8', pack('V', 0x26A0)));
 defined('EMOJI_DISK') 		or define('EMOJI_DISK',    iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F4BE)));
+defined('EMOJI_NEW') 		or define('EMOJI_NEW',     iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F195)));
 

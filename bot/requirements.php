@@ -1,7 +1,7 @@
 <?php
 /*
  * Require all function files once
-*/
+ */
 
 // Core Paths Constants
 require_once(__DIR__ . '/paths.php');
@@ -20,9 +20,7 @@ if(is_file(ROOT_PATH . '/constants.php')) {
 }
 
 // Config
-if(is_file(ROOT_PATH . '/config.php')) {
-    require_once(ROOT_PATH . '/config.php');
-}
+require_once(CORE_BOT_PATH . '/config.php');
 
 // Debug
 require_once(CORE_BOT_PATH . '/debug.php');

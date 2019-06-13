@@ -114,7 +114,7 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
             }
         }
 
-        // Translation not in core or bot language file? 
+        // Translation not in core or bot language file? - Try other bot files.
         if(!(isset($json[$text]))){
             // Get all bot specific language files
             $langfiles = glob(BOT_LANG_PATH . '/*.json');
