@@ -7,7 +7,7 @@ cleanup_log('Collecting cleanup preparation information...');
 $cleanup_id = 0;
 
 // Channel 
-if(isset($update['channel_post'])) {
+if(isset($update['channel_post']['text'])) {
     // Get chat_id and message_id
     $chat_id = $update['channel_post']['chat']['id'];
     $message_id = $update['channel_post']['message_id'];
@@ -16,7 +16,7 @@ if(isset($update['channel_post'])) {
     $cleanup_id = substr(strrchr($update['channel_post']['text'], substr(strtoupper(BOT_ID), 0, 1) . '-ID = '), 7);
 
 // Supergroup
-} else if ($update['message']['chat']['type'] == "supergroup") {
+} else if (isset($update['message']['text']) && $update['message']['chat']['type'] == "supergroup") {
     // Get chat_id and message_id
     $chat_id = $update['message']['chat']['id'];
     $message_id = $update['message']['message_id'];

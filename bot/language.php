@@ -50,11 +50,20 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
 
         // Get ID from string - e.g. 150 from pokemon_id_150
         $pokemon_id = substr($text, strrpos($text, '_') + 1);
-        $str = file_get_contents($tfile);
 
-        // Index starts at 0, so pokemon_id minus 1 for the correct name!
-        $json = json_decode($str, true);
-        $translation = $json[$pokemon_id - 1];
+        // Make sure we have a valid id.
+        if(is_numeric($pokemon_id) && $pokemon_id > 0) {
+            $str = file_get_contents($tfile);
+
+            // Index starts at 0, so pokemon_id minus 1 for the correct name!
+            $json = json_decode($str, true);
+            $translation = $json[$pokemon_id - 1];
+
+        // Return false
+        } else {
+            debug_log($pokemon_id,'T: Received invalid pokemon id for translation:');
+            $translation = false;
+        }
 
     // Pokemon form?
     } else if(strpos($text, 'pokemon_form_') === 0) {
