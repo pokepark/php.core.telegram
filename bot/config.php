@@ -30,6 +30,11 @@ foreach ($jsons as $index => $filename) {
             continue;
         }
 
+        // Check file permissions.
+        if((fileperms($cfile) & 0777) !== 0600) {
+            error_log('Insecure file permissions: ' . $cfile . ' (0' . decoct(fileperms($cfile) & 0777) . ') — recommended file permissions: 0600');
+        }
+
         // Define constants.
         foreach($config as $key => $val) {
             // Skip comments starting and ending with 2 underscores, e.g. __SQL-CONFIG__

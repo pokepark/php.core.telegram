@@ -45,11 +45,13 @@ if($count == 0) {
 if(in_array($config_name, $allowed)) {
     $data = '{"' . $config_name . '":' . '"' . $config_value . '"}';
     file_put_contents(CONFIG_PATH . '/' . $config_name . '.json', $data);
+    chmod(CONFIG_PATH . '/' . $config_name . '.json', 0600);
     $msg = getTranslation('config_updated') . ':' . CR . CR;
     $msg .= '<b>' . $config_name . '</b>' . CR;
     $msg .= getTranslation('old_value') . SP . constant($config_name) . CR;
     $msg .= getTranslation('new_value') . SP . $config_value . CR;
     debug_log('Changed the config value for ' . $config_name . ' from ' . constant($config_name) . ' to ' . $config_value);
+    debug_log('Changed the file permissions for the config file ' . CONFIG_PATH . '/' . $config_name . '.json to 0600');
 
 // Tell user how to set config and what is allowed to be set by config.
 } else {
