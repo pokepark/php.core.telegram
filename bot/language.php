@@ -89,9 +89,10 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
 
         $str = file_get_contents($tfile);
         $json = json_decode($str, true);
+    }
 
     // Other translation
-    } else {
+    if(!(isset($json[$text]))){
         // Custom language file.
         $tfile = CUSTOM_PATH . '/language.json';
         if(is_file($tfile)) {
@@ -149,7 +150,7 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
         return $translation;
     } else {
         // Fallback to English when there is no language key
-        if(isset($json[$text][$language])){
+        if(isset($json[$text][$language]) && $json[$text][$language] != 'TRANSLATE'){
             $translation = $json[$text][$language];
         } else {
             $language = DEFAULT_LANGUAGE;
