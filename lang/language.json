@@ -473,7 +473,7 @@
     "PL":"Pomyślnie udostępniono"
   },
   "config":{  
-    "NL":"TRANSLATE",
+    "NL":"Configuratie",
     "DE":"Konfiguration",
     "EN":"Configuration",
     "IT":"TRANSLATE",
@@ -484,7 +484,7 @@
     "PL":"TRANSLATE"
   },
   "config_updated":{  
-    "NL":"TRANSLATE",
+    "NL":"Configuratie ge-update",
     "DE":"Konfiguration aktualisiert",
     "EN":"Configuration updated",
     "IT":"TRANSLATE",
@@ -495,7 +495,7 @@
     "PL":"TRANSLATE"
   },
   "resetted":{  
-    "NL":"TRANSLATE",
+    "NL":"Gereset",
     "DE":"Zurückgesetzt",
     "EN":"Resetted",
     "IT":"TRANSLATE",
@@ -506,7 +506,7 @@
     "PL":"TRANSLATE"
   },
   "option_value":{  
-    "NL":"TRANSLATE",
+    "NL":"Configuratie optie waarde",
     "DE":"Konfigurationsoption Wert",
     "EN":"Configurationoption value",
     "IT":"TRANSLATE",
@@ -517,7 +517,7 @@
     "PL":"TRANSLATE"
   },
   "no_value":{  
-    "NL":"TRANSLATE",
+    "NL":"Geen waarde",
     "DE":"Kein Wert",
     "EN":"No value",
     "IT":"TRANSLATE",
@@ -528,7 +528,7 @@
     "PL":"TRANSLATE"
   },
   "new_value":{  
-    "NL":"TRANSLATE",
+    "NL":"Nieuwe waarde:",
     "DE":"Neuer Wert:",
     "EN":"New value:",
     "IT":"TRANSLATE",
@@ -539,7 +539,7 @@
     "PL":"TRANSLATE"
   },
   "old_value":{  
-    "NL":"TRANSLATE",
+    "NL":"Oude waarde:",
     "DE":"Alter Wert:",
     "EN":"Old value:",
     "IT":"TRANSLATE",
@@ -550,7 +550,7 @@
     "PL":"TRANSLATE"
   },
   "personal_help":{  
-    "NL":"TRANSLATE",
+    "NL":"Alle commando's voor de bot:",
     "DE":"Deine persönliche Bot-Hilfe:",
     "EN":"Your personal bot help:",
     "IT":"TRANSLATE",
