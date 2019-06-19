@@ -16,6 +16,7 @@ $input = trim(substr($update['message']['text'], 10));
 $count = substr_count($input, " ");
 
 // Get allowed telegram configs.
+defined('ALLOWED_TELEGRAM_CONFIG') or define('ALLOWED_TELEGRAM_CONFIG', '');
 $allowed = explode(',', ALLOWED_TELEGRAM_CONFIG);
 
 // Write to log.

@@ -10,6 +10,7 @@ debug_log('GETCONFIG()');
 bot_access_check($update, 'config-get');
 
 // Get all allowed configs.
+defined('ALLOWED_TELEGRAM_CONFIG') or define('ALLOWED_TELEGRAM_CONFIG', '');
 $allowed = explode(',', ALLOWED_TELEGRAM_CONFIG);
 $msg = '<b>' . getTranslation('config') . ':</b>' . CR . CR;
 
