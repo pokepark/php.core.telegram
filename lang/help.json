@@ -1,0 +1,24 @@
+{
+  "help_config-get":{  
+    "NL":"/getconfig - laat bot configuratie zien",
+    "DE":"/getconfig - Bot-Konfiguration anzeigen",
+    "EN":"/getconfig - Show bot configuration",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "help_config-set":{  
+    "NL":"/setconfig - Verander bot configuratie",
+    "DE":"/setconfig - Bot-Konfiguration bearbeiten",
+    "EN":"/setconfig - Edit bot configuration",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  }
+}

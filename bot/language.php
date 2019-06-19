@@ -124,6 +124,23 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
             }
         }
 
+        // Translation not in core or bot language file? - Try other core files.
+        if(!(isset($json[$text]))){
+            // Get all bot specific language files
+            $langfiles = glob(CORE_LANG_PATH . '/*.json');
+
+            // Find translation in the right file
+            foreach($langfiles as $file) {
+                $tfile = $file;
+                $str = file_get_contents($file);
+                $json = json_decode($str, true);
+                // Exit foreach once found
+                if(isset($json[$text])) {
+                    break;
+                }
+            }
+        }
+ 
         // Translation not in core or bot language file? - Try other bot files.
         if(!(isset($json[$text]))){
             // Get all bot specific language files
@@ -149,7 +166,7 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
     if(strpos($text, 'pokemon_id_') === 0) {
         return $translation;
     } else {
-        // Fallback to English when there is no language key
+        // Fallback to English when there is no language key or translation is not yet done.
         if(isset($json[$text][$language]) && $json[$text][$language] != 'TRANSLATE'){
             $translation = $json[$text][$language];
         } else {
