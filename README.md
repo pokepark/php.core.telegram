@@ -41,7 +41,7 @@ To define these options enter them in the bots `telegram.json` in the config fol
 
 Once defined you will be able to get the values via Telegram.
 
-For example to check if the cleanup is enabled or disabled, you add the option to the `telegram.json` of the bot as first step. For example: `"ALLOWED_TELEGRAM_OPTIONS":"CLEANUP"`
+For example to check if the cleanup is enabled or disabled, you add the option to the `telegram.json` inside the config folder of the bot as first step. For example: `"ALLOWED_TELEGRAM_OPTIONS":"CLEANUP"`
 
 To get the value then from Telegram, you can easily use `/getconfig`. The bot will answer and show you the current configuration of each value, e.g. `CLEANUP = false`
 
@@ -54,11 +54,15 @@ To define these options enter them in the bots `telegram.json` in the config fol
 
 Once defined you will be able to change the value via Telegram.
 
-For example to enable or disable the cleanup via Telegram, you add the option to the `telegram.json` of the bot as first step. For example: `"ALLOWED_TELEGRAM_OPTIONS":"CLEANUP"`
+For example to enable or disable the cleanup via Telegram, you add the option to the `telegram.json` inside the config folder of the bot as first step. For example: `"ALLOWED_TELEGRAM_OPTIONS":"CLEANUP"`
 
 To change the value then from Telegram, you can easily use `/setconfig` providing the option and the new value, e.g. `/setconfig CLEANUP true`.
 
 The bot will then change the current configuration for the option you submitted and show you the old and the new value of it. 
+
+Per default any input (characters, numbers, ...) is accepted for each config option. To restrict input for a specific option, just add them to one of the restriction options in the `telegram.json` inside the bot config folder.
+
+You can restrict the input to boolean `ALLOW_ONLY_TRUE_FALSE` or numbers `ALLOW_ONLY_NUMBERS`, e.g. `"ALLOW_ONLY_TRUE_FALSE":"CLEANUP"`.
 
 Example input: `/setconfig CLEANUP true`
 
@@ -67,5 +71,6 @@ Configuration updated!
 
 CLEANUP:
 Old value: false
-New value: true```
+New value: true
+```
 
