@@ -72,16 +72,20 @@ if(in_array($config_name, $allowed)) {
             debug_log('Boolean value expected. Got this value: ' . $config_value);
             $msg_error_info .= getTranslation('help_bool_expected');
         }
-    }
+    
 
     // Only numbers?
-    if(in_array($config_name, $numbers_only)) {
+    } else if(in_array($config_name, $numbers_only)) {
         if(is_numeric($config_value)) {
             $restrict = 'no';
         } else {
             debug_log('Number expected. Got this value: ' . $config_value);
             $msg_error_info .= getTranslation('help_number_expected');
         }
+
+    // No restriction on input type.
+    } else {
+        $restrict = 'no';
     }
 }
 
