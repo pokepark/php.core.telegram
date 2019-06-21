@@ -53,6 +53,24 @@ if($count == 0) {
     $config_name = 'not_supported';
 }
 
+// Real config name or alias?
+$alias = '';
+$afile = CONFIG_PATH . '/alias.json';
+if(is_file($afile)) {
+    debug_log('Checking alias for config option ' . $config_name);
+    $str = file_get_contents($afile);
+    $json = json_decode($str, true);
+    $alias = array_search($config_name, $json);
+    if ($alias !== false) {
+        debug_log('Config option ' . $config_name . ' is an alias for ' . $alias);
+        $help = $config_name;
+        $config_name = strtoupper($alias);
+        $alias = $help;
+    } else {
+        debug_log('No alias found. Seems ' . $config_name . ' is the config option name');
+    }
+}
+
 // Assume restrictions.
 $restrict = 'yes';
 
@@ -91,15 +109,25 @@ if(in_array($config_name, $allowed)) {
 
 // Update config.
 if(in_array($config_name, $allowed) && $restrict == 'no') {
+    // Prepare data, replace " with '
+    $config_value = str_replace('"', "'", $config_value);
     $data = '{"' . $config_name . '":' . '"' . $config_value . '"}';
-    file_put_contents(CONFIG_PATH . '/' . $config_name . '.json', $data);
-    chmod(CONFIG_PATH . '/' . $config_name . '.json', 0600);
-    $msg = getTranslation('config_updated') . ':' . CR . CR;
-    $msg .= '<b>' . $config_name . '</b>' . CR;
-    $msg .= getTranslation('old_value') . SP . constant($config_name) . CR;
-    $msg .= getTranslation('new_value') . SP . $config_value . CR;
-    debug_log('Changed the config value for ' . $config_name . ' from ' . constant($config_name) . ' to ' . $config_value);
-    debug_log('Changed the file permissions for the config file ' . CONFIG_PATH . '/' . $config_name . '.json to 0600');
+    debug_log($data, 'CONFIG:');
+
+    // Write to file.
+    if(!(is_array($data) && is_string(json_decode($data, true)) && (json_last_error() === JSON_ERROR_NONE))) {
+        file_put_contents(CONFIG_PATH . '/' . $config_name . '.json', $data);
+        chmod(CONFIG_PATH . '/' . $config_name . '.json', 0600);
+        $msg = getTranslation('config_updated') . ':' . CR . CR;
+        $msg .= '<b>' . (empty($alias) ? $config_name : $alias) . '</b>' . CR;
+        $msg .= getTranslation('old_value') . SP . constant($config_name) . CR;
+        $msg .= getTranslation('new_value') . SP . $config_value . CR;
+        debug_log('Changed the config value for ' . $config_name . ' from ' . constant($config_name) . ' to ' . $config_value);
+        debug_log('Changed the file permissions for the config file ' . CONFIG_PATH . '/' . $config_name . '.json to 0600');
+    } else {
+        $msg_error_info = getTranslation('internal_error');
+        $msg = '<b>' . getTranslation('invalid_input') . '</b>' . (!empty($msg_error_info) ? (CR . $msg_error_info) : '') . CR . CR;
+    }
 
 // Tell user how to set config and what is allowed to be set by config.
 } else {
@@ -109,7 +137,14 @@ if(in_array($config_name, $allowed) && $restrict == 'no') {
     if(!empty(ALLOWED_TELEGRAM_CONFIG)) {
         $msg .= '<code>/setconfig' . SP . getTranslation('option_value') . '</code>' . CR;
         foreach($allowed as $cfg) {
-            $msg .= '<code>/setconfig</code>' . SP . $cfg . SP . (empty(constant($cfg)) ? '<i>' . getTranslation('no_value') . '</i>' : constant($cfg));
+            // Get alias.
+            $alias = ''; 
+            if(isset($json[$cfg])){
+                $alias = $json[$cfg];
+                $msg .= '<code>/setconfig</code>' . SP . $alias . SP . (empty(constant($cfg)) ? '<i>' . getTranslation('no_value') . '</i>' : constant($cfg));
+            } else {
+                $msg .= '<code>/setconfig</code>' . SP . $cfg . SP . (empty(constant($cfg)) ? '<i>' . getTranslation('no_value') . '</i>' : constant($cfg));
+            }
 
             // Only bool?
             if(in_array($cfg, $bool_only)) {

@@ -15,6 +15,9 @@ $jsons = array_unique($jsons);
 $jsons = array_diff($jsons, ["config.json"]);
 $jsons[] = "config.json";
 
+// Remove alias.json
+$jsons = array_diff($jsons, ["alias.json"]);
+
 // Write to log.
 foreach ($jsons as $index => $filename) {
     // Add path to file.

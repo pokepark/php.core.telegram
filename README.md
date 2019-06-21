@@ -74,3 +74,17 @@ Old value: false
 New value: true
 ```
 
+As some config options may have long or cryptic names you can easily define own names (aliases) for any config option which even allows you localized config option names!
+
+Therefore create a file named `alias.json` inside the config folder of your bot and put the name and the alias you like to use into the file in a valid JSON format.
+
+Example alias.json: ```
+{
+  "CLEANUP":"PUTZEN",
+  "CLEANUP_SECRET":"PUTZPASSWORD"
+}
+```
+
+Now you can simply use the alias `PUTZEN` to enable or disable the cleanup. Of course, using the original config option name `CLEANUP` is still possible!
+
+So `/setconfig PUTZEN true` and `/setconfig CLEANUP true` will both work and change the value for the corresponding cleanup config option.

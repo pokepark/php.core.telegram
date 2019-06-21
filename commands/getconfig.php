@@ -22,6 +22,13 @@ $allowed_bool = explode(',', ALLOW_ONLY_TRUE_FALSE);
 defined('ALLOW_ONLY_NUMBERS') or define('ALLOW_ONLY_NUMBERS', '');
 $allowed_numbers = explode(',', ALLOW_ONLY_NUMBERS);
 
+// Get config aliases.
+$afile = CONFIG_PATH . '/alias.json';
+if(is_file($afile)) {
+    $str = file_get_contents($afile);
+    $json = json_decode($str, true);
+}
+
 // Write to log.
 debug_log('User requested the allowed telegram configs');
 debug_log('Allowed telegram configs: ' . ALLOWED_TELEGRAM_CONFIG);
@@ -31,7 +38,14 @@ debug_log('Allow only numeric input: ' . ALLOW_ONLY_NUMBERS);
 // Any configs allowed?
 if(!empty(ALLOWED_TELEGRAM_CONFIG)) {
     foreach($allowed as $cfg) {
-        $msg .= $cfg . ' = ' . (empty(constant($cfg)) ? '<i>' . getTranslation('no_value') . '</i>' : constant($cfg));
+        // Get alias.
+        $alias = ''; 
+        if(isset($json[$cfg])){
+            $alias = $json[$cfg];
+            $msg .= $alias . ' = ' . (empty(constant($cfg)) ? '<i>' . getTranslation('no_value') . '</i>' : constant($cfg));
+        } else {
+            $msg .= $cfg . ' = ' . (empty(constant($cfg)) ? '<i>' . getTranslation('no_value') . '</i>' : constant($cfg));
+        }
         // Only bool?
         if(in_array($cfg, $allowed_bool)) {
             $msg .= SP . '<i>(' . getTranslation('help_only_bool') . ')</i>' . CR;

@@ -571,6 +571,17 @@
     "FR":"TRANSLATE",
     "PL":"TRANSLATE"
   },
+  "internal_error":{  
+    "NL":"TRANSLATE",
+    "DE":"Interner Fehler!",
+    "EN":"Internal error!",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
   "expand":{  
     "NL":"Uitklappen",
     "DE":"Ausklappen",
