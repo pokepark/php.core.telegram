@@ -14,7 +14,11 @@ http_response_code(200);
 $start = microtime(true);
 
 // Get api key from get parameters.
-$apiKey = $_GET['apikey'];
+if(isset($_GET['apikey'])) {
+    $apiKey = $_GET['apikey'];
+} else {
+    $apiKey = 'MISSING!';
+}
 
 // Check if hashed api key is matching config.
 defined('APIKEY_HASH') or define('APIKEY_HASH', '');
@@ -29,7 +33,7 @@ if (hash('sha512', $apiKey) == strtolower(APIKEY_HASH)) {
 } else {
     if(defined('MAINTAINER_ID') && !empty(MAINTAINER_ID)) {
         // Echo data.
-        sendMessageEcho(MAINTAINER_ID, $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . ' ' . $apiKey);
+        sendMessageEcho(MAINTAINER_ID, 'ERROR! WRONG APIKEY!' . CR . 'Server: ' . $_SERVER['SERVER_ADDR'] . CR . 'User: ' . $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . CR . 'APIKEY: ' . $apiKey);
     } else {
         // Write to standard error log.
         error_log('ERROR! The constant MAINTAINER_ID is not defined!');
