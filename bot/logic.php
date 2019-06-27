@@ -121,18 +121,22 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                         // Creator
                         if($chat_obj['result']['status'] == 'creator' && is_file(ROOT_PATH . '/access/creator' . $chat)) {
                             $access_file = file_get_contents(ROOT_PATH . '/access/creator' . $chat);
+                            $afile = 'creator' . $chat;
 
                         // Admin 
                         } else if($chat_obj['result']['status'] == 'administrator' && is_file(ROOT_PATH . '/access/admins' . $chat)) {
                             $access_file = file_get_contents(ROOT_PATH . '/access/admins' . $chat);
+                            $afile = 'admins' . $chat;
 
                         // Member
                         } else if($chat_obj['result']['status'] == 'member' && is_file(ROOT_PATH . '/access/members' . $chat)) {
                             $access_file = file_get_contents(ROOT_PATH . '/access/members' . $chat);
+                            $afile = 'members' . $chat;
 
                         // Any other user status/role.
                         } else if(is_file(ROOT_PATH . '/access/access' . $chat)) {
                             $access_file = file_get_contents(ROOT_PATH . '/access/access' . $chat);
+                            $afile = 'access' . $chat;
                         }
 
                         //debug_log('Access file:');
@@ -140,13 +144,13 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                    
                         // Check user status/role and permission to access the function
                         if($chat_obj['result']['user']['id'] == $update_id && (strpos($access_file,$permission) !== FALSE)) {
-                            debug_log($chat_obj['result']['status'] . $chat, 'Positive result on access check in file:');
+                            debug_log($afile, 'Positive result on access check in file:');
                             $allow_access = true;
-                            $access_granted_by = $chat_obj['result']['status'] . $chat;
+                            $access_granted_by = $afile;
                             break;
                         } else {
                             // Deny access
-                            debug_log($chat_obj['result']['status'] . $chat, 'Negative result on access check in file:');
+                            debug_log($afile, 'Negative result on access check in file:');
                             debug_log('Continuing with next chat...');
                             continue;
                         }
@@ -177,16 +181,17 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                     } else {
                         // Get access file
                         $access_file = file_get_contents(ROOT_PATH . '/access/access' . $chat);
+                        $afile = 'access' . $chat;
 
                         // ID matching $chat, private chat type and permission to access the function
                         if($chat_obj['result']['id'] == $update_id && $chat_obj['result']['type'] == 'private' && (strpos($access_file,$permission) !== FALSE)) {
-                            debug_log('Positive result on access check in file: access' . $chat);
+                            debug_log($afile, 'Positive result on access check in file:');
                             $allow_access = true;
-                            $access_granted_by = $chat;
+                            $access_granted_by = $afile;
                             break;
                         } else if($chat_obj['result']['type'] == 'private') {
                             // Result was ok, but access not granted. Continue with next chat if type is private.
-                            debug_log('Negative result on access check in file: access' . $chat);
+                            debug_log($afile, 'Negative result on access check in file:');
                             debug_log('Continuing with next chat...');
                             continue;
                         }
