@@ -28,6 +28,7 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
 {
     debug_log($text,'T:');
     $translation = '';
+    $text = trim($text);
 
     // Set language
     $language = USERLANGUAGE;
