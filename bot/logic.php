@@ -38,10 +38,18 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
     $member_chats = array();
     $member_chats = str_replace(ACCESS_PATH . '/members','',glob(ACCESS_PATH . '/members-*'));
 
+    // Restricted
+    $restricted_chats = array();
+    $restricted_chats = str_replace(ACCESS_PATH . '/restricted','',glob(ACCESS_PATH . '/restricted-*'));
+
+    // Kicked
+    $kicked_chats = array();
+    $kicked_chats = str_replace(ACCESS_PATH . '/members','',glob(ACCESS_PATH . '/kicked-*'));
+
     // Access chats
     $access_chats = array();
     $access_chats = str_replace(ACCESS_PATH . '/access','',glob(ACCESS_PATH . '/access-*'));
-    $access_chats = array_merge($access_chats, $creator_chats, $admin_chats, $member_chats);
+    $access_chats = array_merge($access_chats, $creator_chats, $admin_chats, $member_chats, $restricted_chats, $kicked_chats);
 
     // Make sure BOT_ADMINS are defined.
     defined('BOT_ADMINS') or define('BOT_ADMINS', '');
@@ -133,17 +141,39 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                             $access_file = file_get_contents(ROOT_PATH . '/access/members' . $chat);
                             $afile = 'members' . $chat;
 
-                        // Any other user status/role.
-                        } else if(is_file(ROOT_PATH . '/access/access' . $chat)) {
+                        // Restricted
+                        } else if($chat_obj['result']['status'] == 'restricted' && is_file(ROOT_PATH . '/access/restricted' . $chat)) {
+                            $access_file = file_get_contents(ROOT_PATH . '/access/restricted' . $chat);
+                            $afile = 'restricted' . $chat;
+
+                        // Kicked
+                        } else if($chat_obj['result']['status'] == 'kicked' && is_file(ROOT_PATH . '/access/kicked' . $chat)) {
+                            $access_file = file_get_contents(ROOT_PATH . '/access/kicked' . $chat);
+                            $afile = 'kicked' . $chat;
+
+                        // Any other user status/role except "left"
+                        } else if($chat_obj['result']['status'] != 'left' && is_file(ROOT_PATH . '/access/access' . $chat)) {
                             $access_file = file_get_contents(ROOT_PATH . '/access/access' . $chat);
                             $afile = 'access' . $chat;
+
+                            // Ignore "Restricted"?
+                            if($chat_obj['result']['status'] == 'restricted' && strpos($access_file,'ignore-restricted') !== FALSE) {
+                                // Reset access file.
+                                $access_file = NULL;
+                            }
+
+                            // Ignore "kicked"?
+                            if($chat_obj['result']['status'] == 'kicked' && strpos($access_file,'ignore-kicked') !== FALSE) {
+                                // Reset access file.
+                                $access_file = NULL;
+                            }
                         }
 
                         //debug_log('Access file:');
                         //debug_log($access_file);
                    
                         // Check user status/role and permission to access the function
-                        if($chat_obj['result']['user']['id'] == $update_id && (strpos($access_file,$permission) !== FALSE)) {
+                        if($chat_obj['result']['user']['id'] == $update_id && isset($access_file) && (strpos($access_file,$permission) !== FALSE)) {
                             debug_log($afile, 'Positive result on access check in file:');
                             $allow_access = true;
                             $access_granted_by = $afile;
@@ -180,11 +210,13 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                         break;
                     } else {
                         // Get access file
-                        $access_file = file_get_contents(ROOT_PATH . '/access/access' . $chat);
+                        if(is_file(ROOT_PATH . '/access/access' . $chat)) {
+                            $access_file = file_get_contents(ROOT_PATH . '/access/access' . $chat);
+                        }
                         $afile = 'access' . $chat;
 
                         // ID matching $chat, private chat type and permission to access the function
-                        if($chat_obj['result']['id'] == $update_id && $chat_obj['result']['type'] == 'private' && (strpos($access_file,$permission) !== FALSE)) {
+                        if($chat_obj['result']['id'] == $update_id && $chat_obj['result']['type'] == 'private' && isset($access_file) && (strpos($access_file,$permission) !== FALSE)) {
                             debug_log($afile, 'Positive result on access check in file:');
                             $allow_access = true;
                             $access_granted_by = $afile;
@@ -561,10 +593,12 @@ function universal_inner_key($keys, $id, $action, $arg, $text = '0')
  * @param $id
  * @param $action
  * @param $update
+ * @param $chats
  * @param $prefix_text
+ * @param $hide
  * @return array
  */
-function share_keys($id, $action, $update, $prefix_text = '', $hide = false)
+function share_keys($id, $action, $update, $chats = '', $prefix_text = '', $hide = false)
 {
     // Check access.
     $share_access = bot_access_check($update, 'share-any-chat', true);
@@ -582,9 +616,15 @@ function share_keys($id, $action, $update, $prefix_text = '', $hide = false)
     }
 
     // Add buttons for predefined sharing chats.
-    if(defined('SHARE_CHATS') && !empty(SHARE_CHATS)) {
+    if((defined('SHARE_CHATS') && !empty(SHARE_CHATS)) || !empty($chats)) {
+        // Default SHARE_CHATS or special chat list via $chats? 
+        if(!empty($chats)) {
+            $chats = explode(',', $chats);
+        } else {
+            $chats = explode(',', SHARE_CHATS);
+        }
+
         // Add keys for each chat.
-        $chats = explode(',', SHARE_CHATS);
         foreach($chats as $chat) {
             // Get chat object 
             debug_log("Getting chat object for '" . $chat . "'");
