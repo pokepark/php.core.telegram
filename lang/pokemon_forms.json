@@ -10,6 +10,17 @@
     "FR":"TRANSLATE",
     "PL":"Alolan"
   },
+  "pokemon_form_alola":{  
+    "NL":"Alolan",
+    "DE":"Alola",
+    "EN":"Alolan",
+    "IT":"TRANSLATE",
+    "PT-BR":"de Alola",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"Alolan"
+  },
   "pokemon_form_attack":{  
     "NL":"Attack",
     "DE":"Angriffsform",
