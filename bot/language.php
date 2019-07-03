@@ -82,34 +82,35 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
         $str = file_get_contents($tfile);
         $json = json_decode($str, true);
 
-    // Specific translation file?
-    // E.g. Translation = hello_world_123, then check if hello_world.json exists.
-    } else if(is_file(BOT_LANG_PATH . '/' . substr($text, 0, strrpos($text, '_')) . '.json')) {
-        // Translation filename
-        $tfile = BOT_LANG_PATH . '/' . substr($text, 0, strrpos($text, '_')) . '.json';
-
+    // Custom language file.
+    } else if(is_file(CUSTOM_PATH . '/language.json')) {
+        $tfile = CUSTOM_PATH . '/language.json';
+            
         $str = file_get_contents($tfile);
         $json = json_decode($str, true);
     }
 
     // Other translation
     if(!(isset($json[$text]))){
-        // Custom language file.
-        $tfile = CUSTOM_PATH . '/language.json';
-        if(is_file($tfile)) {
+        // Specific translation file?
+        // E.g. Translation = hello_world_123, then check if hello_world.json exists.
+        if(is_file(BOT_LANG_PATH . '/' . substr($text, 0, strrpos($text, '_')) . '.json')) {
+            // Translation filename
+            $tfile = BOT_LANG_PATH . '/' . substr($text, 0, strrpos($text, '_')) . '.json';
+
             $str = file_get_contents($tfile);
             $json = json_decode($str, true);
-        }
 
-        // Core language file.
-        if(!(isset($json[$text]))){
-            // Translation filename
-            $tfile = CORE_LANG_PATH . '/language.json';
+            // Core language file.
+            if(!(isset($json[$text]))){
+                // Translation filename
+                $tfile = CORE_LANG_PATH . '/language.json';
 
-            // Make sure file exists.
-            if(is_file($tfile)) {
-                $str = file_get_contents($tfile);
-                $json = json_decode($str, true);
+                // Make sure file exists.
+                if(is_file($tfile)) {
+                    $str = file_get_contents($tfile);
+                    $json = json_decode($str, true);
+                }
             }
         }
 
