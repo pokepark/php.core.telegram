@@ -59,8 +59,11 @@ $afile = CONFIG_PATH . '/alias.json';
 if(is_file($afile)) {
     debug_log('Checking alias for config option ' . $config_name);
     $str = file_get_contents($afile);
+    // We compare always uppercase, so change str to upper
+    $str = strtoupper($str);
     $json = json_decode($str, true);
     $alias = array_search($config_name, $json);
+    // Check for alias
     if ($alias !== false) {
         debug_log('Config option ' . $config_name . ' is an alias for ' . $alias);
         $help = $config_name;
