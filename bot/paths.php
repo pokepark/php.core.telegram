@@ -24,3 +24,4 @@ define('BOT_LANG_PATH', ROOT_PATH . '/lang');
 define('ACCESS_PATH', ROOT_PATH . '/access');
 define('DDOS_PATH', ROOT_PATH . '/ddos');
 define('CUSTOM_PATH', ROOT_PATH . '/custom');
+define('UPGRADE_PATH', ROOT_PATH . '/sql/upgrade');

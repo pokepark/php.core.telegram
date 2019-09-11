@@ -42,5 +42,8 @@ if(is_file(ROOT_PATH . '/logic.php')) {
     require_once(ROOT_PATH . '/logic.php');
 }
 
+// Bot version
+require_once(CORE_BOT_PATH . '/version.php');
+
 // Geo API
 require_once(CORE_BOT_PATH . '/geo_api.php');
