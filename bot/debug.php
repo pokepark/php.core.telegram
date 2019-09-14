@@ -45,8 +45,11 @@ function my_query($query, $cleanup_query = false)
  */
 function debug_log($val, $type = '*', $cleanup_log = false)
 {
+    // Make sure DEBUG is defined - otherwise define with a default of false.
+    defined('DEBUG') or define('DEBUG', false);
+
     // Write to log only if debug is enabled.
-    if (DEBUG === true) {
+    if (DEBUG === true && defined('DEBUG_LOGFILE') && defined('CLEANUP_LOGFILE')) {
 
         $date = @date('Y-m-d H:i:s');
         $usec = microtime(true);
@@ -67,7 +70,7 @@ function debug_log($val, $type = '*', $cleanup_log = false)
             if ($cleanup_log == true) {
                 error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, CLEANUP_LOGFILE);
             } else {
-                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, CONFIG_LOGFILE);
+                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, DEBUG_LOGFILE);
             }
         }
     }
@@ -82,29 +85,4 @@ function debug_log($val, $type = '*', $cleanup_log = false)
 function cleanup_log($val, $type = '*')
 {
     debug_log($val, $type, $cleanup_log = true);
-}
-
-/**
- * Code performance/speed logging.
- * @param $action
- * @param $function
- */
-function perf_log($action, $function)
-{
-    // Examples:
-    // perf_log('start', __FUNCTION__);
-    // perf_log('end', __FUNCTION__);
-
-    // Code performance measurement start
-    if($action == 'start') {
-        ${'time_start_' . $function} = microtime(true);
-    }
-
-    // Code performance measurement end
-    if($action == 'end') {
-        $time_now = microtime(true);
-        $time = $time_now - ${'time_start_' . $function};
-        $time = round(($time/1000000000), 2);
-        debug_log($function . ' took ' . $time . ' seconds', 'P:');
-    }
 }

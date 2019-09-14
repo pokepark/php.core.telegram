@@ -93,6 +93,8 @@ if (isset($update['callback_query'])) {
                 } else {
                     $ddos_count = 1;
                 }
+                // Make sure DDOS_MAXIMUM is defined - otherwise define with a default of 10.
+                defined('DDOS_MAXIMUM') or define('DDOS_MAXIMUM', '10');
                 // Exit if DDOS of user_id count is exceeded.
                 if ($ddos_count > DDOS_MAXIMUM) {
                     exit();

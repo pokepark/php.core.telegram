@@ -3,8 +3,9 @@
  * Send message.
  * @param $chat_id
  * @param array $text
+ * @param $multicurl
  */
-function sendMessage($chat_id, $text = [])
+function sendMessage($chat_id, $text = [], $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -28,7 +29,7 @@ function sendMessage($chat_id, $text = [])
     debug_log($reply_json, '>');
 
     // Send request to telegram api.
-    curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
@@ -37,8 +38,9 @@ function sendMessage($chat_id, $text = [])
  * @param array $text
  * @param mixed $inline_keyboard
  * @param array $merge_args
+ * @param $multicurl
  */
-function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = [])
+function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = [], $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -70,7 +72,7 @@ function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_arg
     debug_log($reply_json, '>');
 
     // Send request to telegram api.
-    return curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
@@ -79,9 +81,10 @@ function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_arg
  * @param $lat
  * @param $lon
  * @param bool $inline_keyboard
+ * @param $multicurl
  * @return mixed
  */
-function send_location($chat_id, $lat, $lon, $inline_keyboard = false)
+function send_location($chat_id, $lat, $lon, $inline_keyboard = false, $multicurl = false)
 {
     // Create reply content array.
     $reply_content = [
@@ -109,7 +112,7 @@ function send_location($chat_id, $lat, $lon, $inline_keyboard = false)
     debug_log($reply_json, '>');
 
     // Send request to telegram api and return response.
-    return curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
@@ -120,9 +123,10 @@ function send_location($chat_id, $lat, $lon, $inline_keyboard = false)
  * @param $title
  * @param $address
  * @param bool $inline_keyboard
+ * @param $multicurl
  * @return mixed
  */
-function send_venue($chat_id, $lat, $lon, $title, $address, $inline_keyboard = false)
+function send_venue($chat_id, $lat, $lon, $title, $address, $inline_keyboard = false, $multicurl = false)
 {
     // Create reply content array.
     $reply_content = [
@@ -152,7 +156,7 @@ function send_venue($chat_id, $lat, $lon, $title, $address, $inline_keyboard = f
     debug_log($reply_json, '>');
 
     // Send request to telegram api and return response.
-    return curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
@@ -188,7 +192,7 @@ function sendMessageEcho($chat_id, $text)
  * @param $query_id
  * @param $text
  */
-function answerCallbackQuery($query_id, $text)
+function answerCallbackQuery($query_id, $text, $multicurl = false)
 {
     // Create response array.
     $response = [
@@ -207,7 +211,7 @@ function answerCallbackQuery($query_id, $text)
     debug_log($json_response, '>');
 
     // Send request to telegram api.
-    curl_json_request($json_response);
+    return curl_request($json_response, $multicurl);
 }
 
 /**
@@ -221,39 +225,11 @@ function answerInlineQuery($query_id, $contents)
     $results = [];
 
     // For each content.
-    foreach ($contents as $key => $row) {
-        // Raid
-        if(isset($row['iqq_raid_id'])) {
-            // Get raid poll.
-            $text = show_raid_poll($row);
-
-            // Get inline keyboard.
-            $inline_keyboard = keys_vote($row);
-
-            // Set the title.
-            $title = get_local_pokemon_name($row['pokemon']) . ' ' . getTranslation('from') . ' ' . unix2tz($row['ts_start'], $row['timezone'])  . ' ' . getTranslation('to') . ' ' . unix2tz($row['ts_end'], $row['timezone']);
-
-            // Set the description.
-            $desc = strval($row['gym_name']);
-
-        // Quest
-        } else if(isset($row['iqq_quest_id'])) {
-            // Get the quest.
-            $quest = get_quest($row['iqq_quest_id']);
-
-            // Set the text.
-            $text = get_formatted_quest($quest, true, true, false, true);
-
-            // Set the title.
-            $title = $quest['pokestop_name'];
-
-            // Set the inline keyboard.
-            $inline_keyboard = [];
-
-            // Set the description.
-            $desc = get_formatted_quest($quest, false, false, true, false);
-        }
-
+    foreach($contents as $key => $row) {
+        $text = $contents[$key]['text'];
+        $title = $contents[$key]['title'];
+        $desc = $contents[$key]['desc'];
+        $inline_keyboard = $contents[$key]['keyboard'];
 
         // Create input message content array.
         $input_message_content = [
@@ -284,8 +260,11 @@ function answerInlineQuery($query_id, $contents)
         'results'         => $results
     ];
 
-    // Encode to json and send request to telegram api.
-    curl_json_request(json_encode($reply_content));
+    // Encode to json 
+    $reply_json = json_encode($reply_content);
+
+    // Send request to telegram api.
+    return curl_request($reply_json);
 }
 
 /**
@@ -294,14 +273,16 @@ function answerInlineQuery($query_id, $contents)
  * @param $message
  * @param $keys
  * @param bool $merge_args
+ * @param $multicurl
  */
-function edit_message($update, $message, $keys, $merge_args = false)
+function edit_message($update, $message, $keys, $merge_args = false, $multicurl = false)
 {
     if (isset($update['callback_query']['inline_message_id'])) {
-        $json_response = editMessageText($update['callback_query']['inline_message_id'], $message, $keys, NULL, $merge_args);
+        $json_response = editMessageText($update['callback_query']['inline_message_id'], $message, $keys, NULL, $merge_args, $multicurl);
     } else {
-        $json_response = editMessageText($update['callback_query']['message']['message_id'], $message, $keys, $update['callback_query']['message']['chat']['id'], $merge_args);
+        $json_response = editMessageText($update['callback_query']['message']['message_id'], $message, $keys, $update['callback_query']['message']['chat']['id'], $merge_args, $multicurl);
     }
+    return $json_response;
 }
 
 /**
@@ -311,8 +292,9 @@ function edit_message($update, $message, $keys, $merge_args = false)
  * @param $markup_val
  * @param null $chat_id
  * @param mixed $merge_args
+ * @param $multicurl
  */
-function editMessageText($id_val, $text_val, $markup_val, $chat_id = NULL, $merge_args = false)
+function editMessageText($id_val, $text_val, $markup_val, $chat_id = NULL, $merge_args = false, $multicurl = false)
 {
     // Create response array.
     $response = [
@@ -355,7 +337,7 @@ function editMessageText($id_val, $text_val, $markup_val, $chat_id = NULL, $merg
     debug_log($response, '<-');
 
     // Send request to telegram api.
-    curl_json_request($json_response);
+    return curl_request($json_response, $multicurl);
 }
 
 /**
@@ -363,8 +345,9 @@ function editMessageText($id_val, $text_val, $markup_val, $chat_id = NULL, $merg
  * @param $id_val
  * @param $markup_val
  * @param $chat_id
+ * @param $multicurl
  */
-function editMessageReplyMarkup($id_val, $markup_val, $chat_id)
+function editMessageReplyMarkup($id_val, $markup_val, $chat_id, $multicurl = false)
 {
     // Create response array.
     $response = [
@@ -390,7 +373,7 @@ function editMessageReplyMarkup($id_val, $markup_val, $chat_id)
     debug_log($response, '->');
 
     // Send request to telegram api.
-    curl_json_request($json_response);
+    return curl_request($json_response, $multicurl);
 }
 
 /**
@@ -398,8 +381,9 @@ function editMessageReplyMarkup($id_val, $markup_val, $chat_id)
  * @param $id_val
  * @param $markup_val
  * @param $chat_id
+ * @param $multicurl
  */
-function edit_message_keyboard($id_val, $markup_val, $chat_id)
+function edit_message_keyboard($id_val, $markup_val, $chat_id, $multicurl = false)
 {
     // Create response array.
     $response = [
@@ -425,15 +409,16 @@ function edit_message_keyboard($id_val, $markup_val, $chat_id)
     debug_log($response, '->');
 
     // Send request to telegram api.
-    curl_json_request($json_response);
+    return curl_request($json_reponse, $multicurl);
 }
 
 /**
  * Delete message
  * @param $chat_id
  * @param $message_id
+ * @param $multicurl
  */
-function delete_message($chat_id, $message_id)
+function delete_message($chat_id, $message_id, $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -453,14 +438,15 @@ function delete_message($chat_id, $message_id)
     debug_log($reply_json, '>');
 
     // Send request to telegram api.
-    return curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
  * GetChat
  * @param $chat_id
+ * @param $multicurl
  */
-function get_chat($chat_id)
+function get_chat($chat_id, $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -479,14 +465,15 @@ function get_chat($chat_id)
     debug_log($reply_json, '>');
 
     // Send request to telegram api.
-    return curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
  * GetChatAdministrators
  * @param $chat_id
+ * @param $multicurl
  */
-function get_admins($chat_id)
+function get_admins($chat_id, $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -505,15 +492,16 @@ function get_admins($chat_id)
     debug_log($reply_json, '>');
 
     // Send request to telegram api.
-    return curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
  * GetChatMember
  * @param $chat_id
  * @param $user_id
+ * @param $multicurl
  */
-function get_chatmember($chat_id, $user_id)
+function get_chatmember($chat_id, $user_id, $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -533,239 +521,7 @@ function get_chatmember($chat_id, $user_id)
     debug_log($reply_json, '>');
 
     // Send request to telegram api.
-    return curl_json_request($reply_json);
-}
-
-/**
- * Send request to telegram api.
- * @param $json
- * @return mixed
- */
-function curl_json_request($json)
-{
-    // Bridge mode?
-    if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
-        // Add bot folder name to callback data
-        debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
-        $search = '"callback_data":"';
-        $replace = $search . basename(ROOT_PATH) . ':';
-        $json = str_replace($search,$replace,$json);
-    }
-
-    $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
-    $curl = curl_init($URL);
-
-    curl_setopt($curl, CURLOPT_HEADER, false);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
-    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-    //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-	
-    // Use Proxyserver for curl if configured
-    if (CURL_USEPROXY == true) {
-    	curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
-    }
-
-    // Write to log.
-    debug_log($json, '->');
-
-    // Execute curl request.
-    $json_response = curl_exec($curl);
-
-    // Close connection.
-    curl_close($curl);
-
-    // Process repsonse from telegram api.
-    $response = curl_json_response($json_response, $json);
-
-    // Return response.
-    return $response;
-}
-
-/**
- * Process response from telegram api.
- * @param $json
- * @param $json_response
- * @return mixed
- */
-function curl_json_response($json_response, $json)
-{
-    // Write to log.
-    debug_log($json_response, '<-');
-
-    // Decode json response.
-    $response = json_decode($json_response, true);
-
-    // Validate response.
-    if ($response['ok'] != true || isset($response['update_id'])) {
-        // Write error to log.
-        debug_log('ERROR: ' . $json . "\n\n" . $json_response . "\n\n");
-    } else {
-	// Result seems ok, get message_id and chat_id if supergroup or channel message
-	if (isset($response['result']['chat']['type']) && ($response['result']['chat']['type'] == "channel" || $response['result']['chat']['type'] == "supergroup")) {
-            // Init cleanup_id
-            $cleanup_id = 0;
-
-	    // Set chat and message_id
-            $chat_id = $response['result']['chat']['id'];
-            $message_id = $response['result']['message_id'];
-
-            // Get raid/quest id from $json
-            $json_message = json_decode($json, true);
-
-            // Write to log that message was shared with channel or supergroup
-            debug_log('Message was shared with ' . $response['result']['chat']['type'] . ' ' . $response['result']['chat']['title']);
-            debug_log('Checking input for cleanup info now...');
-
-	    // Check if callback_data is present to get the raid_id and reply_to_message_id is set to filter only raid messages
-            if (!empty($json_message['reply_markup']['inline_keyboard']['0']['0']['callback_data']) && !empty($json_message['reply_to_message_id'])) {
-                $split_callback_data = explode(':', $json_message['reply_markup']['inline_keyboard']['0']['0']['callback_data']);
-	    // Get raid_id, but check for BRIDGE_MODE first
-	    if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
-		$cleanup_id = $split_callback_data[1];
-		} else {
-		$cleanup_id = $split_callback_data[0];
-	    }
-
-            // Check if it's a venue and get raid/quest id
-            } else if (!empty($response['result']['venue']['address'])) {
-                // Get raid_id or quest_id from address.
-                $cleanup_id = substr(strrchr($response['result']['venue']['address'], substr(strtoupper(BOT_ID), 0, 1) . '-ID = '), 7);
-
-            // Check if it's a text and get quest id
-            } else if (!empty($response['result']['text'])) {
-                $cleanup_id = substr(strrchr($response['result']['text'], substr(strtoupper(BOT_ID), 0, 1) . '-ID = '), 7);
-            }
-
-            // Trigger Cleanup when raid_id/quest was found
-            if($cleanup_id != 0) {
-                debug_log('Found ID for cleanup preparation from callback_data or venue!');
-                debug_log('Cleanup ID: ' . $cleanup_id);
-                debug_log('Chat_ID: ' . $chat_id);
-                debug_log('Message_ID: ' . $message_id);
-
-	        // Trigger cleanup preparation process when necessary id's are not empty and numeric
-	        if (!empty($chat_id) && !empty($message_id) && !empty($cleanup_id)) {
-		    debug_log('Calling cleanup preparation now!');
-		    insert_cleanup($chat_id, $message_id, $cleanup_id);
-	        } else {
-		    debug_log('Missing input! Cannot call cleanup preparation!');
-		}
-            } else {
-                debug_log('No cleanup info found! Skipping cleanup preparation!');
-            }
-
-            // Check if text starts with getTranslation('raid_overview_for_chat') and inline keyboard is empty
-            $translation = defined('RAID_POLL_LANGUAGE') ? getRaidTranslation('raid_overview_for_chat') : '';
-            $translation_length = strlen($translation);
-            $text = !empty($response['result']['text']) ? substr($response['result']['text'], 0, $translation_length) : '';
-            // Add overview message details to database.
-            if (!empty($text) && !empty($translation) && $text === $translation && empty($json_message['reply_markup']['inline_keyboard'])) {
-                debug_log('Detected overview message!');
-                debug_log('Text: ' . $text);
-                debug_log('Translation: ' . $translation);
-                debug_log('Chat_ID: ' . $chat_id);
-                debug_log('Message_ID: ' . $message_id);
-
-                // Write raid overview data to database
-                debug_log('Adding overview info to database now!');
-                insert_overview($chat_id, $message_id);
-            }
-	}
-    }
-
-    // Return response.
-    return $response;
-}
-
-
-/**
- * Call the translation function with override parameters for raid polls.
- * @param $text
- * @return translation
- */
-function getRaidTranslation($text)
-{
-    $translation = getTranslation($text, true, RAID_POLL_LANGUAGE);
-
-    return $translation;
-}
-
-/**
- * Call the translation function with override parameters for quests.
- * @param $text
- * @return translation
- */
-function getQuestTranslation($text)
-{
-    $translation = getTranslation($text, true, QUEST_LANGUAGE);
-
-    return $translation;
-}
-
-/**
- * Gets a table translation out of the json file.
- * @param $text
- * @param $override
- * @param $override_language
- * @return translation
- */
-function getTranslation($text, $override = false, $override_language = USERLANGUAGE)
-{
-    debug_log($text,'T:');
-    $translation = '';
-
-    // Set language
-    $language = USERLANGUAGE;
-
-    // Override language?
-    if($override == true && $override_language != '') {
-        $language = $override_language;
-    }
-
-    // Pokemon name?
-    if(strpos($text, 'pokemon_id_') === 0) {
-        // Make sure file exists, otherwise use English language as fallback.
-        if(!is_file(TRANSLATION_PATH . '/pokemon_' . strtolower($language) . '.json')) {
-            $language = 'EN';
-        }
-
-        // Get ID from string - e.g. 150 from pokemon_id_150
-        $pokemon_id = substr($text, strrpos($text, '_') + 1);
-        $str = file_get_contents(TRANSLATION_PATH . '/pokemon_' . strtolower($language) . '.json');
-
-        // Index starts at 0, so pokemon_id minus 1 for the correct name!
-        $json = json_decode($str, true);
-        $translation = $json[$pokemon_id - 1];
-
-    // Pokemon form?
-    } else if(strpos($text, 'pokemon_form_') === 0) {
-        $str = file_get_contents(TRANSLATION_PATH . '/pokemon_forms.json');
-
-        $json = json_decode($str, true);
-        $translation = $json[$text][$language];
-    // Quest or reward text?
-    } else if(strpos($text, 'quest_type_') === 0 || strpos($text, 'quest_action_') === 0 || strpos($text, 'reward_type_') === 0) {
-        $str = file_get_contents(TRANSLATION_PATH . '/quests-rewards.json');
-
-        $json = json_decode($str, true);
-        $translation = $json[$text][$language];
-    // Other translation
-    } else {
-        // Make sure file exists and get content.
-        $str = is_file(TRANSLATION_PATH . '/language.json') ? file_get_contents(TRANSLATION_PATH . '/language.json') : '{}';
-        $str_raid = is_file(TRANSLATION_PATH . '/raid-language.json') ? file_get_contents(TRANSLATION_PATH . '/raid-language.json') : '{}';
-        $str_quest = is_file(TRANSLATION_PATH . '/quest-language.json') ? file_get_contents(TRANSLATION_PATH . '/quest-language.json') : '{}';
-
-        // Merge all json language files and get translation.
-        $json = array_merge(json_decode($str, true), json_decode($str_raid, true), json_decode($str_quest, true));
-        $translation = $json[$text][$language];
-    }
-
-    return $translation;
+    return curl_request($reply_json, $multicurl);
 }
 
 /**
@@ -775,8 +531,9 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
  * @param array $text
  * @param mixed $inline_keyboard
  * @param array $merge_args
+ * @param array $multicurl
  */
-function send_photo($chat_id, $photo_url ,$text = array(), $inline_keyboard = false, $merge_args = [])
+function send_photo($chat_id, $photo_url ,$text = array(), $inline_keyboard = false, $merge_args = [], $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -809,5 +566,170 @@ function send_photo($chat_id, $photo_url ,$text = array(), $inline_keyboard = fa
     debug_log($reply_json, '>');
     
     // Send request to telegram api.
-    return curl_json_request($reply_json);
+    return curl_request($reply_json, $multicurl);
+}
+
+/**
+ * Send request to telegram api - single or multi?.
+ * @param $json
+ * @param $multicurl
+ * @return mixed
+ */
+function curl_request($json, $multicurl = false)
+{
+    // Proxy server?
+    defined('CURL_USEPROXY') or define('CURL_USEPROXY', false);
+    defined('CURL_PROXYSERVER') or define('CURL_PROXYSERVER', '');
+
+    // Bridge mode?
+    defined('BRIDGE_MODE') or define('BRIDGE_MODE', false);
+
+    // Send request to telegram api.
+    if($multicurl == true) {
+        return $json;
+    } else {
+        return curl_json_request($json);
+    }
+}
+
+/**
+ * Send request to telegram api.
+ * @param $json
+ * @return mixed
+ */
+function curl_json_request($json)
+{
+    // Bridge mode?
+    if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
+        // Add bot folder name to callback data
+        debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
+        $search = '"callback_data":"';
+        $replace = $search . basename(ROOT_PATH) . ':';
+        $json = str_replace($search,$replace,$json);
+    }
+
+    $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
+    $curl = curl_init($URL);
+
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+    //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	
+    // Use Proxyserver for curl if configured
+    if (CURL_USEPROXY == true && !empty(CURL_PROXYSERVER)) {
+    	curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+    }
+
+    // Write to log.
+    debug_log($json, '->');
+
+    // Execute curl request.
+    $json_response = curl_exec($curl);
+
+    // Close connection.
+    curl_close($curl);
+
+    // Process response from telegram api.
+    $response = curl_json_response($json_response, $json);
+
+    // Return response.
+    return $response;
+}
+
+/**
+ * Send multi request to telegram api.
+ * @param $json
+ * @return mixed
+ */
+function curl_json_multi_request($json)
+{
+    // Set URL.
+    $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
+
+    // Curl handles.
+    $curly = array();
+
+    // Curl response.
+    $response = array();
+ 
+    // Init multi handle.
+    $mh = curl_multi_init();
+ 
+    // Loop through json array, create curl handles and add them to the multi-handle.
+    foreach ($json as $id => $data) {
+        // Init.
+        $curly[$id] = curl_init();
+ 
+        // Curl options.
+        curl_setopt($curly[$id], CURLOPT_URL, $URL);
+        curl_setopt($curly[$id], CURLOPT_HEADER, false);
+        curl_setopt($curly[$id], CURLOPT_HTTPHEADER, array("Content-type: application/json"));
+        curl_setopt($curly[$id], CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curly[$id], CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($curly[$id], CURLOPT_TIMEOUT, 10);
+    
+        // Use Proxyserver for curl if configured.
+        if(defined('CURL_USEPROXY') && defined('CURL_PROXYSERVER') && CURL_USEPROXY == true) {
+            curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+        }
+
+        // Bridge mode?
+        if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
+            // Add bot folder name to callback data
+            debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
+            $search = '"callback_data":"';
+            $replace = $search . basename(ROOT_PATH) . ':';
+            $data = str_replace($search,$replace,$data);
+        }
+
+        // Curl post. 
+        curl_setopt($curly[$id], CURLOPT_POST,       true);
+        curl_setopt($curly[$id], CURLOPT_POSTFIELDS, $data);
+
+        // Add multi handle.
+        curl_multi_add_handle($mh, $curly[$id]);
+
+        // Write to log.
+        debug_log($data, '->');
+    }
+
+    // Execute the handles.
+    $running = null;
+    do {
+        curl_multi_select($mh);
+        curl_multi_exec($mh, $running);
+    } while($running > 0);
+ 
+    // Get content and remove handles.
+    foreach($curly as $id => $content) {
+        $response[$id] = curl_multi_getcontent($content);
+        curl_multi_remove_handle($mh, $content);
+    }
+ 
+    // Close connection. 
+    curl_multi_close($mh);
+ 
+    // Process response from telegram api.
+    foreach($response as $id => $json_response) {
+        // Bot specific funtion to process response from telegram api.
+        if (function_exists('curl_json_response')) {
+            $response[$id] = curl_json_response($json_response, $response[$id]);
+        } else {
+            debug_log('No function found to process response from Telegram API!', 'ERROR:');
+            debug_log('Add a function named "curl_json_response" to process them!', 'ERROR:');
+            debug_log('Arguments of that function need to be the response $json_response and the send data $json.', 'ERROR:');
+            debug_log('For example: function curl_json_response($json_response, $json)', 'ERROR:');
+        }
+
+        // Write to log.
+        debug_log($json_response, '<-');
+    }
+
+    // Return response.
+    return $response;
 }
