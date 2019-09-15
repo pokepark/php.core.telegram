@@ -33,25 +33,19 @@ if (substr($update['message']['text'], 0, 1) == '/') {
     if (is_file($command)) {
         // Dynamically include command file and exit.
         include_once($command);
-        exit();
     } else if (is_file($altcommand)) {
         // Dynamically include command file and exit.
         include_once($altcommand);
-        exit();
     } else if (is_file($core_command)) {
         // Dynamically include command file and exit.
         include_once($core_command);
-        exit();
     } else if (is_file($core_altcommand)) {
         // Dynamically include command file and exit.
         include_once($core_altcommand);
-        exit();
     } else if ($com == basename(ROOT_PATH)) {
         // Include start file and exit.
         include_once($startcommand);
-        exit();
     } else {
         sendMessage($update['message']['chat']['id'], '<b>' . getTranslation('not_supported') . '</b>');
-        exit();
     }
 }
