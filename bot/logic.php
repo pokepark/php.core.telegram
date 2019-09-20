@@ -90,11 +90,10 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
         // Check access and permission
         foreach($access_chats as $chat) {
             // Get chat object - remove comments from filename
-            // intval: If the leftmost characters of a string looks like a valid numeric value, PHP will keep reading the string until a character that is not valid in a number is encountered
             // This way some kind of comment like the channel name can be added to the end of the filename, e.g. creator-100123456789-MyPokemonChannel to easily differ between access files :)
             // Source: php.net/manual/en/function.intval.php#7707
-            $tg_chat = intval($chat);
-            debug_log("Getting chat object for '" . $tg_chat . "'");
+            preg_match_all('-\d+', $str, $tg_chat);
+            debug_log("Getting chat object for '$tg_chat'");
             $chat_object = get_chat($tg_chat);
 
             // Check chat object for proper response.
@@ -108,7 +107,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
             // Group/channel?
             if($chat[0] == '-') {
                // Get chat member object and check status
-               debug_log("Getting user from chat '" . $tg_chat . "'");
+               debug_log("Getting user from chat '$tg_chat'");
                $chat_obj = get_chatmember($tg_chat, $update_id);
 
                // Make sure we get a proper response
@@ -199,7 +198,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
             // Private chat
             } else {
                 // Get chat object 
-                debug_log("Getting chat object for '" . $tg_chat . "'");
+                debug_log("Getting chat object for '$tg_chat'");
                 $chat_obj = get_chat($tg_chat);
 
                 // Check chat object for proper response.
