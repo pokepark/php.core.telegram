@@ -93,6 +93,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
             // This way some kind of comment like the channel name can be added to the end of the filename, e.g. creator-100123456789-MyPokemonChannel to easily differ between access files :)
             // Source: php.net/manual/en/function.intval.php#7707
             preg_match_all('/-\d+/', $chat, $tg_chat);
+            $tg_chat=$tg_chat[0][0];
             debug_log("Getting chat object for '$tg_chat'");
             $chat_object = get_chat($tg_chat);
 
