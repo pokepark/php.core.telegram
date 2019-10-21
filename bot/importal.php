@@ -19,7 +19,7 @@
         $address = trim(explode(':', $address, 2)[1]);
 
         // Split address?
-        debug_log("ADDR:" . $address);
+        debug_log($address, 'Address:');
         if(substr_count($address, ',') == 7) {
             // Split address into 6 pieces which are separated by comma:
             // Street Number, Street, Locality, Sublocality, City, State, ZIP Code, Country
