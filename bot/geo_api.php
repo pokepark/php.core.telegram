@@ -29,6 +29,9 @@ function get_address($lat, $lon)
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
+        // Proxy server?
+        defined('CURL_USEPROXY') or define('CURL_USEPROXY', false);
+        defined('CURL_PROXYSERVER') or define('CURL_PROXYSERVER', '');
         // Use Proxyserver for curl if configured
         if (CURL_USEPROXY == true) {
             curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
