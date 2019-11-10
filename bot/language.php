@@ -81,6 +81,14 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
 
         $str = file_get_contents($tfile);
         $json = json_decode($str, true);
+        
+    // Pokemon moves?
+    } else if(strpos($text, 'pokemon_move_') === 0) {
+        // Translation filename
+        $tfile = CORE_LANG_PATH . '/pokemon_moves.json';
+
+        $str = file_get_contents($tfile);
+        $json = json_decode($str, true);
 
     // Custom language file.
     } else if(is_file(CUSTOM_PATH . '/language.json')) {
