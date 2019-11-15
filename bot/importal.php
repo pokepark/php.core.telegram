@@ -18,6 +18,15 @@
         $address = explode(PHP_EOL, $update['message']['text'])[1];
         $address = trim(explode(':', $address, 2)[1]);
 
+        // Split address?
+        debug_log($address, 'Address:');
+        if(substr_count($address, ',') == 7) {
+            // Split address into 6 pieces which are separated by comma:
+            // Street Number, Street, Locality, Sublocality, City, State, ZIP Code, Country
+            $pieces = explode(',', $address);
+            $address = trim($pieces[1]) . SP . trim($pieces[0]) . ', ' . trim($pieces[6]) . SP . trim($pieces[4]);
+        }
+
     // PortalMapBot
     } else if(substr_compare(strtok($update['message']['text'], PHP_EOL), '(Intel)', -strlen('(Intel)')) === 0) {
         // Set portal bot name.
@@ -38,6 +47,11 @@
 
         // Get portal address.
         $address = trim(explode(PHP_EOL, $update['message']['text'])[4]);
+
+        // Remove country from address, e.g. ", Netherlands"
+        $address = explode(',',$address,-1);
+        $address = trim(implode(',',$address));
+
    } else {
         // Invalid input or unknown bot - send message and end.
         $msg = '<b>' . getTranslation('invalid_input') . '</b>';
@@ -45,10 +59,6 @@
         sendMessage($update['message']['from']['id'], $msg);
         exit();
    }
-
-    // Remove country from address, e.g. ", Netherlands"
-    $address = explode(',',$address,-1);
-    $address = trim(implode(',',$address));
 
     // Empty address? Try lookup.
     if(empty($address)) {
