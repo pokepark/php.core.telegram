@@ -572,7 +572,7 @@
     "PL":"TRANSLATE"
   },
   "internal_error":{  
-    "NL":"TRANSLATE",
+    "NL":"Internal error!",
     "DE":"Interner Fehler!",
     "EN":"Internal error!",
     "IT":"TRANSLATE",
