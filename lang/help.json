@@ -22,7 +22,7 @@
     "PL":"TRANSLATE"
   },
   "help_only_bool":{  
-    "NL":"TRANSLATE",
+    "NL":"Alleen true/false of 0/1",
     "DE":"nur true/false oder 0/1",
     "EN":"only true/false or 0/1",
     "IT":"TRANSLATE",
@@ -33,7 +33,7 @@
     "PL":"TRANSLATE"
   },
   "help_only_numbers":{  
-    "NL":"TRANSLATE",
+    "NL":"Alleen nummers",
     "DE":"nur Zahlen",
     "EN":"only numbers",
     "IT":"TRANSLATE",
@@ -44,7 +44,7 @@
     "PL":"TRANSLATE"
   },
   "help_bool_expected":{  
-    "NL":"TRANSLATE",
+    "NL":"Toegestaande waarde: true/false of 0/1",
     "DE":"Zulässige Werte: true/false oder 0/1",
     "EN":"Allowed values: true/false or 0/1",
     "IT":"TRANSLATE",
@@ -55,7 +55,7 @@
     "PL":"TRANSLATE"
   },
   "help_number_expected":{  
-    "NL":"TRANSLATE",
+    "NL":"Toegestaande waarde: Nummers groter dan 0",
     "DE":"Zulässiger Wert: Zahlen größer 0",
     "EN":"Allowed value: Numbers greater than 0",
     "IT":"TRANSLATE",
