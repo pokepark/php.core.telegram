@@ -6,6 +6,23 @@ PHP Core Telegram for Pokemon Bots providing core communication with Telegram an
 
 The PHP Core Telegram repo is required by [PokemonRaidBot](https://github.com/florianbecker/PokemonRaidBot) and [PokemonQuestBot](https://github.com/florianbecker/PokemonQuestBot).
 
+# Table of contents
+<!--ts-->
+   * [PHP Core Telegram for Pokemon Bots](#php-core-telegram-for-pokemon-bots)
+   * [About](#about)
+   * [Table of contents](#table-of-contents)
+   * [Git clone](#git-clone)
+   * [Access permissions](#access-permissions)
+      * [Permissions overview](#permissions-overview)
+   * [Usage](#usage)
+      * [Bot commands](#bot-commands)
+         * [Command: /getconfig](#command-getconfig)
+         * [Command: /setconfig](#command-setconfig)
+
+<!-- Added by: artanicus, at: Mon Nov 18 22:19:44 EET 2019 -->
+
+<!--te-->
+
 # Git clone
 
 It is recommended to look at the READMEs from the Bots which require the PHP Core Telegram stuff.
