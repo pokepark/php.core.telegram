@@ -34,7 +34,7 @@ regen_version(){
   git add VERSION
 
   # Interrupt, so user can see output before commit
-  read -p "Press any key to continue..." pause
+  read -p "Press any key to continue..." </dev/tty
   echo
 }
 
