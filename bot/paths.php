@@ -21,6 +21,8 @@ define('CORE_COMMANDS_PATH', CORE_PATH . '/commands');
 // Bot Paths
 define('CONFIG_PATH', ROOT_PATH . '/config');
 define('BOT_LANG_PATH', ROOT_PATH . '/lang');
+define('FONTS_PATH', ROOT_PATH . '/fonts');
+define('IMAGES_PATH', ROOT_PATH . '/images');
 define('ACCESS_PATH', ROOT_PATH . '/access');
 define('DDOS_PATH', ROOT_PATH . '/ddos');
 define('CUSTOM_PATH', ROOT_PATH . '/custom');

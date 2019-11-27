@@ -582,6 +582,66 @@ function send_photo($chat_id, $photo_url ,$text = array(), $inline_keyboard = fa
 }
 
 /**
+ * Edit message text.
+ * @param $id_val
+ * @param $text_val
+ * @param $markup_val
+ * @param null $chat_id
+ * @param mixed $merge_args
+ * @param $multicurl
+ * @param $url
+ */
+function editMessageMedia($id_val, $text_val, $markup_val, $chat_id = NULL, $merge_args = false, $multicurl = false, $url)
+{
+    // Create response array.
+    $response = [
+        'method'        => 'editMessageMedia',
+        'media'         => [
+			'type'      => 'photo',
+			'media'     => $url,
+			'caption'   => $text_val,
+			'parse_mode'=> 'HTML'
+		],
+        'reply_markup'  => [
+            'inline_keyboard' => $markup_val
+        ]
+    ];
+
+    if ($markup_val == false) {
+        unset($response['reply_markup']);
+        $response['remove_keyboard'] = true;
+    }
+
+    // Valid chat id.
+    if ($chat_id != null) {
+        $response['chat_id']    = $chat_id;
+        $response['message_id'] = $id_val;
+    } else {
+        $response['inline_message_id'] = $id_val;
+    }
+
+    // Write to log.
+    //debug_log($merge_args, 'K');
+    //debug_log($response, 'K');
+
+    if (is_array($merge_args) && count($merge_args)) {
+        $response = array_merge_recursive($response, $merge_args);
+    }
+
+    // Write to log.
+    //debug_log($response, 'K');
+
+    // Encode response to json format.
+    $json_response = json_encode($response);
+
+    // Write to log.
+    debug_log($response, '<-');
+
+    // Send request to telegram api.
+    return curl_request($json_response, $multicurl);
+}
+
+/**
  * Send request to telegram api - single or multi?.
  * @param $json
  * @param $multicurl
@@ -746,62 +806,3 @@ function curl_json_multi_request($json)
     return $response;
 }
 
-/**
- * Edit message text.
- * @param $id_val
- * @param $text_val
- * @param $markup_val
- * @param null $chat_id
- * @param mixed $merge_args
- * @param $multicurl
- * @param $url
- */
-function editMessageMedia($id_val, $text_val, $markup_val, $chat_id = NULL, $merge_args = false, $multicurl = false, $url)
-{
-    // Create response array.
-    $response = [
-        'method'        => 'editMessageMedia',
-        'media'         => [
-			'type'      => 'photo',
-			'media'     => $url,
-			'caption'   => $text_val,
-			'parse_mode'=> 'HTML'
-		],
-        'reply_markup'  => [
-            'inline_keyboard' => $markup_val
-        ]
-    ];
-
-    if ($markup_val == false) {
-        unset($response['reply_markup']);
-        $response['remove_keyboard'] = true;
-    }
-
-    // Valid chat id.
-    if ($chat_id != null) {
-        $response['chat_id']    = $chat_id;
-        $response['message_id'] = $id_val;
-    } else {
-        $response['inline_message_id'] = $id_val;
-    }
-
-    // Write to log.
-    //debug_log($merge_args, 'K');
-    //debug_log($response, 'K');
-
-    if (is_array($merge_args) && count($merge_args)) {
-        $response = array_merge_recursive($response, $merge_args);
-    }
-
-    // Write to log.
-    //debug_log($response, 'K');
-
-    // Encode response to json format.
-    $json_response = json_encode($response);
-
-    // Write to log.
-    debug_log($response, '<-');
-
-    // Send request to telegram api.
-    return curl_request($json_response, $multicurl);
-}
