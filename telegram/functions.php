@@ -40,27 +40,15 @@ function sendMessage($chat_id, $text = [], $multicurl = false)
  * @param array $merge_args
  * @param $multicurl
  */
-function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = [], $multicurl = false, $photo = false)
+function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = [], $multicurl = false)
 {
     // Create response content array.
-	if($photo!="") {
-		$reply_content = [
-			'method'     => 'sendPhoto',
-			'chat_id'    => $chat_id,
-			'parse_mode' => 'HTML',
-			'caption'    => $text,
-			'photo'      =>	($photo)
-			
-		];
-		
-	}else {	
-		$reply_content = [
-			'method'     => 'sendMessage',
-			'chat_id'    => $chat_id,
-			'parse_mode' => 'HTML',
-			'text'       => $text
-		];
-	}
+    $reply_content = [
+        'method'     => 'sendMessage',
+        'chat_id'    => $chat_id,
+        'parse_mode' => 'HTML',
+        'text'       => $text
+    ];   
 
     // Write to log.
     debug_log('KEYS');
@@ -287,12 +275,12 @@ function answerInlineQuery($query_id, $contents)
  * @param bool $merge_args
  * @param $multicurl
  */
-function edit_message($update, $message, $keys, $merge_args = false, $multicurl = false, $type='text')
+function edit_message($update, $message, $keys, $merge_args = false, $multicurl = false)
 {
     if (isset($update['callback_query']['inline_message_id'])) {
         $json_response = editMessageText($update['callback_query']['inline_message_id'], $message, $keys, NULL, $merge_args, $multicurl);
     } else {
-        $json_response = editMessageText($update['callback_query']['message']['message_id'], $message, $keys, $update['callback_query']['message']['chat']['id'], $merge_args, $multicurl, $type);
+        $json_response = editMessageText($update['callback_query']['message']['message_id'], $message, $keys, $update['callback_query']['message']['chat']['id'], $merge_args, $multicurl);
     }
     return $json_response;
 }
@@ -306,12 +294,85 @@ function edit_message($update, $message, $keys, $merge_args = false, $multicurl 
  * @param mixed $merge_args
  * @param $multicurl
  */
-function editMessageText($id_val, $text_val, $markup_val, $chat_id = NULL, $merge_args = false, $multicurl = false,$type = 'text')
+function editMessageText($id_val, $text_val, $markup_val, $chat_id = NULL, $merge_args = false, $multicurl = false)
 {
     // Create response array.
     $response = [
-        'method'        => 'editMessage'.$type,
-        $type          => $text_val,
+        'method'        => 'editMessageText',
+        'text'          => $text_val,
+        'parse_mode'    => 'HTML',
+        'reply_markup'  => [
+            'inline_keyboard' => $markup_val
+        ]
+    ];
+
+    if ($markup_val == false) {
+        unset($response['reply_markup']);
+        $response['remove_keyboard'] = true;
+    }
+
+    // Valid chat id.
+    if ($chat_id != null) {
+        $response['chat_id']    = $chat_id;
+        $response['message_id'] = $id_val;
+    } else {
+        $response['inline_message_id'] = $id_val;
+    }
+
+    // Write to log.
+    //debug_log($merge_args, 'K');
+    //debug_log($response, 'K');
+
+    if (is_array($merge_args) && count($merge_args)) {
+        $response = array_merge_recursive($response, $merge_args);
+    }
+
+    // Write to log.
+    //debug_log($response, 'K');
+
+    // Encode response to json format.
+    $json_response = json_encode($response);
+
+    // Write to log.
+    debug_log($response, '<-');
+
+    // Send request to telegram api.
+    return curl_request($json_response, $multicurl);
+}
+
+/**
+ * Edit caption.
+ * @param $update
+ * @param $message
+ * @param $keys
+ * @param bool $merge_args
+ * @param $multicurl
+ */
+function edit_caption($update, $message, $keys, $merge_args = false, $multicurl = false)
+{
+    if (isset($update['callback_query']['inline_message_id'])) {
+        $json_response = editMessageCaption($update['callback_query']['inline_message_id'], $message, $keys, NULL, $merge_args, $multicurl);
+    } else {
+        $json_response = editMessageCaption($update['callback_query']['message']['message_id'], $message, $keys, $update['callback_query']['message']['chat']['id'], $merge_args, $multicurl);
+    }
+    return $json_response;
+}
+
+/**
+ * Edit message caption.
+ * @param $id_val
+ * @param $text_val
+ * @param $markup_val
+ * @param null $chat_id
+ * @param mixed $merge_args
+ * @param $multicurl
+ */
+function editMessageCaption($id_val, $text_val, $markup_val, $chat_id = NULL, $merge_args = false, $multicurl = false)
+{
+    // Create response array.
+    $response = [
+        'method'        => 'editMessageCaption',
+        'caption'       => $text_val,
         'parse_mode'    => 'HTML',
         'reply_markup'  => [
             'inline_keyboard' => $markup_val
@@ -545,7 +606,7 @@ function get_chatmember($chat_id, $user_id, $multicurl = false)
  * @param array $merge_args
  * @param array $multicurl
  */
-function send_photo($chat_id, $photo_url ,$text = array(), $inline_keyboard = false, $merge_args = [], $multicurl = false)
+function send_photo($chat_id, $photo_url, $text = array(), $inline_keyboard = false, $merge_args = [], $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -553,7 +614,7 @@ function send_photo($chat_id, $photo_url ,$text = array(), $inline_keyboard = fa
         'chat_id'    => $chat_id,
         'photo'      => $photo_url,
         'parse_mode' => 'HTML',
-        'caption'       => $text
+        'caption'    => $text
     ];
     
     // Write to log.
@@ -680,6 +741,7 @@ function curl_json_request($json)
         $json = str_replace($search,$replace,$json);
     }
 
+    // Telegram
     $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
     $curl = curl_init($URL);
 

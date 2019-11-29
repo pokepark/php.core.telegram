@@ -1,5 +1,4 @@
 <?php
-
     // Ingressportalbot icon
     $icon = iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F4DC));
     $coords = explode('&pll=',$update['message']['entities']['1']['url'])[1];
@@ -25,7 +24,15 @@
             // Street Number, Street, Locality, Sublocality, City, State, ZIP Code, Country
             $pieces = explode(',', $address);
             $address = trim($pieces[1]) . SP . trim($pieces[0]) . ', ' . trim($pieces[6]) . SP . trim($pieces[4]);
+        } else if(substr_count($address, ',') == 8) {
+            // Split address into 7 pieces which are separated by comma:
+            // Place, Street Number, Street, Locality, Sublocality, City, State, ZIP Code, Country
+            $pieces = explode(',', $address);
+            $address = trim($pieces[2]) . SP . trim($pieces[1]) . ', ' . trim($pieces[7]) . SP . trim($pieces[5]);
         }
+
+        // Portal image
+        $portal_image = $update['message']['entities']['0']['url'];
 
     // PortalMapBot
     } else if(substr_compare(strtok($update['message']['text'], PHP_EOL), '(Intel)', -strlen('(Intel)')) === 0) {
@@ -51,6 +58,9 @@
         // Remove country from address, e.g. ", Netherlands"
         $address = explode(',',$address,-1);
         $address = trim(implode(',',$address));
+
+        // Portal image
+        $portal_image = $update['message']['entities']['0']['url'];
 
    } else {
         // Invalid input or unknown bot - send message and end.
