@@ -21,6 +21,17 @@
     "FR":"TRANSLATE",
     "PL":"Alolan"
   },
+  "pokemon_form_galarian":{  
+    "NL":"Galarian",
+    "DE":"Galar",
+    "EN":"Galarian",
+    "IT":"Galarian",
+    "PT-BR":"Galarian",
+    "RU":"Galarian",
+    "NO":"Galarian",
+    "FR":"Galarian",
+    "PL":"Galarian"
+  },
   "pokemon_form_armored":{
     "NL":"Armored",
     "DE":"Rüstungsform",
