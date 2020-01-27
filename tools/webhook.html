@@ -27,6 +27,7 @@
                 </p>
                 <br/>
                 <label class="label">Maximum Connections:</label>
+				<p class="content is-small">(max: 100)</p>
                 <p class="control">
                     <input class="input" type="text" v-model="maxconnection" />
                 </p>
@@ -63,7 +64,7 @@
      el: '#app',
      data: {
          token: '123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11',
-         maxconnection: '100',
+         maxconnection: '80',
          port: '',
          host: 'https://' + window.location.hostname + location.pathname.replace(/[^/]*$/, '')
      },
@@ -83,7 +84,7 @@
              return 'https://api.telegram.org/bot' + this.token + '/setwebhook'
          },
          set_webhook_url: function() {
-             return 'https://api.telegram.org/bot' + this.token + '/setwebhook?url=' + this.bot_url
+             return 'https://api.telegram.org/bot' + this.token + '/setwebhook?url=' + this.bot_url  + '&max_connections=' + this.maxconnection
          },
          bot_url: function() {
              port_string = '';
@@ -92,7 +93,7 @@
              }
              var bot = document.createElement('a');
              bot.href = this.host;
-             bot_string = bot.origin + port_string + bot.pathname.replace(/\/?$/, '/') + 'index.php?apikey=' + this.token + '&max_connections=' + this.maxconnection;
+             bot_string = bot.origin + port_string + bot.pathname.replace(/\/?$/, '/') + 'index.php?apikey=' + this.token;
 
              return bot_string
          }
