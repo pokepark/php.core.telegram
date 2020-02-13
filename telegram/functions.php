@@ -793,6 +793,9 @@ function curl_json_multi_request($json)
  
     // Init multi handle.
     $mh = curl_multi_init();
+    
+    // Init $data as array - since php 5.2 the CURLOPT_POSTFIELDS wants an array 
+    $data = array();
  
     // Loop through json array, create curl handles and add them to the multi-handle.
     foreach ($json as $id => $data) {
@@ -818,7 +821,7 @@ function curl_json_multi_request($json)
             debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
             $search = '"callback_data":"';
             $replace = $search . basename(ROOT_PATH) . ':';
-            $data = str_replace($search,$replace,$data);
+            array_push($data, str_replace($search,$replace,$data));
         }
 
         // Curl post. 
