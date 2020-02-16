@@ -4,54 +4,60 @@
  * Set bot config.
  */
 
-// Get all config files.
-$jsons = str_replace(CONFIG_PATH . '/', '', glob(CONFIG_PATH . '/*.json'));
+// Make sure JSON is valid.
+function check_json_array($json, $file) {
+  if(is_array($json)) {
+    if(json_last_error() === JSON_ERROR_NONE) {
+      return True;
+    } else {
+      error_log('Invalid JSON (' . json_last_error()  . '): ' . $file);
+      return False;
+    }
+  } else {
+    error_log('Internal error, faulty config array: ' . gettype($json));
+  }
+}
+// Check file permissions.
+function check_secure($path) {
+  if((fileperms($path) & 0777) !== 0600) {
+    error_log('Insecure file permissions: ' . $path . ' (0' . decoct(fileperms($path) & 0777) . ') - recommended file permissions: 0600');
+  }
+}
 
-// Put telegram.json on top of the config files array.
-array_unshift($jsons, 'telegram.json');
-$jsons = array_unique($jsons);
+// Build and return a full config as a json object
+function build_config() {
+  // Get default config files without their full path, e.g. 'defaults-config.json'
+  $default_configs = str_replace(CONFIG_PATH . '/', '', glob(CONFIG_PATH . '/defaults-*.json'));
 
-// Remove config.json and add it at the end of the config files array again.
-$jsons = array_diff($jsons, ["config.json"]);
-$jsons[] = "config.json";
+  // Collection point for individual configfile arrays, will eventually be converted to a json object
+  $config = Array();
 
-// Remove alias.json
-$jsons = array_diff($jsons, ["alias.json"]);
+  foreach ($default_configs as $index => $filename) {
+    $dfile = CONFIG_PATH . '/' . $filename; // config defaults, e.g. defaults-config.json
+    $cfile = CONFIG_PATH . '/' . str_replace('defaults-', '', $filename); // custom config overrides e.g. config.json
 
-// Write to log.
-foreach ($jsons as $index => $filename) {
-    // Add path to file.
-    $cfile = CONFIG_PATH . '/' . $filename;
+    // Get default config as an array so we can do an array merge later
+    $config_array = json_decode(file_get_contents($dfile), true);
+    if(!check_json_array($config_array, $dfile)) {
+      die('Default config not valid JSON, cannot continue: ' . $dfile);
+    }
 
-    // Get config from file.
+    // If we have a custom config, use it to override items
     if(is_file($cfile)) {
-        $str = file_get_contents($cfile);
-        $config = json_decode($str, true);
-        // Make sure JSON is valid.
-        if(!(is_string($str) && is_array(json_decode($str, true)) && (json_last_error() === JSON_ERROR_NONE))) {
-            error_log('Invalid JSON: ' . $cfile);
-            continue;
-        }
-
-        // Check file permissions.
-        if((fileperms($cfile) & 0777) !== 0600) {
-            error_log('Insecure file permissions: ' . $cfile . ' (0' . decoct(fileperms($cfile) & 0777) . ') - recommended file permissions: 0600');
-        }
-
-        // Define constants.
-        foreach($config as $key => $val) {
-            // Skip comments starting and ending with 2 underscores, e.g. __SQL-CONFIG__
-            if(substr($key, 0, 2) == '__' && substr($key, -2)) continue;
-
-            // Make "True" and "False" real true and false
-            if($val == "true") {
-                $val = true;
-            } else if($val == "false") {
-                $val = false;
-            }
-
-            // Define constants.
-            defined($key) or define($key, $val);
+      // custom configs contain sensitive info, warn if they're not safe, but still proceed
+      check_secure($cfile);
+      $custom_config = json_decode(file_get_contents($cfile), true);
+        if(check_json_array($custom_config, $cfile)) {
+          // Merge any custom values in, overriding defaults
+          $config_array = array_merge($config_array, $custom_config);
         }
     }
+
+    // Merge the sub-configfile into the main config
+    return (Object)array_merge($config, $config_array);
+  }
 }
+
+// Object, access a config option with e.g. $config->VERSION
+$config = build_config();
+?>
