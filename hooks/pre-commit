@@ -27,11 +27,13 @@ regen_version(){
   # Update version file
   echo 'Updating project version to:' $VERSION
   echo $VERSION > VERSION
+  # Update sample config VERSION
+  sed -E -i "s/(\"VERSION\":\")[0-9\.]+/\1$VERSION/" config/config.json.example
 
   # Add version file to commit
   echo 'Adding new version to commit'
   echo
-  git add VERSION
+  git add VERSION config/config.json.example
 
   # Interrupt, so user can see output before commit
   read -p "Press any key to continue..." </dev/tty
