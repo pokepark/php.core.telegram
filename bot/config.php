@@ -54,8 +54,10 @@ function build_config() {
     }
 
     // Merge the sub-configfile into the main config
-    return (Object)array_merge($config, $config_array);
+    $config = array_merge($config, $config_array);
   }
+  // Return the whole multi-source config as an Object
+  return (Object)$config;
 }
 
 // Object, access a config option with e.g. $config->VERSION
