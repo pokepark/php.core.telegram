@@ -45,11 +45,8 @@ function my_query($query, $cleanup_query = false)
  */
 function debug_log($val, $type = '*', $cleanup_log = false)
 {
-    // Make sure DEBUG is defined - otherwise define with a default of false.
-    defined('DEBUG') or define('DEBUG', false);
-
     // Write to log only if debug is enabled.
-    if (DEBUG === true && defined('DEBUG_LOGFILE') && defined('CLEANUP_LOGFILE')) {
+    if ($config->DEBUG === true && $config->DEBUG_LOGFILE && $config->CLEANUP_LOGFILE) {
 
         $date = @date('Y-m-d H:i:s');
         $usec = microtime(true);
@@ -68,9 +65,9 @@ function debug_log($val, $type = '*', $cleanup_log = false)
         $rows = explode("\n", $val);
         foreach ($rows as $v) {
             if ($cleanup_log == true) {
-                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, CLEANUP_LOGFILE);
+                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, $config->CLEANUP_LOGFILE);
             } else {
-                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, DEBUG_LOGFILE);
+                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, $config->DEBUG_LOGFILE);
             }
         }
     }

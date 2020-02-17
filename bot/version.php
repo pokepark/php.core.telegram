@@ -23,16 +23,16 @@ if($nodot_current == $nodot_latest) {
         debug_log('Failed to determine your bot version!', '!');
 
         // Tell user bot maintainance is required!
-        if(defined('MAINTAINER_ID') && !empty(MAINTAINER_ID)) {
+        if(!empty($config->MAINTAINER_ID)) {
             // Echo data.
             $msg = 'ERROR! BOT MAINTAINANCE REQUIRED!' . CR . 'FAILED TO GET YOUR BOT VERSION!' . CR;
             $msg .= 'Server: ' . $_SERVER['SERVER_ADDR'] . CR;
             $msg .= 'User: ' . $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . CR;
             $msg .= 'Your version: ' . $current . CR . 'Latest version: ' . $latest;
-            sendMessageEcho(MAINTAINER_ID, $msg);
+            sendMessageEcho($config->MAINTAINER_ID, $msg);
         } else {
             // Write to standard error log.
-            error_log('ERROR! The constant MAINTAINER_ID is not defined!');
+            error_log('ERROR! The config item MAINTAINER_ID is not defined!');
             error_log('ERROR! BOT MAINTAINANCE REQUIRED! FAILED TO GET YOUR BOT VERSION! --- Your version: ' . $current . ' --- Latest version: ' . $latest);
         }
         // Exit script.
@@ -43,16 +43,16 @@ if($nodot_current == $nodot_latest) {
         debug_log('Failed to determine the latest bot version!', '!');
 
         // Tell user bot maintainance is required!
-        if(defined('MAINTAINER_ID') && !empty(MAINTAINER_ID)) {
+        if(!empty($config->MAINTAINER_ID)) {
             // Echo data.
             $msg = 'ERROR! BOT MAINTAINANCE REQUIRED!' . CR . 'FAILED TO GET THE LATEST BOT VERSION!' . CR;
             $msg .= 'Server: ' . $_SERVER['SERVER_ADDR'] . CR;
             $msg .= 'User: ' . $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . CR;
             $msg .= 'Your version: ' . $current . CR . 'Latest version: ' . $latest;
-            sendMessageEcho(MAINTAINER_ID, $msg);
+            sendMessageEcho($config->MAINTAINER_ID, $msg);
         } else {
             // Write to standard error log.
-            error_log('ERROR! The constant MAINTAINER_ID is not defined!');
+            error_log('ERROR! The config item MAINTAINER_ID is not defined!');
             error_log('ERROR! BOT MAINTAINANCE REQUIRED! FAILED TO GET THE LATEST BOT VERSION! --- Your version: ' . $current . ' --- Latest version: ' . $latest);
         } 
         // Exit script.
@@ -72,12 +72,12 @@ if($nodot_current == $nodot_latest) {
             debug_log('Continuing with this warning as no SQL upgrade is required!', '!');
         } else {
             // Tell user an upgrade is required!
-            if(defined('MAINTAINER_ID') && !empty(MAINTAINER_ID)) {
+            if(!empty($config->MAINTAINER_ID)) {
                 // Echo data.
-                sendMessageEcho(MAINTAINER_ID, 'ERROR! BOT UPGRADE REQUIRED!' . CR . 'Server: ' . $_SERVER['SERVER_ADDR'] . CR . 'User: ' . $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . CR . 'Your version: ' . $current . CR . 'Latest version: ' . $latest);
+                sendMessageEcho($config->MAINTAINER_ID, 'ERROR! BOT UPGRADE REQUIRED!' . CR . 'Server: ' . $_SERVER['SERVER_ADDR'] . CR . 'User: ' . $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . CR . 'Your version: ' . $current . CR . 'Latest version: ' . $latest);
             } else {
                 // Write to standard error log.
-                error_log('ERROR! The constant MAINTAINER_ID is not defined!');
+                error_log('ERROR! The config item MAINTAINER_ID is not defined!');
                 error_log('ERROR! BOT UPGRADE REQUIRED! --- Your version: ' . $current . ' --- Latest version: ' . $latest);
             }
             // Exit script.

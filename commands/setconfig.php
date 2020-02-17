@@ -16,22 +16,19 @@ $input = trim(substr($update['message']['text'], 10));
 $count = substr_count($input, " ");
 
 // Get allowed telegram configs.
-defined('ALLOWED_TELEGRAM_CONFIG') or define('ALLOWED_TELEGRAM_CONFIG', '');
-$allowed = explode(',', ALLOWED_TELEGRAM_CONFIG);
+$allowed = explode(',', $config->ALLOWED_TELEGRAM_CONFIG);
 
 // Get config restrictions for boolean input
-defined('ALLOW_ONLY_TRUE_FALSE') or define('ALLOW_ONLY_TRUE_FALSE', '');
-$bool_only = explode(',', ALLOW_ONLY_TRUE_FALSE);
+$bool_only = explode(',', $config->ALLOW_ONLY_TRUE_FALSE);
 
 // Get config restrictions for numeric input
-defined('ALLOW_ONLY_NUMBERS') or define('ALLOW_ONLY_NUMBERS', '');
-$numbers_only = explode(',', ALLOW_ONLY_NUMBERS);
+$numbers_only = explode(',', $config->ALLOW_ONLY_NUMBERS);
 
 // Write to log.
 debug_log('User submitted a telegram config change');
-debug_log('Allowed telegram configs: ' . ALLOWED_TELEGRAM_CONFIG);
-debug_log('Allow only boolean input: ' . ALLOW_ONLY_TRUE_FALSE);
-debug_log('Allow only numeric input: ' . ALLOW_ONLY_NUMBERS);
+debug_log('Allowed telegram configs: ' . $config->ALLOWED_TELEGRAM_CONFIG);
+debug_log('Allow only boolean input: ' . $config->ALLOW_ONLY_TRUE_FALSE);
+debug_log('Allow only numeric input: ' . $config->ALLOW_ONLY_NUMBERS);
 
 // 0 means we reset config option value to ""
 if($count == 0) {
@@ -137,7 +134,7 @@ if(in_array($config_name, $allowed) && $restrict == 'no') {
     $msg = '<b>' . getTranslation('invalid_input') . '</b>' . (!empty($msg_error_info) ? (CR . $msg_error_info) : '') . CR . CR;
     $msg .= '<b>' . getTranslation('config') . ':</b>' . CR;
     // Any configs allowed?
-    if(!empty(ALLOWED_TELEGRAM_CONFIG)) {
+    if(!empty($config->ALLOWED_TELEGRAM_CONFIG)) {
         $msg .= '<code>/setconfig' . SP . getTranslation('option_value') . '</code>' . CR;
         foreach($allowed as $cfg) {
             // Get alias.

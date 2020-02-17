@@ -5,9 +5,9 @@ $command = NULL;
 // Check message text for a leading slash.
 if (substr($update['message']['text'], 0, 1) == '/') {
     // Get command name.
-    if(defined('BOT_NAME')) {
-        $com = strtolower(str_replace('/', '', str_replace(BOT_NAME, '', explode(' ', $update['message']['text'])[0])));
-        $altcom = strtolower(str_replace('/' . basename(ROOT_PATH), '', str_replace(BOT_NAME, '', explode(' ', $update['message']['text'])[0])));
+    if($config->BOT_NAME) {
+        $com = strtolower(str_replace('/', '', str_replace($config->BOT_NAME, '', explode(' ', $update['message']['text'])[0])));
+        $altcom = strtolower(str_replace('/' . basename(ROOT_PATH), '', str_replace($config->BOT_NAME, '', explode(' ', $update['message']['text'])[0])));
     } else {
         debug_log('BOT_NAME is missing! Please define it!', '!');
         $com = 'start';

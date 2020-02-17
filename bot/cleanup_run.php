@@ -1,9 +1,9 @@
 <?php
 // Cleanup request received.
-if (isset($update['cleanup']) && CLEANUP == true) {
+if (isset($update['cleanup']) && $config->CLEANUP) {
     cleanup_log('Cleanup request received...');
     // Check access to cleanup of bot
-    if ($update['cleanup']['secret'] == CLEANUP_SECRET) {
+    if ($update['cleanup']['secret'] == $config->CLEANUP_SECRET) {
         // Get telegram cleanup value if specified.
         if (isset($update['cleanup']['telegram'])) {
             $telegram = $update['cleanup']['telegram'];

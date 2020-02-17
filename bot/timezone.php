@@ -1,5 +1,4 @@
 <?php
 // Set timezone.
-defined('TIMEZONE') or define('TIMEZONE', 'UTC');
-$tz = TIMEZONE;
+$tz = $config->TIMEZONE;
 date_default_timezone_set($tz);

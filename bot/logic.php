@@ -51,12 +51,9 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
     $access_chats = str_replace(ACCESS_PATH . '/access','',glob(ACCESS_PATH . '/access-*'));
     $access_chats = array_merge($access_chats, $creator_chats, $admin_chats, $member_chats, $restricted_chats, $kicked_chats);
 
-    // Make sure BOT_ADMINS are defined.
-    defined('BOT_ADMINS') or define('BOT_ADMINS', '');
-
     // Add Admins if a group/channel
-    if(!empty(BOT_ADMINS)) {
-        $bot_admins = explode(',',BOT_ADMINS);
+    if(!empty($config->BOT_ADMINS)) {
+        $bot_admins = explode(',',$config->BOT_ADMINS);
         foreach($bot_admins as $admin) {
             // Ignore individuals, add only groups/channels
             if($admin[0] == '-') {
@@ -116,10 +113,10 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                     debug_log('Proper chat object received, continuing with access check.');
 
                     // Admin?
-                    $admins = explode(',',BOT_ADMINS);
+                    $admins = explode(','$config->BOT_ADMINS);
                     if(in_array($tg_chat,$admins) || in_array($update_id,$admins)) {
                         debug_log('Positive result on access check for Bot Admins');
-                        debug_log('Bot Admins: ' . BOT_ADMINS);
+                        debug_log('Bot Admins: ' . $config->BOT_ADMINS);
                         debug_log('chat: ' . $tg_chat);
                         debug_log('update_id: ' . $update_id);
                         $admins_checked = true;
@@ -207,7 +204,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                     debug_log('Proper chat object received, continuing with access check.');
 
                     // Admin?
-                    $admins = explode(',',BOT_ADMINS);
+                    $admins = explode(',',$config->BOT_ADMINS);
                     if(in_array($tg_chat,$admins) || in_array($update_id,$admins)) {
                         debug_log('Positive result on access check for Bot Admins');
                         $admins_checked = true;
@@ -253,7 +250,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
             if($chat_user['ok'] == true) {
                 debug_log('Proper chat object received, continuing with access check.');
                 // Admin?
-                $admins = explode(',',BOT_ADMINS);
+                $admins = explode(',',$config->BOT_ADMINS);
                 if(in_array($update_id,$admins)) {
                     debug_log('Positive result on access check for Bot Admins');
                     $allow_access = true;
@@ -276,7 +273,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
         if($chat_user['ok'] == true) {
             debug_log('Proper chat object received, continuing with access check.');
             // Admin?
-            $admins = explode(',',BOT_ADMINS);
+            $admins = explode(',',$config->BOT_ADMINS);
             if(in_array($update_id,$admins)) {
                 debug_log('Positive result on access check for Bot Admins');
                 $allow_access = true;
@@ -297,7 +294,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
     $msg .= !empty($update[$update_type]['from']['first_name']) ? 'First Name: ' . $update[$update_type]['from']['first_name'] . CR : '';
 
     // Public access?
-    if(empty(BOT_ADMINS)) {
+    if(empty($config->BOT_ADMINS)) {
         debug_log('Bot access is not restricted! Allowing access for user: ' . CR . $msg);
         $allow_access = true;
     }
@@ -488,7 +485,7 @@ function get_user_language($language_code)
     if(array_key_exists($language_code, $languages)) {
         $userlanguage = $languages[$language_code];
     } else {
-        $userlanguage = DEFAULT_LANGUAGE;
+        $userlanguage = $config->DEFAULT_LANGUAGE;
     }
 
     debug_log('User language: ' . $userlanguage);
@@ -503,7 +500,7 @@ function get_user_language($language_code)
  * @param $tz
  * @return string
  */
-function dt2date($datetime_value, $tz = TIMEZONE)
+function dt2date($datetime_value, $tz = $config->TIMEZONE)
 {
     // Create a object with UTC timezone
     $datetime = new DateTime($datetime_value, new DateTimeZone('UTC'));
@@ -521,7 +518,7 @@ function dt2date($datetime_value, $tz = TIMEZONE)
  * @param $tz
  * @return string
  */
-function dt2time($datetime_value, $format = 'H:i', $tz = TIMEZONE)
+function dt2time($datetime_value, $format = 'H:i', $tz = $config->TIMEZONE)
 {
     // Create a object with UTC timezone
     $datetime = new DateTime($datetime_value, new DateTimeZone('UTC'));
@@ -673,12 +670,12 @@ function share_keys($id, $action, $update, $chats = '', $prefix_text = '', $hide
     }
 
     // Add buttons for predefined sharing chats.
-    if((defined('SHARE_CHATS') && !empty(SHARE_CHATS)) || !empty($chats)) {
+    if((!empty($config->SHARE_CHATS)) || !empty($chats)) {
         // Default SHARE_CHATS or special chat list via $chats? 
         if(!empty($chats)) {
             $chats = explode(',', $chats);
         } else {
-            $chats = explode(',', SHARE_CHATS);
+            $chats = explode(',', $config->SHARE_CHATS);
         }
 
         // Add keys for each chat.
