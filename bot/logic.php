@@ -113,7 +113,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                     debug_log('Proper chat object received, continuing with access check.');
 
                     // Admin?
-                    $admins = explode(','$config->BOT_ADMINS);
+                    $admins = explode(',', $config->BOT_ADMINS);
                     if(in_array($tg_chat,$admins) || in_array($update_id,$admins)) {
                         debug_log('Positive result on access check for Bot Admins');
                         debug_log('Bot Admins: ' . $config->BOT_ADMINS);
@@ -500,8 +500,11 @@ function get_user_language($language_code)
  * @param $tz
  * @return string
  */
-function dt2date($datetime_value, $tz = $config->TIMEZONE)
+function dt2date($datetime_value, $tz = NULL)
 {
+    if($tz == NULL){
+      $tz = $config->TIMEZONE;
+    }
     // Create a object with UTC timezone
     $datetime = new DateTime($datetime_value, new DateTimeZone('UTC'));
 
@@ -518,8 +521,11 @@ function dt2date($datetime_value, $tz = $config->TIMEZONE)
  * @param $tz
  * @return string
  */
-function dt2time($datetime_value, $format = 'H:i', $tz = $config->TIMEZONE)
+function dt2time($datetime_value, $format = 'H:i', $tz = NULL)
 {
+    if($tz == NULL){
+      $tz = $config->TIMEZONE;
+    }
     // Create a object with UTC timezone
     $datetime = new DateTime($datetime_value, new DateTimeZone('UTC'));
 

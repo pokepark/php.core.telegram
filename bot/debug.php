@@ -45,6 +45,7 @@ function my_query($query, $cleanup_query = false)
  */
 function debug_log($val, $type = '*', $cleanup_log = false)
 {
+    global $config;
     // Write to log only if debug is enabled.
     if ($config->DEBUG === true && $config->DEBUG_LOGFILE && $config->CLEANUP_LOGFILE) {
 

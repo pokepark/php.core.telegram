@@ -14,7 +14,7 @@ function check_json_array($json, $file) {
       return False;
     }
   } else {
-    error_log('Internal error, faulty config array: ' . gettype($json));
+    error_log('Reading config failed(' . $file . '), faulty config array: ' . gettype($json));
   }
 }
 // Check file permissions.

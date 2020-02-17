@@ -3,7 +3,7 @@
 debug_log('DDOS Check');
 
 // Update_ID file.
-$id_file = $config->DDOS_PATH . '/update_id';
+$id_file = DDOS_PATH . '/update_id';
 
 // Skip DDOS check for specific stuff, e.g. cleanup and overview refresh.
 $skip_ddos_check = 0;

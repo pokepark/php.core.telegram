@@ -1,7 +1,7 @@
 <?php
 // Check if version is defined in config.
-defined('VERSION') or define('VERSION', '1.0.0.0');
-$current = VERSION;
+!empty($config->VERSION) or $config->VERSION = '1.0.0,0';
+$current = $config->VERSION;
 $nodot_current = str_replace('.', '', $current);
 
 // Get version from VERSION file.
