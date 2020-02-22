@@ -6,6 +6,7 @@
  */
 function getPublicTranslation($text)
 {
+    global $config;
     $translation = getTranslation($text, true, $config->LANGUAGE_PUBLIC);
 
     return $translation;

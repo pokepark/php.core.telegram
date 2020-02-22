@@ -7,6 +7,7 @@
  */
 function get_address($lat, $lon)
 {
+    global $config;
     // Maps lookup?
     if($config->MAPS_LOOKUP && !empty($config->MAPS_API_KEY)) {
         // Init defaults.

@@ -10,6 +10,7 @@
  */
 function bot_access_check($update, $permission = 'access-bot', $return_result = false, $return_access = false)
 {
+    global $config;
     // Start with deny access
     $allow_access = false;
 
@@ -479,6 +480,7 @@ function update_userdb($update)
  */
 function get_user_language($language_code)
 {
+    global $config;
     $languages = $GLOBALS['languages'];
 
     // Get languages from normal translation.
@@ -502,6 +504,7 @@ function get_user_language($language_code)
  */
 function dt2date($datetime_value, $tz = NULL)
 {
+    global $config;
     if($tz == NULL){
       $tz = $config->TIMEZONE;
     }
@@ -523,6 +526,7 @@ function dt2date($datetime_value, $tz = NULL)
  */
 function dt2time($datetime_value, $format = 'H:i', $tz = NULL)
 {
+    global $config;
     if($tz == NULL){
       $tz = $config->TIMEZONE;
     }
@@ -660,6 +664,7 @@ function universal_inner_key($keys, $id, $action, $arg, $text = '0')
  */
 function share_keys($id, $action, $update, $chats = '', $prefix_text = '', $hide = false)
 {
+    global $config;
     // Check access.
     $share_access = bot_access_check($update, 'share-any-chat', true);
 

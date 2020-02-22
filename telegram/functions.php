@@ -726,6 +726,7 @@ function curl_request($json, $multicurl = false)
  */
 function curl_json_request($json)
 {
+    global $config;
     // Bridge mode?
     if($config->BRIDGE_MODE) {
         // Add bot folder name to callback data
@@ -776,6 +777,7 @@ function curl_json_request($json)
  */
 function curl_json_multi_request($json)
 {
+    global $config;
     // Set URL.
     $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
 
