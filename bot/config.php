@@ -24,6 +24,18 @@ function check_secure($path) {
   }
 }
 
+function migrate_config($config){
+  foreach($config as $key => $val) {
+    // Make "True" and "False" real true and false
+    if($val == "true") {
+      $val = true;
+    } else if($val == "false") {
+      $val = false;
+    }
+  }
+  return $config;
+}
+
 // Build and return a full config as a json object
 function build_config() {
   // Get default config files without their full path, e.g. 'defaults-config.json'
@@ -56,6 +68,11 @@ function build_config() {
     // Merge the sub-configfile into the main config
     $config = array_merge($config, $config_array);
   }
+
+  // perform config migrations
+  //TODO(artanicus): The migrated config should perhaps be saved back to disk instead of this catchall compat-mode
+  $config = migrate_config($config);
+
   // Return the whole multi-source config as an Object
   return (Object)$config;
 }
