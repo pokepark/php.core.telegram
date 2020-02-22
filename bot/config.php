@@ -28,9 +28,9 @@ function migrate_config($config){
   foreach($config as $key => $val) {
     // Make "True" and "False" real true and false
     if($val == "true") {
-      $val = true;
+      $config[$key] = true;
     } else if($val == "false") {
-      $val = false;
+      $config[$key] = false;
     }
   }
   return $config;
