@@ -47,7 +47,10 @@ function debug_log($val, $type = '*', $cleanup_log = false)
 {
     global $config;
     // Write to log only if debug is enabled.
-    if ($config->DEBUG === true && $config->DEBUG_LOGFILE && $config->CLEANUP_LOGFILE) {
+    if ($config->DEBUG === true){
+        if(!$config->DEBUG_LOGFILE || !$config->CLEANUP_LOGFILE) {
+          error_log('DEBUG set but DEBUG_LOGFILE or CLEANUP_LOGFILE is not!');
+        }
 
         $date = @date('Y-m-d H:i:s');
         $usec = microtime(true);
