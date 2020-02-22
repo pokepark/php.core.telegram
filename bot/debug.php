@@ -18,11 +18,14 @@ function my_insert_id()
 function my_query($query, $cleanup_query = false)
 {
     global $db;
+    global $config;
 
-    if ($cleanup_query == true) {
-        debug_log($query, '?', true);
-    } else {
-        debug_log($query, '?');
+    if($config->DEBUG_QUERIES) {
+        if ($cleanup_query == true) {
+            debug_log($query, '?', true);
+        } else {
+            debug_log($query, '?');
+        }
     }
 
     $res = $db->query($query);
