@@ -662,7 +662,7 @@ function universal_inner_key($keys, $id, $action, $arg, $text = '0')
  * @param $hide
  * @return array
  */
-function share_keys($id, $action, $update, $chats = '', $prefix_text = '', $hide = false)
+function share_keys($id, $action, $update, $chats = '', $prefix_text = '', $hide = false, $level = '')
 {
     global $config;
     // Check access.
@@ -681,15 +681,29 @@ function share_keys($id, $action, $update, $chats = '', $prefix_text = '', $hide
     }
 
     // Add buttons for predefined sharing chats.
-    if((!empty($config->SHARE_CHATS)) || !empty($chats)) {
-        // Default SHARE_CHATS or special chat list via $chats? 
-        if(!empty($chats)) {
-            $chats = explode(',', $chats);
+    // Default SHARE_CHATS or special chat list via $chats? 
+    if(!empty($chats)) {
+        debug_log($chats, 'Got specific chats to share to:');
+        $chats = explode(',', $chats);
+    } else {
+        if(!empty($level)) {
+            // find chats to share ourselves, if we can
+            debug_log($level, 'Did not get specific chats to share to, checking level specific for: ');
+            $level_chat = 'SHARE_CHATS_LEVEL_' . $level;
+            if(!empty($config->{$level_chat})) {
+                $chats = explode(',', $config->{$level_chat});
+                debug_log($chats, 'Found level specific chats to share to: ');
+            } else {
+            $chats = explode(',', $config->SHARE_CHATS);
+            debug_log($chats, 'Chats not specified for level, sharing to globals: ');
+        }
         } else {
             $chats = explode(',', $config->SHARE_CHATS);
+            debug_log($chats, 'Level not given, sharing to globals: ');
         }
-
-        // Add keys for each chat.
+    }
+    // Add keys for each chat.
+    if(!empty($chats)){
         foreach($chats as $chat) {
             // Get chat object 
             debug_log("Getting chat object for '" . $chat . "'");
@@ -706,6 +720,8 @@ function share_keys($id, $action, $update, $chats = '', $prefix_text = '', $hide
                 ];
             }
         }
+    } else {
+      debug_log('Aint got any chats to share to!');
     }
 
     return $keys;
