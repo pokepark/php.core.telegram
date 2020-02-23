@@ -6,8 +6,17 @@
 regen_toc(){
   # Tell the user we run a pre-commit hook
   echo 'Running pre-commit hook for README.md ToC'
-  tools/github-markdown-toc/gh-md-toc --insert README.md
-  git add README.md
+
+  regen_tool=tools/github-markdown-toc/gh-md-toc
+  if [ ! -x "$regen_tool" ]; then
+    regen_tool=core/tools/github-markdown-toc/gh-md-toc
+  fi
+  if [ ! -x "$regen_tool" ]; then
+    >&2 echo "Can't find gh-md-toc, can't update README.md table of contents automatically!"
+  else
+    "$regen_tool" --insert README.md
+    git add README.md
+  fi
 }
 
 
