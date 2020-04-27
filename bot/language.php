@@ -1,18 +1,13 @@
 <?php
 /**
- * Define private and public language
-*/
-defined('LANGUAGE_PRIVATE') or define('LANGUAGE_PRIVATE', '');
-defined('LANGUAGE_PUBLIC') or define('LANGUAGE_PUBLIC', 'EN');
-
-/**
  * Call the translation function with override parameters.
  * @param $text
  * @return translation
  */
 function getPublicTranslation($text)
 {
-    $translation = getTranslation($text, true, LANGUAGE_PUBLIC);
+    global $config;
+    $translation = getTranslation($text, true, $config->LANGUAGE_PUBLIC);
 
     return $translation;
 }

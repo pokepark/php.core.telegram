@@ -17,7 +17,7 @@ if (file_exists($id_file) && filesize($id_file) > 0) {
         // Split callback data to check for overview_refresh
         $splitData = explode(':', $update['callback_query']['data']);
         // Bridge mode?
-        if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
+        if($config->BRIDGE_MODE) {
             $botname = $splitData[0];
             $action = $splitData[2];
             $botname_length = count(str_split($botname));
@@ -93,10 +93,8 @@ if (isset($update['callback_query'])) {
                 } else {
                     $ddos_count = 1;
                 }
-                // Make sure DDOS_MAXIMUM is defined - otherwise define with a default of 10.
-                defined('DDOS_MAXIMUM') or define('DDOS_MAXIMUM', '10');
                 // Exit if DDOS of user_id count is exceeded.
-                if ($ddos_count > DDOS_MAXIMUM) {
+                if ($ddos_count > $config->DDOS_MAXIMUM) {
                     exit();
                 // Update DDOS count in file
                 } else {

@@ -13,7 +13,7 @@ if(isset($update['channel_post']['text'])) {
     $message_id = $update['channel_post']['message_id'];
 
     // Get id from text.
-    $cleanup_id = substr(strrchr($update['channel_post']['text'], substr(strtoupper(BOT_ID), 0, 1) . '-ID = '), 7);
+    $cleanup_id = substr(strrchr($update['channel_post']['text'], substr(strtoupper($config->BOT_ID), 0, 1) . '-ID = '), 7);
 
 // Supergroup
 } else if (isset($update['message']['text']) && $update['message']['chat']['type'] == "supergroup") {
@@ -22,7 +22,7 @@ if(isset($update['channel_post']['text'])) {
     $message_id = $update['message']['message_id'];
 
     // Get id from text.
-    $cleanup_id = substr(strrchr($update['message']['text'], substr(strtoupper(BOT_ID), 0, 1) . '-ID = '), 7);
+    $cleanup_id = substr(strrchr($update['message']['text'], substr(strtoupper($config->BOT_ID), 0, 1) . '-ID = '), 7);
 }
 
 if (function_exists('insert_cleanup')) {

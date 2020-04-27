@@ -710,12 +710,6 @@ function editMessageMedia($id_val, $text_val, $markup_val, $chat_id = NULL, $mer
  */
 function curl_request($json, $multicurl = false)
 {
-    // Proxy server?
-    defined('CURL_USEPROXY') or define('CURL_USEPROXY', false);
-    defined('CURL_PROXYSERVER') or define('CURL_PROXYSERVER', '');
-
-    // Bridge mode?
-    defined('BRIDGE_MODE') or define('BRIDGE_MODE', false);
 
     // Send request to telegram api.
     if($multicurl == true) {
@@ -732,8 +726,9 @@ function curl_request($json, $multicurl = false)
  */
 function curl_json_request($json)
 {
+    global $config;
     // Bridge mode?
-    if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
+    if($config->BRIDGE_MODE) {
         // Add bot folder name to callback data
         debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
         $search = '"callback_data":"';
@@ -755,8 +750,8 @@ function curl_json_request($json)
     //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 	
     // Use Proxyserver for curl if configured
-    if (CURL_USEPROXY == true && !empty(CURL_PROXYSERVER)) {
-    	curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+    if ($config->CURL_USEPROXY && !empty($config->CURL_PROXYSERVER)) {
+    	curl_setopt($curl, CURLOPT_PROXY, $config->CURL_PROXYSERVER);
     }
 
     // Write to log.
@@ -782,6 +777,7 @@ function curl_json_request($json)
  */
 function curl_json_multi_request($json)
 {
+    global $config;
     // Set URL.
     $URL = 'https://api.telegram.org/bot' . API_KEY . '/';
 
@@ -811,12 +807,12 @@ function curl_json_multi_request($json)
         curl_setopt($curly[$id], CURLOPT_TIMEOUT, 10);
     
         // Use Proxyserver for curl if configured.
-        if(defined('CURL_USEPROXY') && defined('CURL_PROXYSERVER') && CURL_USEPROXY == true) {
-            curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+        if($config->CURL_USEPROXY && !empty($config->CURL_PROXYSERVER)) {
+            curl_setopt($curl, CURLOPT_PROXY, $config->CURL_PROXYSERVER);
         }
 
         // Bridge mode?
-        if(defined('BRIDGE_MODE') && BRIDGE_MODE == true) {
+        if($config->BRIDGE_MODE) {
             // Add bot folder name to callback data
             debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
             $search = '"callback_data":"';

@@ -7,10 +7,9 @@
  */
 function get_address($lat, $lon)
 {
+    global $config;
     // Maps lookup?
-    defined('MAPS_LOOKUP') or define('MAPS_LOOKUP', false);
-    defined('MAPS_API_KEY') or define('MAPS_API_KEY', '');
-    if(MAPS_LOOKUP == true && !empty(MAPS_API_KEY)) {
+    if($config->MAPS_LOOKUP && !empty($config->MAPS_API_KEY)) {
         // Init defaults.
         $location = [];
         $location['street'] = '';
@@ -19,8 +18,8 @@ function get_address($lat, $lon)
         $location['district'] = '';
 
         // Set maps geocode url.
-        $language = strtolower(LANGUAGE_PUBLIC);
-        $MapsApiKey = MAPS_API_KEY;
+        $language = strtolower($config->LANGUAGE_PUBLIC);
+        $MapsApiKey = $config->MAPS_API_KEY;
         $url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lon . '&language=' . $language;
         $url .= '&key=' . $MapsApiKey;
 
@@ -30,11 +29,9 @@ function get_address($lat, $lon)
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         // Proxy server?
-        defined('CURL_USEPROXY') or define('CURL_USEPROXY', false);
-        defined('CURL_PROXYSERVER') or define('CURL_PROXYSERVER', '');
         // Use Proxyserver for curl if configured
-        if (CURL_USEPROXY == true) {
-            curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+        if ($config->CURL_USEPROXY) {
+            curl_setopt($curl, CURLOPT_PROXY, $config->CURL_PROXYSERVER);
         }
 
         // Curl response.

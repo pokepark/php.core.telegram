@@ -18,11 +18,14 @@ function my_insert_id()
 function my_query($query, $cleanup_query = false)
 {
     global $db;
+    global $config;
 
-    if ($cleanup_query == true) {
-        debug_log($query, '?', true);
-    } else {
-        debug_log($query, '?');
+    if($config->DEBUG_QUERIES) {
+        if ($cleanup_query == true) {
+            debug_log($query, '?', true);
+        } else {
+            debug_log($query, '?');
+        }
     }
 
     $res = $db->query($query);
@@ -45,11 +48,12 @@ function my_query($query, $cleanup_query = false)
  */
 function debug_log($val, $type = '*', $cleanup_log = false)
 {
-    // Make sure DEBUG is defined - otherwise define with a default of false.
-    defined('DEBUG') or define('DEBUG', false);
-
+    global $config;
     // Write to log only if debug is enabled.
-    if (DEBUG === true && defined('DEBUG_LOGFILE') && defined('CLEANUP_LOGFILE')) {
+    if ($config->DEBUG === true){
+        if(!$config->DEBUG_LOGFILE || !$config->CLEANUP_LOGFILE) {
+          error_log('DEBUG set but DEBUG_LOGFILE or CLEANUP_LOGFILE is not!');
+        }
 
         $date = @date('Y-m-d H:i:s');
         $usec = microtime(true);
@@ -68,9 +72,9 @@ function debug_log($val, $type = '*', $cleanup_log = false)
         $rows = explode("\n", $val);
         foreach ($rows as $v) {
             if ($cleanup_log == true) {
-                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, CLEANUP_LOGFILE);
+                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, $config->CLEANUP_LOGFILE);
             } else {
-                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, DEBUG_LOGFILE);
+                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, $config->DEBUG_LOGFILE);
             }
         }
     }

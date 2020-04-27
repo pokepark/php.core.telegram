@@ -3,7 +3,7 @@
 debug_log('API Key Check');
 
 // Set error reporting in debug mode.
-if ('DEBUG' === true) {
+if ($config->DEBUG === true) {
     error_reporting(E_ALL ^ E_NOTICE);
 }
 
@@ -21,8 +21,7 @@ if(isset($_GET['apikey'])) {
 }
 
 // Check if hashed api key is matching config.
-defined('APIKEY_HASH') or define('APIKEY_HASH', '');
-if (hash('sha512', $apiKey) == strtolower(APIKEY_HASH)) {
+if (hash('sha512', $apiKey) == strtolower($config->APIKEY_HASH)) {
     // Split the api key.
     $splitKey = explode(':', $apiKey);
 
@@ -31,12 +30,12 @@ if (hash('sha512', $apiKey) == strtolower(APIKEY_HASH)) {
 
 // Api key is wrong!
 } else {
-    if(defined('MAINTAINER_ID') && !empty(MAINTAINER_ID)) {
+    if(!empty($config->MAINTAINER_ID)) {
         // Echo data.
-        sendMessageEcho(MAINTAINER_ID, 'ERROR! WRONG APIKEY!' . CR . 'Server: ' . $_SERVER['SERVER_ADDR'] . CR . 'User: ' . $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . CR . 'APIKEY: ' . $apiKey);
+        sendMessageEcho($config->MAINTAINER_ID, 'ERROR! WRONG APIKEY!' . CR . 'Server: ' . $_SERVER['SERVER_ADDR'] . CR . 'User: ' . $_SERVER['REMOTE_ADDR'] . ' ' . isset($_SERVER['HTTP_X_FORWARDED_FOR']) . CR . 'APIKEY: ' . $apiKey);
     } else {
         // Write to standard error log.
-        error_log('ERROR! The constant MAINTAINER_ID is not defined!');
+        error_log('ERROR! The config option MAINTAINER_ID is not defined!');
     }
     // And exit script.
     exit();
