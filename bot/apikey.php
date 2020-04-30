@@ -16,6 +16,9 @@ $start = microtime(true);
 // Get api key from get parameters.
 if(isset($_GET['apikey'])) {
     $apiKey = $_GET['apikey'];
+// Get api key from argv.
+} elseif(!empty($argv[1])) {
+    $apiKey = $argv[1];
 } else {
     $apiKey = 'MISSING!';
 }
@@ -46,8 +49,13 @@ if (!(isset($update))) {
     // Get content from POST data.
     $content = file_get_contents('php://input');
 
-    // Decode the json string.
-    $update = json_decode($content, true);
+    if($content) {
+        // Decode the json string.
+        $update = json_decode($content, true);
+    } elseif(!empty($argv[2])) {
+        $arg_content = addslashes($argv[2]);
+        $update = json_decode($argv[2], true);
+    }
 } else {
     debug_log('Already got content from POST data', '!');
 }

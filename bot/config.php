@@ -17,12 +17,6 @@ function check_json_array($json, $file) {
     error_log('Reading config failed(' . $file . '), faulty config array: ' . gettype($json));
   }
 }
-// Check file permissions.
-function check_secure($path) {
-  if((fileperms($path) & 0777) !== 0600) {
-    error_log('Insecure file permissions: ' . $path . ' (0' . decoct(fileperms($path) & 0777) . ') - recommended file permissions: 0600');
-  }
-}
 
 function migrate_config($config){
   foreach($config as $key => $val) {
@@ -56,8 +50,6 @@ function build_config() {
 
     // If we have a custom config, use it to override items
     if(is_file($cfile)) {
-      // custom configs contain sensitive info, warn if they're not safe, but still proceed
-      check_secure($cfile);
       $custom_config = json_decode(file_get_contents($cfile), true);
         if(check_json_array($custom_config, $cfile)) {
           // Merge any custom values in, overriding defaults
