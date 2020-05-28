@@ -20,7 +20,7 @@ function my_query($query, $cleanup_query = false)
     global $db;
     global $config;
 
-    if($config->DEBUG_QUERIES) {
+    if($config->DEBUG_SQL) {
         if ($cleanup_query == true) {
             debug_log($query, '?', true);
         } else {
