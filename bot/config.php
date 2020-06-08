@@ -4,18 +4,23 @@
  * Set bot config.
  */
 
-// Make sure JSON is valid.
-function check_json_array($json, $file) {
-  if(is_array($json)) {
-    if(json_last_error() === JSON_ERROR_NONE) {
-      return True;
-    } else {
-      error_log('Invalid JSON (' . json_last_error()  . '): ' . $file);
-      return False;
-    }
-  } else {
-    error_log('Reading config failed(' . $file . '), faulty config array: ' . gettype($json));
+// Import json, make sure it's valid, die if not.
+function get_config_array($file) {
+  $file_contents = file_get_contents($file);
+
+  if(! is_string($file_contents)){
+    error_log('Unable to read config file, check permissions: ' . $file);
+    die('Config file not readable, cannot continue: ' . $file);
   }
+  
+  $config_array = json_decode($file_contents, true);
+
+  if(json_last_error() !== JSON_ERROR_NONE) {
+    error_log('Invalid JSON (' . json_last_error_msg()  . '): ' . $file);
+    die('Config file not valid JSON, cannot continue: ' . $file);
+  }
+
+  return $config_array;
 }
 
 function migrate_config($config){
@@ -38,23 +43,19 @@ function build_config() {
   // Collection point for individual configfile arrays, will eventually be converted to a json object
   $config = Array();
 
+  // Iterate over subconfigs getting defaults and merging in custom overrides
   foreach ($default_configs as $index => $filename) {
     $dfile = CONFIG_PATH . '/' . $filename; // config defaults, e.g. defaults-config.json
     $cfile = CONFIG_PATH . '/' . str_replace('defaults-', '', $filename); // custom config overrides e.g. config.json
 
     // Get default config as an array so we can do an array merge later
-    $config_array = json_decode(file_get_contents($dfile), true);
-    if(!check_json_array($config_array, $dfile)) {
-      die('Default config not valid JSON, cannot continue: ' . $dfile);
-    }
+    $config_array = get_config_array($dfile);
 
     // If we have a custom config, use it to override items
     if(is_file($cfile)) {
-      $custom_config = json_decode(file_get_contents($cfile), true);
-        if(check_json_array($custom_config, $cfile)) {
-          // Merge any custom values in, overriding defaults
-          $config_array = array_merge($config_array, $custom_config);
-        }
+      $custom_config = get_config_array($cfile);
+      // merge any custom config overrides into the subconfig
+      $config_array = array_merge($config_array, $custom_config);
     }
 
     // Merge the sub-configfile into the main config
