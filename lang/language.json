@@ -9,7 +9,7 @@
     "NO": "Mandag",
     "FR": "Lundi",
     "PL": "Poniedziałek",
-    "FI": "TRANSLATE"
+    "FI": "Maanantai"
   },
   "weekday_2": {
     "NL": "Dinsdag",
@@ -21,7 +21,7 @@
     "NO": "Tirsdag",
     "FR": "Mardi",
     "PL": "Wtorek",
-    "FI": "TRANSLATE"
+    "FI": "Tiistai"
   },
   "weekday_3": {
     "NL": "Woensdag",
@@ -33,7 +33,7 @@
     "NO": "Onsdag",
     "FR": "Mercredi",
     "PL": "Środa",
-    "FI": "TRANSLATE"
+    "FI": "Keskiviikko"
   },
   "weekday_4": {
     "NL": "Donderdag",
@@ -45,7 +45,7 @@
     "NO": "Torsdag",
     "FR": "Jeudi",
     "PL": "Czwartek",
-    "FI": "TRANSLATE"
+    "FI": "Torstai"
   },
   "weekday_5": {
     "NL": "Vrijdag",
@@ -57,7 +57,7 @@
     "NO": "Fredag",
     "FR": "Vendredi",
     "PL": "Piątek",
-    "FI": "TRANSLATE"
+    "FI": "Perjantai"
   },
   "weekday_6": {
     "NL": "Zaterdag",
@@ -69,7 +69,7 @@
     "NO": "Lørdag",
     "FR": "Samedi",
     "PL": "Sobota",
-    "FI": "TRANSLATE"
+    "FI": "Lauantai"
   },
   "weekday_7": {
     "NL": "Zondag",
@@ -81,7 +81,7 @@
     "NO": "Søndag",
     "FR": "Dimanche",
     "PL": "Niedziela",
-    "FI": "TRANSLATE"
+    "FI": "Sunnuntai"
   },
   "month_01": {
     "NL": "Januari",
@@ -93,7 +93,7 @@
     "NO": "Januar",
     "FR": "Janvier",
     "PL": "Styczeń",
-    "FI": "TRANSLATE"
+    "FI": "Tammikuu"
   },
   "month_02": {
     "NL": "Februari",
@@ -105,7 +105,7 @@
     "NO": "Februar",
     "FR": "Février",
     "PL": "Luty",
-    "FI": "TRANSLATE"
+    "FI": "Helmikuu"
   },
   "month_03": {
     "NL": "Maart",
@@ -117,7 +117,7 @@
     "NO": "Mars",
     "FR": "Mars",
     "PL": "Marzec",
-    "FI": "TRANSLATE"
+    "FI": "Maaliskuu"
   },
   "month_04": {
     "NL": "April",
@@ -129,7 +129,7 @@
     "NO": "April",
     "FR": "Avril",
     "PL": "Kwiecień",
-    "FI": "TRANSLATE"
+    "FI": "Huhtikuu"
   },
   "month_05": {
     "NL": "Mei",
@@ -141,7 +141,7 @@
     "NO": "Mai",
     "FR": "Mai",
     "PL": "Maj",
-    "FI": "TRANSLATE"
+    "FI": "Toukokuu"
   },
   "month_06": {
     "NL": "Juni",
@@ -153,7 +153,7 @@
     "NO": "Juni",
     "FR": "Juin",
     "PL": "Czerwiec",
-    "FI": "TRANSLATE"
+    "FI": "Kesäkuu"
   },
   "month_07": {
     "NL": "Juli",
@@ -165,7 +165,7 @@
     "NO": "Juli",
     "FR": "Juillet",
     "PL": "Lipiec",
-    "FI": "TRANSLATE"
+    "FI": "Heinäkuu"
   },
   "month_08": {
     "NL": "Augustus",
@@ -177,7 +177,7 @@
     "NO": "August",
     "FR": "Août",
     "PL": "Sierpień",
-    "FI": "TRANSLATE"
+    "FI": "Elokuu"
   },
   "month_09": {
     "NL": "September",
@@ -189,7 +189,7 @@
     "NO": "September",
     "FR": "Septembre",
     "PL": "Wrzesień",
-    "FI": "TRANSLATE"
+    "FI": "Syyskuu"
   },
   "month_10": {
     "NL": "Oktober",
@@ -201,7 +201,7 @@
     "NO": "Oktober",
     "FR": "Octobre",
     "PL": "Październik",
-    "FI": "TRANSLATE"
+    "FI": "Lokakuu"
   },
   "month_11": {
     "NL": "November",
@@ -213,7 +213,7 @@
     "NO": "November",
     "FR": "Novembre",
     "PL": "Listopad",
-    "FI": "TRANSLATE"
+    "FI": "Marraskuu"
   },
   "month_12": {
     "NL": "December",
@@ -225,7 +225,7 @@
     "NO": "Desember",
     "FR": "Décembre",
     "PL": "Grudzień",
-    "FI": "TRANSLATE"
+    "FI": "Joulukuu"
   },
   "bot_access_denied": {
     "NL": "Je hebt geen toegang tot deze functie of bot!",
@@ -237,7 +237,7 @@
     "NO": "Du har ikke tillatelse til å bruke denne kommandoen eller boten!",
     "FR": "Tu n'es pas autorisé à utiliser cette commande !",
     "PL": "Nie masz uprawnień do korzystania z tej komendy lub bota!",
-    "FI": "TRANSLATE"
+    "FI": "Sinulla ei ole oikeutta tähän komentoon tai bottiin!"
   },
   "forest": {
     "NL": "Ergens in het bos",
@@ -249,7 +249,7 @@
     "NO": "Ett sted i skogen",
     "FR": "Quelque part dans la forêt",
     "PL": "Gdzieś w lesie",
-    "FI": "TRANSLATE"
+    "FI": "Jossain metsässä"
   },
   "pokemon": {
     "NL": "Pokemon",
@@ -261,7 +261,7 @@
     "NO": "Pokemon",
     "FR": "Pokemon",
     "PL": "Pokemon",
-    "FI": "TRANSLATE"
+    "FI": "Pokemon"
   },
   "pokemon_types": {
     "NL": "Pokemon Types",
@@ -273,7 +273,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Pokemon Tyypit"
   },
   "yes": {
     "NL": "Ja",
@@ -285,7 +285,7 @@
     "NO": "Ja",
     "FR": "Oui",
     "PL": "Tak",
-    "FI": "TRANSLATE"
+    "FI": "Kyllä"
   },
   "no": {
     "NL": "Nee",
@@ -297,7 +297,7 @@
     "NO": "Nei",
     "FR": "Non",
     "PL": "Nie",
-    "FI": "TRANSLATE"
+    "FI": "Ei"
   },
   "or": {
     "NL": "of",
@@ -309,7 +309,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "tai"
   },
   "not_supported": {
     "NL": "Niet ondersteund",
@@ -321,7 +321,7 @@
     "NO": "Ikke støttet",
     "FR": "Non compatible",
     "PL": "Nieobsługiwane",
-    "FI": "TRANSLATE"
+    "FI": "Ei tuettu"
   },
   "abort": {
     "NL": "Afbreken",
@@ -333,7 +333,7 @@
     "NO": "Avbryt",
     "FR": "Abandonner",
     "PL": "Anuluj",
-    "FI": "TRANSLATE"
+    "FI": "Peruuta"
   },
   "action_aborted": {
     "NL": "Het proces is afgebroken!",
@@ -345,7 +345,7 @@
     "NO": "Handlingen ble avbrutt!",
     "FR": "Le processus à échoué !",
     "PL": "Zadanie zostało anulowane",
-    "FI": "TRANSLATE"
+    "FI": "Prosessi peruutettiin!"
   },
   "select_action": {
     "NL": "Selecteer actie:",
@@ -357,7 +357,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Valitse toiminto:"
   },
   "back": {
     "NL": "Terug",
@@ -369,7 +369,7 @@
     "NO": "Tilbake",
     "FR": "Retour",
     "PL": "Wstecz",
-    "FI": "TRANSLATE"
+    "FI": "Takaisin"
   },
   "next": {
     "NL": "Volgende",
@@ -381,7 +381,7 @@
     "NO": "Neste",
     "FR": "Suivant",
     "PL": "Dalej",
-    "FI": "TRANSLATE"
+    "FI": "Seuraava"
   },
   "done": {
     "NL": "Klaar",
@@ -393,7 +393,7 @@
     "NO": "Ferdig",
     "FR": "Terminé",
     "PL": "Zrobione",
-    "FI": "TRANSLATE"
+    "FI": "Valmis"
   },
   "add": {
     "NL": "Toevoegen",
@@ -405,7 +405,7 @@
     "NO": "Legg til",
     "FR": "Ajouter",
     "PL": "Dodaj",
-    "FI": "TRANSLATE"
+    "FI": "Lisää"
   },
   "delete": {
     "NL": "Verwijder",
@@ -417,7 +417,7 @@
     "NO": "Slett",
     "FR": "Supprimer",
     "PL": "Usuń",
-    "FI": "TRANSLATE"
+    "FI": "Poista"
   },
   "edit": {
     "NL": "Bewerken",
@@ -429,7 +429,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Muokkaa"
   },
   "list": {
     "NL": "Lijst",
@@ -441,7 +441,7 @@
     "NO": "List",
     "FR": "Liste",
     "PL": "Pokaż",
-    "FI": "TRANSLATE"
+    "FI": "Listaa"
   },
   "reset": {
     "NL": "Reset",
@@ -453,7 +453,7 @@
     "NO": "Reset",
     "FR": "Remise à zéro",
     "PL": "Resetuj",
-    "FI": "TRANSLATE"
+    "FI": "Resetoi"
   },
   "created_by": {
     "NL": "Aangemaakt door",
@@ -465,7 +465,7 @@
     "NO": "Postet av",
     "FR": "Créé par",
     "PL": "Stworzone przez",
-    "FI": "TRANSLATE"
+    "FI": "Luonut"
   },
   "updated": {
     "NL": "Bijgewerkt",
@@ -477,7 +477,7 @@
     "NO": "Oppdatert",
     "FR": "Mis à jour",
     "PL": "Zaktualizowano",
-    "FI": "TRANSLATE"
+    "FI": "Päivitetty"
   },
   "share": {
     "NL": "Delen",
@@ -489,7 +489,7 @@
     "NO": "Del",
     "FR": "Partager",
     "PL": "Udostępnij",
-    "FI": "TRANSLATE"
+    "FI": "Jaa"
   },
   "share_with": {
     "NL": "Delen met",
@@ -501,7 +501,7 @@
     "NO": "Del med",
     "FR": "Partager avec",
     "PL": "Przekaż dalej",
-    "FI": "TRANSLATE"
+    "FI": "Jaa ryhmään"
   },
   "successfully_shared": {
     "NL": "Succesvol gedeeld!",
@@ -513,7 +513,7 @@
     "NO": "Deling velykket!",
     "FR": "Partagé avec succès !",
     "PL": "Pomyślnie udostępniono",
-    "FI": "TRANSLATE"
+    "FI": "Jaettu onnistuneesti!"
   },
   "config": {
     "NL": "Configuratie",
@@ -525,7 +525,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Asetukset"
   },
   "config_updated": {
     "NL": "Configuratie ge-update",
@@ -537,7 +537,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Asetukset päivitetty"
   },
   "resetted": {
     "NL": "Gereset",
@@ -549,7 +549,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Resetoitu"
   },
   "option_value": {
     "NL": "Configuratie optie waarde",
@@ -561,7 +561,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Asetuksen arvo"
   },
   "no_value": {
     "NL": "Geen waarde",
@@ -573,7 +573,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Ei arvoa"
   },
   "new_value": {
     "NL": "Nieuwe waarde:",
@@ -585,7 +585,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Uusi arvo:"
   },
   "old_value": {
     "NL": "Oude waarde:",
@@ -597,7 +597,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Vanha arvo:"
   },
   "personal_help": {
     "NL": "Alle commando's voor de bot:",
@@ -609,7 +609,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Henkilökohtainen bottiapu:"
   },
   "invalid_input": {
     "NL": "Ongeldige input!",
@@ -621,7 +621,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Epäkelpo arvo!"
   },
   "internal_error": {
     "NL": "Internal error!",
@@ -633,7 +633,7 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Sisäinen virhe!"
   },
   "expand": {
     "NL": "Uitklappen",
@@ -645,7 +645,7 @@
     "NO": "Flere valg",
     "FR": "Agrandir",
     "PL": "Rozwiń",
-    "FI": "TRANSLATE"
+    "FI": "Laajenna"
   },
   "none": {
     "NL": "Geen",
@@ -669,6 +669,6 @@
     "NO": "TRANSLATE",
     "FR": "TRANSLATE",
     "PL": "TRANSLATE",
-    "FI": "TRANSLATE"
+    "FI": "Muu"
   }
 }
