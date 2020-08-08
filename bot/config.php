@@ -23,6 +23,14 @@ function get_config_array($file) {
   return $config_array;
 }
 
+// Write given array values into the given config file
+function write_config_array($options, $file) {
+  $config = get_config_array($file);
+  $config = array_merge($config, $options);
+  $json = json_encode($config, JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES);
+  return file_put_contents($file, $json) !== false;
+}
+
 function migrate_config($config){
   foreach($config as $key => $val) {
     // Make "True" and "False" real true and false
@@ -54,6 +62,12 @@ function build_config() {
     // If we have a custom config, use it to override items
     if(is_file($cfile)) {
       $custom_config = get_config_array($cfile);
+      // perform config migrations
+      $custom_config = migrate_config($custom_config);
+      // write back out the migrated values
+      if (!write_config_array($custom_config, $cfile)){
+        error_log('Config not writable: ' . $cfile);
+      }
       // merge any custom config overrides into the subconfig
       $config_array = array_merge($config_array, $custom_config);
     }
@@ -61,10 +75,6 @@ function build_config() {
     // Merge the sub-configfile into the main config
     $config = array_merge($config, $config_array);
   }
-
-  // perform config migrations
-  //TODO(artanicus): The migrated config should perhaps be saved back to disk instead of this catchall compat-mode
-  $config = migrate_config($config);
 
   // Return the whole multi-source config as an Object
   return (Object)$config;
