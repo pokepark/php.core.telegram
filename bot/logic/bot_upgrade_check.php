@@ -1,12 +1,25 @@
 <?php
 /**
+ * Replace current config version string
+ * @param $version
+ * @return bool
+*/
+function upgrade_config_version($version)
+{
+  debug_log('Bumping config.json VERSION to: ' . $version);
+  return write_config_array(array("VERSION" => $version), CONFIG_PATH . '/config.json');
+}
+
+/**
  * Bot upgrade check
  * @param $current
  * @param $latest
+ * @param $dbh
  * @return bool
 */
-function bot_upgrade_check($current, $latest)
+function bot_upgrade_check($current, $latest, $dbh)
 {
+  global $config;
     // Get upgrade sql files.
     $upgrade_files = array();
     $upgrade_files = str_replace(UPGRADE_PATH . '/','', glob(UPGRADE_PATH . '/*.sql'));
@@ -33,9 +46,17 @@ function bot_upgrade_check($current, $latest)
                 if($nodot_ufile <= $nodot_current) {
                     continue;
                 } else {
-                    // Set upgrade required to true and log every sql file required for upgrade.
-                    $require_upgrade = true;
-                    debug_log('REQUIRED SQL UPGRADE FILE FOUND:' . UPGRADE_PATH . '/' . $ufile, '!');
+                  if ($config->UPGRADE_SQL_AUTO){
+                    debug_log('PERFORMING AUTO SQL UPGRADE:' . UPGRADE_PATH . '/' . $ufile, '!');
+                    require_once('sql_utils.php');
+                    if (run_sql_file(UPGRADE_PATH . '/' . $ufile)) {
+                      upgrade_config_version(basename($ufile, '.sql'));
+                    }
+                    else {
+                      $require_upgrade = true;
+                      debug_log('REQUIRED SQL UPGRADE FILE FOUND:' . UPGRADE_PATH . '/' . $ufile, '!');
+                    }
+                  }
                 }
             }
             // Upgrade required.

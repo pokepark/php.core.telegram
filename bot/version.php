@@ -63,7 +63,8 @@ if($nodot_current == $nodot_latest) {
         debug_log('Your bot version: ' . $current);
         debug_log('Latest bot version: ' . $latest);
         debug_log('Performing bot upgrade check now...');
-        $upgrade = bot_upgrade_check($current, $latest);
+        require_once('db.php');
+        $upgrade = bot_upgrade_check($current, $latest, $dbh);
 
         // Upgrade needed?
         if(!$upgrade) {
