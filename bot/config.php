@@ -31,13 +31,23 @@ function write_config_array($options, $file) {
   return file_put_contents($file, $json) !== false;
 }
 
-function migrate_config($config){
+function migrate_config($config, $file){
+  $had_to_fix = false;
   foreach($config as $key => $val) {
     // Make "True" and "False" real true and false
-    if($val == "true") {
+    if(strtolower($val) == "true") {
+      $had_to_fix = true;
       $config[$key] = true;
-    } else if($val == "false") {
+    } else if(strtolower($val) == "false") {
+      $had_to_fix = true;
       $config[$key] = false;
+    }
+  }
+  // write back out the migrated values
+  if ($had_to_fix) {
+    error_log('Config migration found items to fix. Attempting to also fix the source config file ' . $file);
+    if(!write_config_array($config, $file)){
+      error_log('Config not writable: ' . $cfile);
     }
   }
   return $config;
@@ -63,11 +73,7 @@ function build_config() {
     if(is_file($cfile)) {
       $custom_config = get_config_array($cfile);
       // perform config migrations
-      $custom_config = migrate_config($custom_config);
-      // write back out the migrated values
-      if (!write_config_array($custom_config, $cfile)){
-        error_log('Config not writable: ' . $cfile);
-      }
+      $custom_config = migrate_config($custom_config, $cfile);
       // merge any custom config overrides into the subconfig
       $config_array = array_merge($config_array, $custom_config);
     }
