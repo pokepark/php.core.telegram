@@ -11,13 +11,14 @@ function my_insert_id()
 }
 
 /**
- * Get db query.
+ * Naive DB query without proper param handling.
+ * You should prefer doing your own prepare, bindParam & execute!
  * @param $query
- * @return bool|mysqli_result
+ * @return PDOStatement
  */
 function my_query($query, $cleanup_query = false)
 {
-    global $db;
+    global $dbh;
     global $config;
 
     if($config->DEBUG_SQL) {
@@ -27,18 +28,22 @@ function my_query($query, $cleanup_query = false)
             debug_log($query, '?');
         }
     }
-
-    $res = $db->query($query);
-
-    if ($db->error) {
+    $stmt = $dbh->prepare($query);
+    if ($stmt && $stmt->execute()) {
         if ($cleanup_query == true) {
-            debug_log($db->error, '!', true);
+            debug_log('Query success', '$', true);
         } else {
-            debug_log($db->error, '!');
+            debug_log('Query success', '$');
+        }
+    } else {
+        if ($cleanup_query == true) {
+            debug_log($dbh->errorInfo(), '!', true);
+        } else {
+            debug_log($dbh->errorInfo(), '!');
         }
     }
 
-    return $res;
+    return $stmt;
 }
 
 /**

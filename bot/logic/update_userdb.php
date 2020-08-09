@@ -47,7 +47,7 @@ function update_userdb($update)
     }
 
     // Create or update the user.
-    $request = my_query(
+    $res = my_query(
         "
         INSERT INTO users
         SET         user_id = {$id},
@@ -59,7 +59,7 @@ function update_userdb($update)
         "
     );
 
-    return $request;
+    return 'Updated user ' . $nick;
 }
 
 
