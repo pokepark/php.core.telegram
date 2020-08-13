@@ -1,16 +1,5 @@
 <?php
 /**
- * Get last insert id from db.
- * @return mixed
- */
-function my_insert_id()
-{
-    global $db;
-
-    return $db->insert_id;
-}
-
-/**
  * Naive DB query without proper param handling.
  * You should prefer doing your own prepare, bindParam & execute!
  * @param $query
