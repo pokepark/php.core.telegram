@@ -6,7 +6,7 @@
  */
 function update_userdb($update)
 {
-    global $db;
+    global $dbh;
 
     $name = '';
     $nick = '';
@@ -47,20 +47,22 @@ function update_userdb($update)
     }
 
     // Create or update the user.
-    $res = my_query(
+    $stmt = $dbh->prepare(
         "
         INSERT INTO users
-        SET         user_id = {$id},
-                    nick    = '{$db->real_escape_string($nick)}',
-                    name    = '{$db->real_escape_string($name)}'
+        SET         user_id = :id,
+                    nick    = :nick,
+                    name    = :name
         ON DUPLICATE KEY
-        UPDATE      nick    = '{$db->real_escape_string($nick)}',
-                    name    = '{$db->real_escape_string($name)}'
+        UPDATE      nick    = :nick,
+                    name    = :name
         "
     );
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':nick', $nick);
+    $stmt->bindParam(':name', $name);
+    $stmt->execute();
 
     return 'Updated user ' . $nick;
 }
-
-
 ?>
