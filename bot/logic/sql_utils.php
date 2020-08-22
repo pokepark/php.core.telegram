@@ -16,8 +16,6 @@ function run_sql_file($file) {
     $statement->execute();
   }
   catch (PDOException $exception) {
-  }
-  catch (PDOException $exception) {
     debug_log('DB upgrade failed: ' . $exception->getMessage());
     error_log($exception->getMessage());
     $dbh = null;
