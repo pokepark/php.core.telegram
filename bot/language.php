@@ -19,18 +19,19 @@ function getPublicTranslation($text)
  * @param $override_language
  * @return translation
  */
-function getTranslation($text, $override = false, $override_language = USERLANGUAGE)
+function getTranslation($text, $override = false, $override_language = '')
 {
     debug_log($text,'T:');
     $translation = '';
     $text = trim($text);
 
-    // Set language
-    $language = USERLANGUAGE;
-
+    $language = '';
     // Override language?
     if($override == true && $override_language != '') {
         $language = $override_language;
+    } else {
+        require_once('userlanguage.php');
+        $language = USERLANGUAGE;
     }
 
     // Pokemon name?
