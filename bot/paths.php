@@ -21,6 +21,7 @@ define('CORE_CLASS_PATH', CORE_PATH . '/class');
 
 // Bot Paths
 define('CONFIG_PATH', ROOT_PATH . '/config');
+define('LOGIC_PATH', ROOT_PATH . '/logic');
 define('BOT_LANG_PATH', ROOT_PATH . '/lang');
 define('FONTS_PATH', ROOT_PATH . '/fonts');
 define('IMAGES_PATH', ROOT_PATH . '/images');
