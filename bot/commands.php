@@ -49,3 +49,44 @@ if (substr($update['message']['text'], 0, 1) == '/') {
         sendMessage($update['message']['chat']['id'], '<b>' . getTranslation('not_supported') . '</b>');
     }
 }
+else if($update['message']['chat']['type'] == 'private')
+{
+    $userid = $update['message']['from']['id'];
+	$rs = my_query(
+        "
+        SELECT user_id 
+        FROM users 
+        WHERE user_id = {$userid} 
+        AND setname_time > NOW()
+        "
+    );
+	$answer = $rs->fetch();
+	if($answer['user_id'] == $userid)
+	{
+		$returnValue = preg_match('/^[A-Za-z0-9]{0,15}$/', $update['message']['text']);
+		if($returnValue)
+		{
+			sendMessage($userid, getTranslation('trainername_success').' <b>'.$update['message']['text'].'</b>');
+			$trainername = $update['message']['text'];
+			my_query(
+                "
+                UPDATE users 
+                SET setname_time =  NULL, 
+                    trainername =   '{$trainername}'
+                WHERE user_id =     {$userid}
+                "
+            );
+		}
+		else
+		{
+			sendMessage($userid, getTranslation('trainername_fail'));
+			my_query(
+                "
+                UPDATE users 
+                SET setname_time =  DATE_ADD(NOW(), INTERVAL 1 HOUR) 
+                WHERE user_id =     {$userid}
+                "
+            );
+		}
+	}
+}
