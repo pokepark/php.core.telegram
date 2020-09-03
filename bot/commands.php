@@ -57,7 +57,7 @@ else if($update['message']['chat']['type'] == 'private')
         SELECT user_id 
         FROM users 
         WHERE user_id = {$userid} 
-        AND setname_time > NOW()
+        AND trainername_time > NOW()
         "
     );
 	$answer = $rs->fetch();
@@ -71,7 +71,7 @@ else if($update['message']['chat']['type'] == 'private')
 			my_query(
                 "
                 UPDATE users 
-                SET setname_time =  NULL, 
+                SET trainername_time =  NULL, 
                     trainername =   '{$trainername}'
                 WHERE user_id =     {$userid}
                 "
@@ -83,7 +83,7 @@ else if($update['message']['chat']['type'] == 'private')
 			my_query(
                 "
                 UPDATE users 
-                SET setname_time =  DATE_ADD(NOW(), INTERVAL 1 HOUR) 
+                SET trainername_time =  DATE_ADD(NOW(), INTERVAL 1 HOUR) 
                 WHERE user_id =     {$userid}
                 "
             );
