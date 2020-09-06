@@ -50,52 +50,7 @@ if (substr($update['message']['text'], 0, 1) == '/') {
     }
 }
 // IF a Message type is private and there is no leading '/'
-else if($update['message']['chat']['type'] == 'private')
-{  // Get Message from User sent to Bot
-
-  // get UserID from Message
-    $userid = $update['message']['from']['id'];
-    // Check if User requested a UserName Update via /trainer -> Name
-	$rs = my_query(
-        "
-        SELECT user_id
-        FROM users
-        WHERE user_id = {$userid}
-        AND trainername_time > NOW()
-        "
-    );
-	$answer = $rs->fetch();
-	if($answer['user_id'] == $userid) // Check if Answer is for the right User
-	{
-		$returnValue = preg_match('/^[A-Za-z0-9]{0,15}$/', $update['message']['text']);
-    // Only numbers and alphabetic character allowed
-		if($returnValue)
-		{
-      $trainername = $update['message']['text'];
-      // confirm Name-Change
-			sendMessage($userid, getTranslation('trainername_success').' <b>'.$trainername.'</b>');
-      // Store new Gamer-Name to DB
-			my_query(
-                "
-                UPDATE users
-                SET trainername_time =  NULL,
-                    trainername =   '{$trainername}'
-                WHERE user_id =     {$userid}
-                "
-            );
-		}
-		else
-		{
-      // Trainer Name got unallowed Chars -> Error-Message
-			sendMessage($userid, getTranslation('trainername_fail'));
-      // Set trainername_time to 'still waiting for Name-Change'
-			my_query(
-                "
-                UPDATE users
-                SET trainername_time =  DATE_ADD(NOW(), INTERVAL 1 HOUR)
-                WHERE user_id =     {$userid}
-                "
-            );
-		}
-	}
+else if($update['message']['chat']['type'] == 'private'){  
+    // Get Message from User sent to Bot and check what to do
+    evaluate_priv_message($update);
 }
