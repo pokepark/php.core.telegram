@@ -55,7 +55,7 @@ else if($update['message']['chat']['type'] == 'private')
 
   // get UserID from Message
     $userid = $update['message']['from']['id'];
-    // Check if User requested a UserName Update via /team -> Name
+    // Check if User requested a UserName Update via /trainer -> Name
 	$rs = my_query(
         "
         SELECT user_id
