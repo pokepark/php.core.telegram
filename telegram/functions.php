@@ -36,11 +36,11 @@ function sendMessage($chat_id, $text = [], $multicurl = false)
  * Send message.
  * @param $chat_id
  * @param array $text
- * @param mixed $inline_keyboard
+ * @param array $reply_markup ['inline_keyboard' => $keys]
  * @param array $merge_args
  * @param $multicurl
  */
-function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = [], $multicurl = false)
+function send_message($chat_id, $text = [], $reply_markup = null, $merge_args = [], $multicurl = false)
 {
     // Create response content array.
     $reply_content = [
@@ -51,11 +51,10 @@ function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_arg
     ];
 
     // Write to log.
-    debug_log('KEYS');
-    debug_log($inline_keyboard);
+    debug_log('Reply Markup: ' . $reply_markup);
 
-    if (isset($inline_keyboard)) {
-        $reply_content['reply_markup'] = ['inline_keyboard' => $inline_keyboard];
+    if ($reply_markup) { // Expected content is for example: [ 'inline_keyboard' => $keys ]
+        $reply_content['reply_markup'] = $reply_markup;
     }
 
     if (is_array($merge_args) && count($merge_args)) {
