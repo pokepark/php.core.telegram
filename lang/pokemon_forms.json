@@ -1,5 +1,5 @@
-{  
-  "pokemon_form_alola":{  
+{
+  "pokemon_form_alola":{
     "NL":"Alolan",
     "DE":"Alola",
     "EN":"Alolan",
@@ -10,7 +10,7 @@
     "FR":"TRANSLATE",
     "PL":"Alolan"
   },
-  "pokemon_form_alolan":{  
+  "pokemon_form_alolan":{
     "NL":"Alolan",
     "DE":"Alola",
     "EN":"Alolan",
@@ -21,7 +21,7 @@
     "FR":"TRANSLATE",
     "PL":"Alolan"
   },
-  "pokemon_form_galarian":{  
+  "pokemon_form_galarian":{
     "NL":"Galarian",
     "DE":"Galar",
     "EN":"Galarian",
@@ -31,6 +31,39 @@
     "NO":"Galarian",
     "FR":"Galarian",
     "PL":"Galarian"
+  },
+  "pokemon_form_mega":{
+    "NL":"TRANSLATE",
+    "DE":"TRANSLATE",
+    "EN":"Mega",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "pokemon_form_mega_x":{
+    "NL":"TRANSLATE",
+    "DE":"TRANSLATE",
+    "EN":"Mega",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
+  },
+  "pokemon_form_mega_y":{
+    "NL":"TRANSLATE",
+    "DE":"TRANSLATE",
+    "EN":"Mega",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"TRANSLATE"
   },
   "pokemon_form_armored":{
     "NL":"Armored",
@@ -42,7 +75,7 @@
     "NO":"Rustning",
     "FR":"Armure"
   },
-  "pokemon_form_attack":{  
+  "pokemon_form_attack":{
     "NL":"Attack",
     "DE":"Angriffsform",
     "EN":"Attack",
@@ -53,7 +86,7 @@
     "FR":"TRANSLATE",
     "PL":"Attack"
   },
-  "pokemon_form_defense":{  
+  "pokemon_form_defense":{
     "NL":"Defense",
     "DE":"Verteidigungsform",
     "EN":"Defense",
@@ -64,7 +97,7 @@
     "FR":"TRANSLATE",
     "PL":"Defense"
   },
-  "pokemon_form_speed":{  
+  "pokemon_form_speed":{
     "NL":"Speed",
     "DE":"Initiativeform",
     "EN":"Speed",
@@ -75,7 +108,7 @@
     "FR":"TRANSLATE",
     "PL":"Speed"
   },
-  "pokemon_form_plant":{  
+  "pokemon_form_plant":{
     "NL":"Plant",
     "DE":"Pflanzenumhang",
     "EN":"Plant",
@@ -86,7 +119,7 @@
     "FR":"TRANSLATE",
     "PL":"Plant"
   },
-  "pokemon_form_sandy":{  
+  "pokemon_form_sandy":{
     "NL":"Sandy",
     "DE":"Sandumhang",
     "EN":"Sandy",
@@ -97,7 +130,7 @@
     "FR":"TRANSLATE",
     "PL":"Sandy"
   },
-  "pokemon_form_trash":{  
+  "pokemon_form_trash":{
     "NL":"Trash",
     "DE":"Lumpenumhang",
     "EN":"Trash",
@@ -108,7 +141,7 @@
     "FR":"TRANSLATE",
     "PL":"Trash"
   },
-  "pokemon_form_overcast":{  
+  "pokemon_form_overcast":{
     "NL":"Overcast",
     "DE":"Wolkenform",
     "EN":"Overcast",
@@ -119,7 +152,7 @@
     "FR":"TRANSLATE",
     "PL":"Overcast"
   },
-  "pokemon_form_sunny":{  
+  "pokemon_form_sunny":{
     "NL":"Sunny",
     "DE":"Sonnenform",
     "EN":"Sunny",
@@ -130,7 +163,7 @@
     "FR":"TRANSLATE",
     "PL":"Sunny"
   },
-  "pokemon_form_east":{  
+  "pokemon_form_east":{
     "NL":"East",
     "DE":"Ostform",
     "EN":"East",
@@ -141,7 +174,7 @@
     "FR":"TRANSLATE",
     "PL":"East"
   },
-  "pokemon_form_west":{  
+  "pokemon_form_west":{
     "NL":"West",
     "DE":"Westform",
     "EN":"West",
@@ -152,7 +185,7 @@
     "FR":"TRANSLATE",
     "PL":"West"
   },
-  "pokemon_form_fan":{  
+  "pokemon_form_fan":{
     "NL":"Fan",
     "DE":"Wirbel-Form",
     "EN":"Fan",
@@ -163,7 +196,7 @@
     "FR":"TRANSLATE",
     "PL":"Fan"
   },
-  "pokemon_form_frost":{  
+  "pokemon_form_frost":{
     "NL":"Frost",
     "DE":"Frost-Form",
     "EN":"Frost",
@@ -174,7 +207,7 @@
     "FR":"TRANSLATE",
     "PL":"Frost"
   },
-  "pokemon_form_heat":{  
+  "pokemon_form_heat":{
     "NL":"Heat",
     "DE":"Hitze-Form",
     "EN":"Heat",
@@ -185,7 +218,7 @@
     "FR":"TRANSLATE",
     "PL":"Heat"
   },
-  "pokemon_form_mow":{  
+  "pokemon_form_mow":{
     "NL":"Mow",
     "DE":"Schneid-Form",
     "EN":"Mow",
@@ -196,7 +229,7 @@
     "FR":"TRANSLATE",
     "PL":"Mow"
   },
-  "pokemon_form_wash":{  
+  "pokemon_form_wash":{
     "NL":"Wash",
     "DE":"Wasch-Form",
     "EN":"Wash",
@@ -207,7 +240,7 @@
     "FR":"TRANSLATE",
     "PL":"Wash"
   },
-  "pokemon_form_altered":{  
+  "pokemon_form_altered":{
     "NL":"Altered",
     "DE":"Wandelform",
     "EN":"Altered",
@@ -218,7 +251,7 @@
     "FR":"TRANSLATE",
     "PL":"Altered"
   },
-  "pokemon_form_origin":{  
+  "pokemon_form_origin":{
     "NL":"Origin",
     "DE":"Urform",
     "EN":"Origin",
@@ -229,7 +262,7 @@
     "FR":"TRANSLATE",
     "PL":"Origin"
   },
-  "pokemon_form_land":{  
+  "pokemon_form_land":{
     "NL":"Land",
     "DE":"Landform",
     "EN":"Land",
@@ -240,7 +273,7 @@
     "FR":"TRANSLATE",
     "PL":"Land"
   },
-  "pokemon_form_sky":{  
+  "pokemon_form_sky":{
     "NL":"Sky",
     "DE":"Zenitform",
     "EN":"Sky",
@@ -251,7 +284,7 @@
     "FR":"TRANSLATE",
     "PL":"Sky"
   },
-  "pokemon_form_bug":{  
+  "pokemon_form_bug":{
     "NL":"Bug",
     "DE":"Käfer-Form",
     "EN":"Bug",
@@ -262,7 +295,7 @@
     "FR":"TRANSLATE",
     "PL":"Bug"
   },
-  "pokemon_form_dark":{  
+  "pokemon_form_dark":{
     "NL":"Dark",
     "DE":"Unlicht-Form",
     "EN":"Dark",
@@ -273,7 +306,7 @@
     "FR":"TRANSLATE",
     "PL":"Dark"
   },
-  "pokemon_form_dragon":{  
+  "pokemon_form_dragon":{
     "NL":"Dragon",
     "DE":"Drache-Form",
     "EN":"Dragon",
@@ -284,7 +317,7 @@
     "FR":"TRANSLATE",
     "PL":"Dragon"
   },
-  "pokemon_form_electric":{  
+  "pokemon_form_electric":{
     "NL":"Electric",
     "DE":"Elektro-Form",
     "EN":"Electric",
@@ -295,7 +328,7 @@
     "FR":"TRANSLATE",
     "PL":"Electric"
   },
-  "pokemon_form_fairy":{  
+  "pokemon_form_fairy":{
     "NL":"Fairy",
     "DE":"Fee-Form",
     "EN":"Fairy",
@@ -306,7 +339,7 @@
     "FR":"TRANSLATE",
     "PL":"Fairy"
   },
-  "pokemon_form_flying":{  
+  "pokemon_form_flying":{
     "NL":"Flying",
     "DE":"Flug-Form",
     "EN":"Flying",
@@ -317,7 +350,7 @@
     "FR":"TRANSLATE",
     "PL":"Flying"
   },
-  "pokemon_form_fire":{  
+  "pokemon_form_fire":{
     "NL":"Fire",
     "DE":"Feuer-Form",
     "EN":"Fire",
@@ -328,7 +361,7 @@
     "FR":"TRANSLATE",
     "PL":"Fire"
   },
-  "pokemon_form_ghost":{  
+  "pokemon_form_ghost":{
     "NL":"Ghost",
     "DE":"Geist-Form",
     "EN":"Ghost",
@@ -339,7 +372,7 @@
     "FR":"TRANSLATE",
     "PL":"Ghost"
   },
-  "pokemon_form_grass":{  
+  "pokemon_form_grass":{
     "NL":"Grass",
     "DE":"Pflanze-Form",
     "EN":"Grass",
@@ -350,7 +383,7 @@
     "FR":"TRANSLATE",
     "PL":"Grass"
   },
-  "pokemon_form_ground":{  
+  "pokemon_form_ground":{
     "NL":"Ground",
     "DE":"Boden-Form",
     "EN":"Ground",
@@ -361,7 +394,7 @@
     "FR":"TRANSLATE",
     "PL":"Ground"
   },
-  "pokemon_form_ice":{  
+  "pokemon_form_ice":{
     "NL":"Ice",
     "DE":"Eis-Form",
     "EN":"Ice",
@@ -372,7 +405,7 @@
     "FR":"TRANSLATE",
     "PL":"Ice"
   },
-  "pokemon_form_poison":{  
+  "pokemon_form_poison":{
     "NL":"Poison",
     "DE":"Gift-Form",
     "EN":"Poison",
@@ -383,7 +416,7 @@
     "FR":"TRANSLATE",
     "PL":"Poison"
   },
-  "pokemon_form_psychic":{  
+  "pokemon_form_psychic":{
     "NL":"Psychic",
     "DE":"Psycho-Form",
     "EN":"Psychic",
@@ -394,7 +427,7 @@
     "FR":"TRANSLATE",
     "PL":"Psychic"
   },
-  "pokemon_form_rock":{  
+  "pokemon_form_rock":{
     "NL":"Rock",
     "DE":"Gestein-Form",
     "EN":"Rock",
@@ -405,7 +438,7 @@
     "FR":"TRANSLATE",
     "PL":"Rock"
   },
-  "pokemon_form_steel":{  
+  "pokemon_form_steel":{
     "NL":"Steel",
     "DE":"Stahl-Form",
     "EN":"Steel",
@@ -416,7 +449,7 @@
     "FR":"TRANSLATE",
     "PL":"Steel"
   },
-  "pokemon_form_water":{  
+  "pokemon_form_water":{
     "NL":"Water",
     "DE":"Wasser-Form",
     "EN":"Water",
