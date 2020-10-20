@@ -293,8 +293,8 @@ function answerInlineQuery_photo($query_id, $contents)
             'title'                 => $title,
             'description'           => $desc,
             'photo_url'             => $photo_url,
-            'photo_width'           => 700,     // Photo width and heigth must be set for InlineQueryResultPhoto to work on Telegram desktop (tested on windows)
-            'photo_heigth'          => 356,
+            'photo_width'           => $contents[$key]['photo_width'],     // Photo width and heigth must be set for InlineQueryResultPhoto to work on Telegram desktop (tested on windows)
+            'photo_heigth'          => $contents[$key]['photo_heigth'],
             'thumb_url'             => $thumb_url,
             'caption'               => $caption,
             'parse_mode'            => 'html',
