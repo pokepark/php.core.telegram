@@ -268,6 +268,60 @@ function answerInlineQuery($query_id, $contents)
 }
 
 /**
+ * Answer inline query with InlineQueryResultPhoto.
+ * @param $query_id
+ * @param $contents
+ */
+function answerInlineQuery_photo($query_id, $contents)
+{
+    // Init empty result array.
+    $results = [];
+
+    // For each content.
+    foreach($contents as $key => $row) {
+        $title = $contents[$key]['title'];
+        $desc = $contents[$key]['desc'];
+        $caption = $contents[$key]['caption'];
+        $inline_keyboard = $contents[$key]['keyboard'];
+        $photo_url = $contents[$key]['photo_url'];
+        $thumb_url = $contents[$key]['thumb_url'];
+
+        // Fill results array.
+        $results[] = [
+            'type'                  => 'photo',
+            'id'                    => $query_id . $key,
+            'title'                 => $title,
+            'description'           => $desc,
+            'photo_url'             => $photo_url,
+            'photo_width'           => 700,     // Photo width and heigth must be set for InlineQueryResultPhoto to work on Telegram desktop (tested on windows)
+            'photo_heigth'          => 356,
+            'thumb_url'             => $thumb_url,
+            'caption'               => $caption,
+            'parse_mode'            => 'html',
+
+            'reply_markup'          => [
+                'inline_keyboard' => $inline_keyboard
+            ]
+        ];
+    }
+
+    // Create reply content array.
+    $reply_content = [
+        'method'          => 'answerInlineQuery',
+        'inline_query_id' => $query_id,
+        'is_personal'     => true,
+        'cache_time'      => 10,
+        'results'         => $results
+    ];
+
+    // Encode to json
+    $reply_json = json_encode($reply_content);
+
+    // Send request to telegram api.
+    return curl_request($reply_json);
+}
+
+/**
  * Edit message.
  * @param $update
  * @param $message
