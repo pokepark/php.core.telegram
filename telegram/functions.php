@@ -482,7 +482,7 @@ function edit_message_keyboard($id_val, $markup_val, $chat_id, $multicurl = fals
     debug_log($response, '->');
 
     // Send request to telegram api.
-    return curl_request($json_reponse, $multicurl);
+    return curl_request($json_response, $multicurl);
 }
 
 /**
