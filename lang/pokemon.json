@@ -3928,5 +3928,365 @@
         "FR": "Tutétékri",
         "DE": "Oghnatoll",
         "RU": "Runerigus"
+    },
+    "pokemon_id_650": {
+        "EN": "Chespin",
+        "FR": "Marisson",
+        "DE": "Igamaro"
+    },
+    "pokemon_id_651": {
+        "EN": "Quilladin",
+        "FR": "Boguérisse",
+        "DE": "Igastarnish"
+    },
+    "pokemon_id_652": {
+        "EN": "Chesnaught",
+        "FR": "Blindépique",
+        "DE": "Brigaron"
+    },
+    "pokemon_id_653": {
+        "EN": "Fennekin",
+        "FR": "Feunnec",
+        "DE": "Fynx"
+    },
+    "pokemon_id_654": {
+        "EN": "Braixen",
+        "FR": "Roussil",
+        "DE": "Rutena"
+    },
+    "pokemon_id_655": {
+        "EN": "Delphox",
+        "FR": "Goupelin",
+        "DE": "Fennexis"
+    },
+    "pokemon_id_656": {
+        "EN": "Froakie",
+        "FR": "Grenousse",
+        "DE": "Froxy"
+    },
+    "pokemon_id_657": {
+        "EN": "Frogadier",
+        "FR": "Croâporal",
+        "DE": "Amphizel"
+    },
+    "pokemon_id_658": {
+        "EN": "Greninja",
+        "FR": "Amphinobi",
+        "DE": "Quajutsu"
+    },
+    "pokemon_id_659": {
+        "EN": "Bunnelby",
+        "FR": "Sapereau",
+        "DE": "Scoppel"
+    },
+    "pokemon_id_660": {
+        "EN": "Diggersby",
+        "FR": "Excavarenne",
+        "DE": "Grebbit"
+    },
+    "pokemon_id_661": {
+        "EN": "Fletchling",
+        "FR": "Passerouge",
+        "DE": "Dartiri"
+    },
+    "pokemon_id_662": {
+        "EN": "Fletchinder",
+        "FR": "Braisillon",
+        "DE": "Dartignis"
+    },
+    "pokemon_id_663": {
+        "EN": "Talonflame",
+        "FR": "Flambusard",
+        "DE": "Fiaro"
+    },
+    "pokemon_id_664": {
+        "EN": "Scatterbug",
+        "FR": "Lépidonille",
+        "DE": "Purmel"
+    },
+    "pokemon_id_665": {
+        "EN": "Spewpa",
+        "FR": "Pérégrain",
+        "DE": "Puponcho"
+    },
+    "pokemon_id_666": {
+        "EN": "Vivillon",
+        "FR": "Prismillon",
+        "DE": "Vivillon"
+    },
+    "pokemon_id_667": {
+        "EN": "Litleo",
+        "FR": "Hélionceau",
+        "DE": "Leufeo"
+    },
+    "pokemon_id_668": {
+        "EN": "Pyroar",
+        "FR": "Némélios",
+        "DE": "Pyroleo"
+    },
+    "pokemon_id_669": {
+        "EN": "Flabébé",
+        "FR": "Flabébé",
+        "DE": "Flabébé"
+    },
+    "pokemon_id_670": {
+        "EN": "Floette",
+        "FR": "Floette",
+        "DE": "Floette"
+    },
+    "pokemon_id_671": {
+        "EN": "Florges",
+        "FR": "Florges",
+        "DE": "Florges"
+    },
+    "pokemon_id_672": {
+        "EN": "Skiddo",
+        "FR": "Cabriolaine",
+        "DE": "Mähikel"
+    },
+    "pokemon_id_673": {
+        "EN": "Gogoat",
+        "FR": "Chevroum",
+        "DE": "Chevrumm"
+    },
+    "pokemon_id_674": {
+        "EN": "Pancham",
+        "FR": "Pandespiègle",
+        "DE": "Pam-Pam"
+    },
+    "pokemon_id_675": {
+        "EN": "Pangoro",
+        "FR": "Pandarbare",
+        "DE": "Pandagro"
+    },
+    "pokemon_id_676": {
+        "EN": "Furfrou",
+        "FR": "Couafarel",
+        "DE": "Coiffwaff"
+    },
+    "pokemon_id_677": {
+        "EN": "Espurr",
+        "FR": "Psystigri",
+        "DE": "Psiau"
+    },
+    "pokemon_id_678": {
+        "EN": "Meowstic",
+        "FR": "Mistigrix",
+        "DE": "Psiaugon"
+    },
+    "pokemon_id_679": {
+        "EN": "Honedge",
+        "FR": "Monorpale",
+        "DE": "Gramokles"
+    },
+    "pokemon_id_680": {
+        "EN": "Doublade",
+        "FR": "Dimoclès",
+        "DE": "Duokles"
+    },
+    "pokemon_id_681": {
+        "EN": "Aegislash",
+        "FR": "Exagide",
+        "DE": "Durengard"
+    },
+    "pokemon_id_682": {
+        "EN": "Spritzee",
+        "FR": "Fluvetin",
+        "DE": "Parfi"
+    },
+    "pokemon_id_683": {
+        "EN": "Aromatisse",
+        "FR": "Cocotine",
+        "DE": "Parfinesse"
+    },
+    "pokemon_id_684": {
+        "EN": "Swirlix",
+        "FR": "Sucroquin",
+        "DE": "Flauschling"
+    },
+    "pokemon_id_685": {
+        "EN": "Slurpuff",
+        "FR": "Cupcanaille",
+        "DE": "Sabbaione"
+    },
+    "pokemon_id_686": {
+        "EN": "Inkay",
+        "FR": "Sepiatop",
+        "DE": "Iscalar"
+    },
+    "pokemon_id_687": {
+        "EN": "Malamar",
+        "FR": "Sepiatroce",
+        "DE": "Calamanero"
+    },
+    "pokemon_id_688": {
+        "EN": "Binacle",
+        "FR": "Opermine",
+        "DE": "Bithora"
+    },
+    "pokemon_id_689": {
+        "EN": "Barbaracle",
+        "FR": "Golgopathe",
+        "DE": "Thanathora"
+    },
+    "pokemon_id_690": {
+        "EN": "Skrelp",
+        "FR": "Venalgue",
+        "DE": "Algitt"
+    },
+    "pokemon_id_691": {
+        "EN": "Dragalge",
+        "FR": "Kravarech",
+        "DE": "Tandrak"
+    },
+    "pokemon_id_692": {
+        "EN": "Clauncher",
+        "FR": "Flingouste",
+        "DE": "Scampisto"
+    },
+    "pokemon_id_693": {
+        "EN": "Clawitzer",
+        "FR": "Gamblast",
+        "DE": "Wummer"
+    },
+    "pokemon_id_694": {
+        "EN": "Helioptile",
+        "FR": "Galvaran",
+        "DE": "Eguana"
+    },
+    "pokemon_id_695": {
+        "EN": "Heliolisk",
+        "FR": "Iguolta",
+        "DE": "Elezard"
+    },
+    "pokemon_id_696": {
+        "EN": "Tyrunt",
+        "FR": "Ptyranidur",
+        "DE": "Balgoras"
+    },
+    "pokemon_id_697": {
+        "EN": "Tyrantrum",
+        "FR": "Rexillius",
+        "DE": "Monargoras"
+    },
+    "pokemon_id_698": {
+        "EN": "Amaura",
+        "FR": "Amagara",
+        "DE": "Amarino"
+    },
+    "pokemon_id_699": {
+        "EN": "Aurorus",
+        "FR": "Dragmara",
+        "DE": "Amagarga"
+    },
+    "pokemon_id_700": {
+        "EN": "Sylveon",
+        "FR": "Nymphali",
+        "DE": "Feelinara"
+    },
+    "pokemon_id_701": {
+        "EN": "Hawlucha",
+        "FR": "Brutalibré",
+        "DE": "Resladero"
+    },
+    "pokemon_id_702": {
+        "EN": "Dedenne",
+        "FR": "Dedenne",
+        "DE": "Dedenne"
+    },
+    "pokemon_id_703": {
+        "EN": "Carbink",
+        "FR": "Strassie",
+        "DE": "Rocara"
+    },
+    "pokemon_id_704": {
+        "EN": "Goomy",
+        "FR": "Mucuscule",
+        "DE": "Viscora"
+    },
+    "pokemon_id_705": {
+        "EN": "Sliggoo",
+        "FR": "Colimucus",
+        "DE": "Viscargot"
+    },
+    "pokemon_id_706": {
+        "EN": "Goodra",
+        "FR": "Muplodocus",
+        "DE": "Viscogon"
+    },
+    "pokemon_id_707": {
+        "EN": "Klefki",
+        "FR": "Trousselin",
+        "DE": "Clavion"
+    },
+    "pokemon_id_708": {
+        "EN": "Phantump",
+        "FR": "Brocélôme",
+        "DE": "Paragoni"
+    },
+    "pokemon_id_709": {
+        "EN": "Trevenant",
+        "FR": "Desséliande",
+        "DE": "Trombork"
+    },
+    "pokemon_id_710": {
+        "EN": "Pumpkaboo",
+        "FR": "Pitrouille",
+        "DE": "Irrbis"
+    },
+    "pokemon_id_711": {
+        "EN": "Gourgeist",
+        "FR": "Banshitrouye",
+        "DE": "Pumpdjinn"
+    },
+    "pokemon_id_712": {
+        "EN": "Bergmite",
+        "FR": "Grelaçon",
+        "DE": "Arktip"
+    },
+    "pokemon_id_713": {
+        "EN": "Avalugg",
+        "FR": "Séracrawl",
+        "DE": "Arktilas"
+    },
+    "pokemon_id_714": {
+        "EN": "Noibat",
+        "FR": "Sonistrelle",
+        "DE": "eF-eM"
+    },
+    "pokemon_id_715": {
+        "EN": "Noivern",
+        "FR": "Bruyverne",
+        "DE": "UHaFnir"
+    },
+    "pokemon_id_716": {
+        "EN": "Xerneas",
+        "FR": "Xerneas",
+        "DE": "Xerneas"
+    },
+    "pokemon_id_717": {
+        "EN": "Yveltal",
+        "FR": "Yveltal",
+        "DE": "Yveltal"
+    },
+    "pokemon_id_718": {
+        "EN": "Zygarde",
+        "FR": "Zygarde",
+        "DE": "Zygarde"
+    },
+    "pokemon_id_719": {
+        "EN": "Diancie",
+        "FR": "Diancie",
+        "DE": "Diancie"
+    },
+    "pokemon_id_720": {
+        "EN": "Hoopa",
+        "FR": "Hoopa",
+        "DE": "Hoopa"
+    },
+    "pokemon_id_721": {
+        "EN": "Volcanion",
+        "FR": "Volcanion",
+        "DE": "Volcanion"
     }
 }
