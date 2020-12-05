@@ -37,13 +37,7 @@ function getTranslation($text, $override = false, $override_language = '')
     // Pokemon name?
     if(strpos($text, 'pokemon_id_') === 0) {
         // Translation filename
-        $tfile = CORE_LANG_PATH . '/pokemon_' . strtolower($language) . '.json';
-
-        // Make sure file exists, otherwise use English language as fallback.
-        if(!is_file($tfile)) {
-            $language = DEFAULT_LANGUAGE;
-            $tfile = CORE_LANG_PATH . '/pokemon_' . strtolower($language) . '.json';
-        }
+        $tfile = CORE_LANG_PATH . '/pokemon.json';
 
         // Get ID from string - e.g. 150 from pokemon_id_150
         $pokemon_id = substr($text, strrpos($text, '_') + 1);
@@ -52,9 +46,16 @@ function getTranslation($text, $override = false, $override_language = '')
         if(is_numeric($pokemon_id) && $pokemon_id > 0) {
             $str = file_get_contents($tfile);
 
-            // Index starts at 0, so pokemon_id minus 1 for the correct name!
             $json = json_decode($str, true);
-            $translation = $json[$pokemon_id - 1];
+            if(!isset($json[$text][$language])) {
+                // If translation wasn't found, try to use english as fallback
+                $language = DEFAULT_LANGUAGE;
+            }
+            if(!isset($json[$text][$language])) {
+                $translation = false;
+            }else {
+                $translation = $json[$text][$language];
+            }
 
         // Return false
         } else {
