@@ -178,7 +178,11 @@ function getTranslation($text, $override = false, $override_language = '')
             $translation = $json[$text][$language];
         } else {
             $language = DEFAULT_LANGUAGE;
-            $translation = $json[$text][$language];
+            if(isset($json[$text][$language])){
+                $translation = $json[$text][$language];
+            }else {
+                $translation = '';
+            }
         }
         //debug_log($translation,'T:');
         return $translation;
