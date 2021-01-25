@@ -240,16 +240,16 @@
     "FI": "Sinulla ei ole oikeutta tähän komentoon tai bottiin!"
   },
   "forest": {
-    "NL": "Ergens in het bos",
-    "DE": "Irgendwo im Wald",
-    "EN": "Somewhere in the forest",
-    "IT": "Da qualche parte nella foresta",
-    "PT-BR": "Em algum lugar na floresta",
-    "RU": "Где-то в лесу",
-    "NO": "Ett sted i skogen",
-    "FR": "Quelque part dans la forêt",
-    "PL": "Gdzieś w lesie",
-    "FI": "Jossain metsässä"
+    "NL": "Routebeschrijving",
+    "DE": "Wegbeschreibung",
+    "EN": "Directions",
+    "IT": "TRANSLATE",
+    "PT-BR": "TRANSLATE",
+    "RU": "TRANSLATE",
+    "NO": "TRANSLATE",
+    "FR": "TRANSLATE",
+    "PL": "TRANSLATE",
+    "FI": "TRANSLATE"
   },
   "pokemon": {
     "NL": "Pokemon",
