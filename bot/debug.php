@@ -20,9 +20,9 @@ function my_query($query, $cleanup_query = false)
     $stmt = $dbh->prepare($query);
     if ($stmt && $stmt->execute()) {
         if ($cleanup_query == true) {
-            debug_log('Query success', '$', true);
+            debug_log_sql('Query success', '$', true);
         } else {
-            debug_log('Query success', '$');
+            debug_log_sql('Query success', '$');
         }
     } else {
         if ($cleanup_query == true) {
@@ -40,47 +40,78 @@ function my_query($query, $cleanup_query = false)
  * @param $val
  * @param string $type
  */
-function debug_log($val, $type = '*', $cleanup_log = false)
+function debug_log($val, $type = '*', $logfile = null)
 {
     global $config;
     // Write to log only if debug is enabled.
-    if ($config->DEBUG === true){
-        if(!$config->DEBUG_LOGFILE || !$config->CLEANUP_LOGFILE) {
-          error_log('DEBUG set but DEBUG_LOGFILE or CLEANUP_LOGFILE is not!');
-        }
+    if ($config->DEBUG === false){
+      return;
+    }
 
-        $date = @date('Y-m-d H:i:s');
-        $usec = microtime(true);
-        $date = $date . '.' . str_pad(substr($usec, 11, 4), 4, '0', STR_PAD_RIGHT);
+    // If no specific logfile given, default to generic debug logging
+    if ($logfile === null){
+      $logfile = $config->DEBUG_LOGFILE;
+    }
 
-        $bt = debug_backtrace();
-        $bl = '';
+    $date = @date('Y-m-d H:i:s');
+    $usec = microtime(true);
+    $date = $date . '.' . str_pad(substr($usec, 11, 4), 4, '0', STR_PAD_RIGHT);
 
-        while ($btl = array_shift($bt)) {
-            if ($btl['function'] == __FUNCTION__) continue;
-            $bl = '[' . basename($btl['file']) . ':' . $btl['line'] . '] ';
-            break;
-        }
+    $bt = debug_backtrace();
+    $bl = '';
 
-        if (gettype($val) != 'string') $val = var_export($val, 1);
-        $rows = explode("\n", $val);
-        foreach ($rows as $v) {
-            if ($cleanup_log == true) {
-                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, $config->CLEANUP_LOGFILE);
-            } else {
-                error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, $config->DEBUG_LOGFILE);
-            }
-        }
+    while ($btl = array_shift($bt)) {
+        if ($btl['function'] == __FUNCTION__) continue;
+        $bl = '[' . basename($btl['file']) . ':' . $btl['line'] . '] ';
+        break;
+    }
+
+    if (gettype($val) != 'string') $val = var_export($val, 1);
+    $rows = explode("\n", $val);
+    foreach ($rows as $v) {
+      error_log('[' . $date . '][' . getmypid() . '] ' . $bl . $type . ' ' . $v . "\n", 3, $logfile);
     }
 }
 
 /**
  * Write cleanup log.
- * @param $val
+ * @param $message
  * @param string $type
- * @param bool $cleanup_log
  */
-function cleanup_log($val, $type = '*')
-{
-    debug_log($val, $type, $cleanup_log = true);
+function cleanup_log($message, $type = '*'){
+  global $config;
+  // Write to log only if cleanup logging is enabled.
+  if ($config->CLEANUP_LOG === false){
+    return;
+  }
+    debug_log($message, $type, $logfile = $config->CLEANUP_LOGFILE);
 }
+
+/**
+ * Write sql debug log.
+ * @param $message
+ * @param string $type
+ */
+function debug_log_sql($message, $type = '%'){
+  global $config;
+  // Write to log only if debug is enabled.
+  if ($config->DEBUG_SQL === false){
+    return;
+  }
+  debug_log($message, $type, $config->DEBUG_SQL_LOGFILE);
+}
+
+/**
+ * Write incoming stream debug log.
+ * @param $message
+ * @param string $type
+ */
+function debug_log_incoming($message, $type = '<'){
+  global $config;
+  // Write to log only if debug is enabled.
+  if ($config->DEBUG_INCOMING === false){
+    return;
+  }
+  debug_log($message, $type, $config->DEBUG_INCOMING_LOGFILE);
+}
+
