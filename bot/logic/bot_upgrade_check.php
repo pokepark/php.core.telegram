@@ -15,7 +15,7 @@ function upgrade_config_version($version)
  * @param $current
  * @param $latest
  * @param $dbh
- * @return bool
+ * @return bool: if an upgrade is needed
 */
 function bot_upgrade_check($current, $latest, $dbh)
 {
@@ -31,12 +31,10 @@ function bot_upgrade_check($current, $latest, $dbh)
     // Same version?
     if($nodot_current == $nodot_latest) {
         // No upgrade needed.
-        debug_log('Bot version check succeeded!');
         return false;
     } else {
         // Check if upgrade files exists.
         if(is_array($upgrade_files) && count($upgrade_files) > 0) {
-            // Upgrade required?
             $require_upgrade = false;
             // Check each sql filename.
             foreach ($upgrade_files as $ufile)
@@ -51,10 +49,9 @@ function bot_upgrade_check($current, $latest, $dbh)
                     require_once('sql_utils.php');
                     if (run_sql_file(UPGRADE_PATH . '/' . $ufile)) {
                       upgrade_config_version(basename($ufile, '.sql'));
-                    }
-                    else {
+                    } else {
                       $require_upgrade = true;
-                      debug_log('REQUIRED SQL UPGRADE FILE FOUND:' . UPGRADE_PATH . '/' . $ufile, '!');
+                      debug_log('AUTO UPGRADE FAILED:' . UPGRADE_PATH . '/' . $ufile, '!');
                     }
                   }
                 }

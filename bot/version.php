@@ -60,18 +60,12 @@ if($nodot_current == $nodot_latest) {
 
     // Check for upgrade files.
     } else {
-        debug_log('Your bot version: ' . $current);
-        debug_log('Latest bot version: ' . $latest);
-        debug_log('Performing bot upgrade check now...');
+        debug_log('Bot version: ' . $current . ', Latest: ' . $latest);
         require_once('db.php');
         $upgrade = bot_upgrade_check($current, $latest, $dbh);
 
         // Upgrade needed?
-        if(!$upgrade) {
-            debug_log('Your bot version differs from the latest bot version in ' . ROOT_PATH . '/VERSION', '!');
-            debug_log('Please update your bot version in your configuration!', '!');
-            debug_log('Continuing with this warning as no SQL upgrade is required!', '!');
-        } else {
+        if($upgrade) {
             // Tell user an upgrade is required!
             if(!empty($config->MAINTAINER_ID)) {
                 // Echo data.
