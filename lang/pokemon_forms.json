@@ -459,5 +459,49 @@
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Water"
+  },
+  "pokemon_form_incarnate":{
+    "NL":"Incarnate",
+    "DE":"Inkarnationsform",
+    "EN":"Incarnate",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"Incarnate"
+  },
+  "pokemon_form_therian":{
+    "NL":"Therian",
+    "DE":"Tiergeistform",
+    "EN":"Therian",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"Therian"
+  },
+  "pokemon_form_ordinary":{
+    "NL":"Ordinary",
+    "DE":"Standardform",
+    "EN":"Ordinary",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"Ordinary"
+  },
+  "pokemon_form_resolute":{
+    "NL":"Resolute",
+    "DE":"Resolutform",
+    "EN":"Resolute",
+    "IT":"TRANSLATE",
+    "PT-BR":"TRANSLATE",
+    "RU":"TRANSLATE",
+    "NO":"TRANSLATE",
+    "FR":"TRANSLATE",
+    "PL":"Resolute"
   }
 }
