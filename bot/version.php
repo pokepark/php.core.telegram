@@ -20,7 +20,7 @@ if($nodot_current == $nodot_latest) {
 } else {
     // Current version not defined in config!
     if($nodot_current == '1000') { 
-        debug_log('Failed to determine your bot version!', '!');
+        info_log('Failed to determine your bot version!', '!');
 
         // Tell user bot maintainance is required!
         if(!empty($config->MAINTAINER_ID)) {
@@ -40,7 +40,7 @@ if($nodot_current == $nodot_latest) {
 
     // Latest version unavailable!
     } else if($nodot_latest == '1000') {
-        debug_log('Failed to determine the latest bot version!', '!');
+        info_log('Failed to determine the latest bot version!', '!');
 
         // Tell user bot maintainance is required!
         if(!empty($config->MAINTAINER_ID)) {

@@ -853,14 +853,12 @@ function curl_json_multi_request($json)
         if (function_exists('curl_json_response')) {
             $response[$id] = curl_json_response($json_response, $response[$id]);
         } else {
-            debug_log('No function found to process response from Telegram API!', 'ERROR:');
-            debug_log('Add a function named "curl_json_response" to process them!', 'ERROR:');
-            debug_log('Arguments of that function need to be the response $json_response and the send data $json.', 'ERROR:');
-            debug_log('For example: function curl_json_response($json_response, $json)', 'ERROR:');
+            info_log('No function found to process response from Telegram API!', 'ERROR:');
+            info_log('Add a function named "curl_json_response" to process them!', 'ERROR:');
+            info_log('Arguments of that function need to be the response $json_response and the send data $json.', 'ERROR:');
+            info_log('For example: function curl_json_response($json_response, $json)', 'ERROR:');
         }
-
-        // Write to log.
-        debug_log($json_response, '<-');
+        debug_log_incoming($json_response, '<-');
     }
 
     // Return response.

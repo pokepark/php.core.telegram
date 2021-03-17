@@ -22,20 +22,13 @@ if (file_exists($id_file) && filesize($id_file) > 0) {
             $action = $splitData[2];
             $botname_length = count(str_split($botname));
             if($botname_length > 8) {
-                // Write to log.
-                debug_log("ERROR! Botname '" . $botname . "' is too long!","!");
-                debug_log('Current length: ' . $botname_length,'!');
-                debug_log('Allowed length: 8','!');
-                debug_log('Stopping execution now...','!');
-
-                // Exit.
+                info_log("ERROR! Botname '" . $botname . "' is too long, max: 8","!");
                 exit();
             }
         } else {
             $action = $splitData[1];
         }
 
-        // Check the action.
         if ($action == 'overview_refresh') {
             $skip_ddos_check = 1;
             debug_log('Skipping DDOS check for overview refresh...','!');
@@ -47,10 +40,7 @@ if (file_exists($id_file) && filesize($id_file) > 0) {
 
     // End script if update_id is older than stored update_id
     if ($update_id < $last_update_id && $skip_ddos_check == 0) {
-        debug_log('ERROR! Received old update_id!','!');
-        debug_log('New update_id: ' . $update_id,'!');
-        debug_log('Old update_id: ' . $last_update_id,'!');
-        debug_log('Stopping execution now...','!');
+        info_log("FATAL ERROR! Received old update_id: {$update_id} vs.{$last_update_id}",'!');
         exit();
     }
 } else {

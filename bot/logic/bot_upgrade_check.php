@@ -51,7 +51,7 @@ function bot_upgrade_check($current, $latest, $dbh)
                       upgrade_config_version(basename($ufile, '.sql'));
                     } else {
                       $require_upgrade = true;
-                      debug_log('AUTO UPGRADE FAILED:' . UPGRADE_PATH . '/' . $ufile, '!');
+                      info_log('AUTO UPGRADE FAILED:' . UPGRADE_PATH . '/' . $ufile, '!');
                     }
                   }
                 }

@@ -259,7 +259,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                     debug_log('Negative result on access check for Bot Admins for user with ID: ' . $update_id);
                 }
             } else {
-                debug_log('Error! Chat ' . $update_id . ' does not exist!');
+                info_log('Error! Chat ' . $update_id . ' does not exist!');
             }
         }
 
@@ -282,7 +282,7 @@ function bot_access_check($update, $permission = 'access-bot', $return_result = 
                 debug_log('Negative result on access check for Bot Admins for user with ID: ' . $update_id);
             }
         } else {
-            debug_log('Error! Chat ' . $update_id . ' does not exist!');
+            info_log('Error! Chat ' . $update_id . ' does not exist!');
         }
     }
 

@@ -6,7 +6,5 @@ if($config->DB_HOST && $config->DB_NAME && $config->DB_USER && $config->DB_PASSW
     $dbh->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } else {
-    // Write error to log.
-    debug_log("Failed to connect to Database!",'!');
-    debug_log("Make sure DB_HOST, DB_NAME, DB_USER and DB_PASSWORD are defined!", '!');
+    info_log("Failed to connect to Database! Make sure DB_HOST, DB_NAME, DB_USER and DB_PASSWORD are defined!", '!');
 }

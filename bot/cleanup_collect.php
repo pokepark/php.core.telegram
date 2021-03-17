@@ -33,9 +33,9 @@ if (function_exists('insert_cleanup')) {
         insert_cleanup($chat_id, $message_id, $cleanup_id);
     }
 } else {
-    debug_log('No function found to insert cleanup data to database!', 'ERROR:');
-    debug_log('Add a function named "insert_cleanup" to add cleanup info to the database!', 'ERROR:');
-    debug_log('Arguments of that function need to be the chat_id $chat_id, the message_id $message_id and the cleanup id $cleanup_id.', 'ERROR:');
-    debug_log('For example: function insert_cleanup($chat_id, $message_id, $cleanup_id)', 'ERROR:');
+    info_log('No function found to insert cleanup data to database!', 'ERROR:');
+    info_log('Add a function named "insert_cleanup" to add cleanup info to the database!', 'ERROR:');
+    info_log('Arguments of that function need to be the chat_id $chat_id, the message_id $message_id and the cleanup id $cleanup_id.', 'ERROR:');
+    info_log('For example: function insert_cleanup($chat_id, $message_id, $cleanup_id)', 'ERROR:');
 }
 

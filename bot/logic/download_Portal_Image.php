@@ -27,7 +27,7 @@ function download_Portal_Image($img_url, $destination, $filename) {
 
     // Write to file.
     if(empty($result)) {
-        debug_log('Failed to download Portal image!');
+        info_log($img_url, 'Failed to download Portal image:');
         return false;
     } else {
         debug_log('Downloading portal image!');
