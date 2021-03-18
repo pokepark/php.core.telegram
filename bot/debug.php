@@ -49,14 +49,22 @@ function generic_log($val, $type, $logfile)
     $bt = debug_backtrace();
     $bl = '';
 
+    // How many calls back to print
+    // Increasing this makes it easier to hunt down issues, but increases log line length
+    $layers = 1;
+
     while ($btl = array_shift($bt)) {
       // Ignore generic_log and it's calling function in the call stack
       // Not sure why it works exactly like that, but it does.
       if ($btl['function'] == __FUNCTION__){
         continue;
       }
-      $bl = '[' . basename($btl['file']) . ':' . $btl['line'] . '] ';
-      break;
+      --$layers;
+      $bl = $bl . '[' . basename($btl['file']) . ':' . $btl['line'] . ']';
+      if($layers <= 0) {
+        $bl = $bl . ' ';
+        break;
+      }
     }
 
     if (gettype($val) != 'string') $val = var_export($val, 1);

@@ -16,9 +16,9 @@ function is_valid_target($chat_id, $message_id, $no_chat = false, $no_message = 
   // If allowed, having only one non-zero is fine:
   if($chat_id != 0 && $no_message) return true;
   if($message_id != 0 && $no_chat) return true;
-  // Fall back to false & and error
+  // Fall back to an error but let the call through
   info_log("chat_id:{$chat_id}, message_id:{$message_id}", 'ERROR: Unhandled pair of chat_id & message_id, this is a bug:');
-  return false;
+  return true;
 }
 /**
  * Send message.
