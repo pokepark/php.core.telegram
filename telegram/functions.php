@@ -442,7 +442,7 @@ function editMessageCaption($id_val, $text_val, $markup_val, $chat_id = NULL, $m
         $response = array_merge_recursive($response, $merge_args);
     }
 
-    if(!is_valid_target($chat_id, $id_val, true, false)){
+    if(!isset($response['inline_message_id']) && !is_valid_target($chat_id, $id_val, true, false)){
       info_log("{$chat_id}/{$id_val}", 'ERROR: Cannot edit invalid chat/message id:');
       info_log($response, 'ERROR: data would have been:');
       exit();
