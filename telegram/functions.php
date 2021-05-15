@@ -5,6 +5,10 @@
  * @param $message_id
  */
 function is_valid_target($chat_id, $message_id, $no_chat = false, $no_message = false){
+  if($chat_id === null && isset($message_id)) {
+    debug_log("Inline message id received, skipping chat id check: {$message_id}");
+    return true;
+  }
   debug_log("Checking for validity chat_id:{$chat_id} and message_id:{$message_id}");
   // First check that both are numbers, if they are required
   if(!($no_chat || is_numeric($chat_id))) return false;
