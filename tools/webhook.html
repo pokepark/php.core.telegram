@@ -29,11 +29,12 @@
                 <label class="label">Maximum Connections:</label>
 				<p class="content is-small">(max: 100)</p>
                 <p class="control">
-                    <input class="input" type="text" v-model="maxconnection" />
+                    <input class="input" type="text" v-model="maxconnection" name="max_connections" />
                 </p>
                 <br/>
                 <label class="label">Webhook URL Preview:</label>
                 <p style="color:blue">{{ bot_url }}</p>
+                    <input type="hidden" v-model="bot_url" name="url" />
                 <br/>
                 <label class="label">Certificate (only if self-signed)</label>
                 <p class="control">
