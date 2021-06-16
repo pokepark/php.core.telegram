@@ -657,7 +657,7 @@
         "FR": "Poing Karaté",
         "DE": "Karateschlag",
         "IT": "Colpokarate",
-        "RU": "Удар Каратэ"
+        "RU": "Удар Карате"
     },
     "pokemon_move_56": {
         "PT-BR": "Movimento Baixo",
@@ -1749,7 +1749,7 @@
         "FR": "Poing Karaté",
         "DE": "Karateschlag",
         "IT": "Colpokarate",
-        "RU": "Удар Каратэ"
+        "RU": "Удар Карате"
     },
     "pokemon_move_209": {
         "PT-BR": "Brasa",
@@ -3275,6 +3275,66 @@
         "IT": "Aerocolpo",
         "RU": "Аэровзрыв"
     },
+    "pokemon_move_336": {
+        "PT-BR": "Rajada Tecnológica",
+        "EN": "Techno Blast",
+        "FI": "Techno Blast",
+        "NL": "Techno Blast",
+        "NO": "Techno Blast",
+        "PL": "Techno Blast",
+        "FR": "Techno-Buster",
+        "DE": "Techblaster",
+        "IT": "Tecnobotto",
+        "RU": "Техновзрыв"
+    },
+    "pokemon_move_337": {
+        "PT-BR": "Rajada Tecnológica",
+        "EN": "Techno Blast",
+        "FI": "Techno Blast",
+        "NL": "Techno Blast",
+        "NO": "Techno Blast",
+        "PL": "Techno Blast",
+        "FR": "Techno-Buster",
+        "DE": "Techblaster",
+        "IT": "Tecnobotto",
+        "RU": "Техновзрыв"
+    },
+    "pokemon_move_338": {
+        "PT-BR": "Rajada Tecnológica",
+        "EN": "Techno Blast",
+        "FI": "Techno Blast",
+        "NL": "Techno Blast",
+        "NO": "Techno Blast",
+        "PL": "Techno Blast",
+        "FR": "Techno-Buster",
+        "DE": "Techblaster",
+        "IT": "Tecnobotto",
+        "RU": "Техновзрыв"
+    },
+    "pokemon_move_339": {
+        "PT-BR": "Rajada Tecnológica",
+        "EN": "Techno Blast",
+        "FI": "Techno Blast",
+        "NL": "Techno Blast",
+        "NO": "Techno Blast",
+        "PL": "Techno Blast",
+        "FR": "Techno-Buster",
+        "DE": "Techblaster",
+        "IT": "Tecnobotto",
+        "RU": "Техновзрыв"
+    },
+    "pokemon_move_340": {
+        "PT-BR": "Rajada Tecnológica",
+        "EN": "Techno Blast",
+        "FI": "Techno Blast",
+        "NL": "Techno Blast",
+        "NO": "Techno Blast",
+        "PL": "Techno Blast",
+        "FR": "Techno-Buster",
+        "DE": "Techblaster",
+        "IT": "Tecnobotto",
+        "RU": "Техновзрыв"
+    },
     "pokemon_move_341": {
         "PT-BR": "Voar",
         "EN": "Fly",
@@ -3298,6 +3358,18 @@
         "DE": "V-Generator",
         "IT": "Generatore V",
         "RU": "Победный Ход"
+    },
+    "pokemon_move_343": {
+        "PT-BR": "Tempestade de Folhas",
+        "EN": "Leaf Storm",
+        "FI": "Leaf Storm",
+        "NL": "Leaf Storm",
+        "NO": "Leaf Storm",
+        "PL": "Leaf Storm",
+        "FR": "Tempête Verte",
+        "DE": "Blättersturm",
+        "IT": "Verdebufera",
+        "RU": "Вихрь Листьев"
     },
     "pokemon_move_344": {
         "PT-BR": "Triataque",
@@ -3345,66 +3417,6 @@
         "FR": "Danse Plumes",
         "DE": "Daunenreigen",
         "IT": "Danzadipiume",
-        "RU": "Feather Dance"
-    },
-    "pokemon_move_336": {
-        "PT-BR": "Rajada Tecnológica",
-        "EN": "Techno Blast",
-        "FI": "Techno Blast",
-        "NL": "Techno Blast",
-        "NO": "Techno Blast",
-        "PL": "Techno Blast",
-        "FR": "Techno-Buster",
-        "DE": "Techblaster",
-        "IT": "Tecnobotto",
-        "RU": "Techno Blast"
-    },
-    "pokemon_move_337": {
-        "PT-BR": "Rajada Tecnológica",
-        "EN": "Techno Blast",
-        "FI": "Techno Blast",
-        "NL": "Techno Blast",
-        "NO": "Techno Blast",
-        "PL": "Techno Blast",
-        "FR": "Techno-Buster",
-        "DE": "Techblaster",
-        "IT": "Tecnobotto",
-        "RU": "Techno Blast"
-    },
-    "pokemon_move_338": {
-        "PT-BR": "Rajada Tecnológica",
-        "EN": "Techno Blast",
-        "FI": "Techno Blast",
-        "NL": "Techno Blast",
-        "NO": "Techno Blast",
-        "PL": "Techno Blast",
-        "FR": "Techno-Buster",
-        "DE": "Techblaster",
-        "IT": "Tecnobotto",
-        "RU": "Techno Blast"
-    },
-    "pokemon_move_339": {
-        "PT-BR": "Rajada Tecnológica",
-        "EN": "Techno Blast",
-        "FI": "Techno Blast",
-        "NL": "Techno Blast",
-        "NO": "Techno Blast",
-        "PL": "Techno Blast",
-        "FR": "Techno-Buster",
-        "DE": "Techblaster",
-        "IT": "Tecnobotto",
-        "RU": "Techno Blast"
-    },
-    "pokemon_move_340": {
-        "PT-BR": "Rajada Tecnológica",
-        "EN": "Techno Blast",
-        "FI": "Techno Blast",
-        "NL": "Techno Blast",
-        "NO": "Techno Blast",
-        "PL": "Techno Blast",
-        "FR": "Techno-Buster",
-        "DE": "Techblaster",
-        "IT": "Tecnobotto",
-        "RU": "Techno Blast"
+        "RU": "Танец с Перьями"
     }
 }
