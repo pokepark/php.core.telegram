@@ -21,6 +21,7 @@ function getPublicTranslation($text)
  */
 function getTranslation($text, $override = false, $override_language = '')
 {
+    global $config;
     debug_log($text,'T:');
     $translation = '';
     $text = trim($text);
